@@ -1,0 +1,11 @@
+INSERT INTO specialites (idSpecialite, label) VALUES(1, "Allergologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(2, "Cardiologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(3, "Dermatologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(4, "Gastro-entérologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(5, "Gynécologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(6, "Hématologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(7, "Hépatologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(8, "Infectiologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(9, "Neurologie");
+INSERT INTO specialites (idSpecialite, label) VALUES(10, "Pédiatrie");
+INSERT INTO specialites (idSpecialite, label) VALUES(11, "Psychiatrie");
