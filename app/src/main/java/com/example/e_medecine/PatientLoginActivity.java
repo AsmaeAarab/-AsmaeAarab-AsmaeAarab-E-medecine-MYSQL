@@ -2,7 +2,12 @@ package com.example.e_medecine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PatientLoginActivity extends AppCompatActivity {
 
@@ -10,5 +15,14 @@ public class PatientLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_login);
+        ButterKnife.bind(this);
+
     }
+
+    @OnClick(R.id.signUp)
+    void signup(){
+        Intent intent = new Intent(this, PatientSignupActivity.class);
+        startActivity(intent);
+    }
+
 }

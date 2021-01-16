@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Emedecine">
-        <activity android:name=".PatientLoginActivity"></activity>
+        <activity android:name=".PatientSignupActivity"></activity>
+        <activity android:name=".PatientLoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

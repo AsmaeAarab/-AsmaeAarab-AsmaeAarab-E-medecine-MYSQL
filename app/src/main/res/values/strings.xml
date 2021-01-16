@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">E-medecine</string>
+    <string-array name="genre_array">
+        <item>Choose gender</item>
+        <item>Femme</item>
+        <item>Homme</item>
+    </string-array>
+    <string-array name="YesNo_array">
+        <item></item>
+        <item>Oui</item>
+        <item>Non</item>
+    </string-array>
 </resources>

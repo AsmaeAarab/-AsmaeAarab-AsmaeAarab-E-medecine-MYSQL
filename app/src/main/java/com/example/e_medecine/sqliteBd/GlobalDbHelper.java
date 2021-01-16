@@ -1,6 +1,7 @@
 package com.example.e_medecine.sqliteBd;
 
         import android.content.Context;
+        import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.util.Log;
@@ -11,6 +12,7 @@ package com.example.e_medecine.sqliteBd;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
+        import java.util.ArrayList;
 
 public class GlobalDbHelper extends SQLiteOpenHelper {
     public Context context;
@@ -86,6 +88,28 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public ArrayList<String> getAllVilles() {
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.beginTransaction();
+        try {
+            list.add(0,"Choose a city");
+            String selectQuery = "SELECT * FROM " + VilleTable.getTableName();
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    String ville = cursor.getString(cursor.getColumnIndex("label"));
+                    list.add(ville);
+                }
+            }
+            db.setTransactionSuccessful();
+        }catch (Exception e){e.printStackTrace();}
+        finally {
+            db.endTransaction();
+            db.close();
+        }
+        return list;
+    }
 }
 
 
