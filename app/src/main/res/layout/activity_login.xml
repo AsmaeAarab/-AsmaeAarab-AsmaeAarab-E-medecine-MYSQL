@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7D8DD"
+    tools:context=".Docteurs.Login">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D7D8DD">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="357dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="44dp"
+            android:ems="10"
+            android:hint="Mot de passe"
+            android:inputType="textPassword"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.453"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emaillog" />
+
+        <Button
+            android:id="@+id/connect"
+            android:layout_width="272dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="88dp"
+            android:background="#3F51B5"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <EditText
+            android:id="@+id/emaillog"
+            android:layout_width="360dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="92dp"
+            android:ems="10"
+            android:hint="Addresse e-mail ou numero de Telephone"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="284dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="56dp"
+            android:background="#D7D8DD"
+            android:gravity="center"
+            android:text="Docteur / E-Docteur"
+            android:textColor="#3F51B5"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Connexion"
+            android:textColor="#070707"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/compte"
+            android:layout_width="193dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="112dp"
+            android:gravity="center"
+            android:onClick="count"
+            android:text="Créer un compte"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/connect" />
+
+        <TextView
+            android:id="@+id/changepass"
+            android:layout_width="185dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="40dp"
+            android:onClick="changepassword"
+            android:text="Mot de passe oublié ?"
+            android:textColor="#673AB7"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/connect" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
