@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.e_medecine.R;
 import com.example.e_medecine.adapter.SpecialitesAdapter;
+import com.example.e_medecine.model.Medecin;
 import com.example.e_medecine.model.Specialite;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
@@ -30,7 +32,7 @@ public class SpecialitesActivity extends AppCompatActivity implements Specialite
     @BindView(R.id.search_bar)
     EditText search_edt;
     CharSequence search="";
-    static Context context;
+
     ArrayList<Specialite> list;
     SpecialitesAdapter adapter;
     @Override
@@ -68,14 +70,11 @@ public class SpecialitesActivity extends AppCompatActivity implements Specialite
 
     @Override
     public void onSpecialiteClick(int position) {
-        /*
-        Intent intent=new Intent(this,MenuActivity.class);
-        Restaurant restaurant=list.get(position);
-        intent.putExtra("id_menu_resto",restaurant.getId_restaurant());
-        startActivity(intent);
 
-         */
-        Toast.makeText(this, "This is my Toast message!",Toast.LENGTH_LONG).show();
+        Intent intent=new Intent(this,MedecinActivity.class);
+        Specialite specialite=list.get(position);
+        intent.putExtra("specialite",specialite.getId_specialite());
+        startActivity(intent);
     }
 
 }

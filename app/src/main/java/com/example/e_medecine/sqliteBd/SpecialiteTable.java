@@ -5,7 +5,7 @@ public class SpecialiteTable {
     private static final String TABLE_NAME = "specialites";
     private static final String ID = "idSpecialite";
     private static final String LABEL = "label";
-    public static final String IMAGE_SPECIALITE="imageSpecialite";
+    private static final String IMAGE_SPECIALITE="imageSpecialite";
 
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ("

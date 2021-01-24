@@ -1,6 +1,8 @@
 package com.example.e_medecine.model;
 
-public  class Specialite {
+import java.io.Serializable;
+
+public  class Specialite implements Serializable {
     private int id_specialite;
     private String labe;
     private int imageSpecialite;

@@ -58,8 +58,8 @@ public class SpecialitesAdapter extends RecyclerView.Adapter<SpecialitesAdapter.
 
         public HolderSpecialite(@NonNull View itemView, OnSpecialiteListener on_specialite_listener) {
             super(itemView);
-            specialiteImage=itemView.findViewById(R.id.specialiteImage);
-            specialiteLabel=itemView.findViewById(R.id.specialiteLabel);
+            specialiteImage=itemView.findViewById(R.id.medecinImage);
+            specialiteLabel=itemView.findViewById(R.id.medecinNom);
             this.on_specialite_listener=on_specialite_listener;
             itemView.setOnClickListener(this);
         }

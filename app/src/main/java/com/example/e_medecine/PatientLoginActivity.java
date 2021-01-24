@@ -2,9 +2,11 @@ package com.example.e_medecine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.e_medecine.activity.MedecinActivity;
+import com.example.e_medecine.activity.SpecialitesActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

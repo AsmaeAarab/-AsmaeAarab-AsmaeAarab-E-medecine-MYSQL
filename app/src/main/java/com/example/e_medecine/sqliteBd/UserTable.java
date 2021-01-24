@@ -33,4 +33,44 @@ public class UserTable {
     public static String getTableName() {
         return TABLE_NAME;
     }
+
+    public static String getID() {
+        return ID;
+    }
+
+    public static String getNOM() {
+        return NOM;
+    }
+
+    public static String getPRENOM() {
+        return PRENOM;
+    }
+
+    public static String getGENRE() {
+        return GENRE;
+    }
+
+    public static String getTELE() {
+        return TELE;
+    }
+
+    public static String getVILLE() {
+        return VILLE;
+    }
+
+    public static String getEMAIL() {
+        return EMAIL;
+    }
+
+    public static String getPASSWORD() {
+        return PASSWORD;
+    }
+
+    public static String getROLE() {
+        return ROLE;
+    }
+
+    public static String getCreateTable() {
+        return CREATE_TABLE;
+    }
 }

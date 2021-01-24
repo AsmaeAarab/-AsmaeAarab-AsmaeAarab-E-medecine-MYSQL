@@ -4,6 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MedecinActivity">
+    tools:context=".activity.SpecialitesActivity">
+
+
+    <EditText
+        android:id="@+id/search_bar_medecin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@null"
+        android:drawableRight="@drawable/ic_search"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="@string/search"
+        android:padding="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/recycleView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp"
+        android:elevation="4dp"
+        android:inputType="text"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewMedecin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/specialite_item" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
