@@ -24,5 +24,10 @@ public class PatientLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientSignupActivity.class);
         startActivity(intent);
     }
+    @OnClick(R.id.singIn)
+    void signin(){
+        Intent intent = new Intent(this, SpecialitesActivity.class);
+        startActivity(intent);
+    }
 
 }

@@ -10,4 +10,5 @@
         <item>Oui</item>
         <item>Non</item>
     </string-array>
+    <string name="search">Search Specialities...</string>
 </resources>

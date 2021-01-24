@@ -1,5 +1,4 @@
 package com.example.e_medecine.sqliteBd;
-
         import android.content.Context;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +6,7 @@ package com.example.e_medecine.sqliteBd;
         import android.util.Log;
 
         import com.example.e_medecine.R;
+        import com.example.e_medecine.model.Specialite;
 
         import java.io.BufferedReader;
         import java.io.IOException;
@@ -37,16 +37,18 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.execSQL(RDVTable.CREATE_TABLE());
         db.execSQL(ConsultationTable.CreateTable());
         db.execSQL(PaiementTable.CREATE_TABLE());
+        insertSpecialite(db);
         try {
             insertFromFile(context, R.raw.villes,db);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            insertFromFile(context, R.raw.specialites,db);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //try {
+            //insertFromFile(context, R.raw.specialites,db);
+
+        //} catch (IOException e) {
+          //  e.printStackTrace();
+        //}
         Log.d(TAG, "database created" );
     }
 
@@ -64,11 +66,11 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
-
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
     public static int insertFromFile(Context context, int resourceId, SQLiteDatabase db) throws IOException {
         // Reseting Counter
         int result = 0;
@@ -87,7 +89,19 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         // returning number of inserted rows
         return result;
     }
-
+    public void insertSpecialite(SQLiteDatabase db){
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(1, \"Allergologie\", "+R.drawable.allergic+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(2, \"Cardiologie\", "+R.drawable.cardiologie+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(3, \"Dermatologie\", "+R.drawable.dermatologie+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(4, \"Gastro-entérologie\", "+R.drawable.stomach+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(5, \"Ophtalmologie\", "+R.drawable.ophtalmologie+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(6, \"Hématologie\", "+R.drawable.hematology+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(7, \"Hépatologie\", "+R.drawable.hepatology+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(8, \"Infectiologie\", "+R.drawable.stop+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(9, \"Neurologie\", "+R.drawable.neurologie+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(10, \"Pédiatrie\", "+R.drawable.pediatry+")");
+        db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getID()+","+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES(11, \"Psychiatrie\", "+R.drawable.psychiatrie+")");
+    }
     public ArrayList<String> getAllVilles() {
         ArrayList<String> list = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -110,6 +124,35 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return list;
     }
+
+    // Specialities
+    public ArrayList<Specialite> getSpecialites(){
+        Log.d(TAG,"invoke read");
+        ArrayList<Specialite> specialiteList=new ArrayList<Specialite>();
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cursor=db.query(
+                SpecialiteTable.getTableName(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        if(cursor.moveToNext()){
+            do{
+                Specialite specialite=new Specialite();
+                specialite.setId_specialite(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SpecialiteTable.getID()))));
+                specialite.setLabe(cursor.getString(cursor.getColumnIndex(SpecialiteTable.getLABEL())));
+                specialite.setImageSpecialite(Integer.parseInt(cursor.getString(cursor.getColumnIndex(SpecialiteTable.getImageSpecialite()))));
+                specialiteList.add(specialite);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return specialiteList;
+    }
+
 }
 
 
