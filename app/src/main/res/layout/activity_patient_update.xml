@@ -15,7 +15,7 @@
 
          android:orientation="vertical">
         <include
-            layout="@layout/main_toolbar" />
+            layout="@layout/patient_toolbar" />
 
         <TextView
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_gravity="start"
         android:background="@android:color/white">
         <include
-            layout="@layout/main_nav_drawer"/>
+            layout="@layout/patient_nav_drawer"/>
     </RelativeLayout>
 
 

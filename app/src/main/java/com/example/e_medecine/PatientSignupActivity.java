@@ -3,6 +3,7 @@ package com.example.e_medecine;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -114,6 +115,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         }
         else {
             editTextEmail.setError(null);
+            buttonSignup.setEnabled(true);
         }
 
         String passwordInput = editTextMdp.getText().toString().trim();
@@ -133,8 +135,8 @@ public class PatientSignupActivity extends AppCompatActivity {
                     //"(?=.*[a-z])" +         //at least 1 lower case letter
                     //"(?=.*[A-Z])" +         //at least 1 upper case letter
                     "(?=.*[a-zA-Z])" +      //any letter
-                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
-                    "(?=\\S+$)" +           //no white spaces
+                    //"(?=.*[@#$%^&+=])" +    //at least 1 special character
+                   // "(?=\\S+$)" +           //no white spaces
                     ".{4,}" +               //at least 4 characters
                     "$");
 
@@ -153,9 +155,9 @@ public class PatientSignupActivity extends AppCompatActivity {
         String age=editTextAge.getText().toString();
         String adresse=editTextAdresse.getText().toString();
 
+        Intent intent = new Intent(this, PatientLoginActivity.class);
         db = new GlobalDbHelper(this);
 
-        //sqLiteDatabase=db.getReadableDatabase();
         sqLiteDatabase=db.getWritableDatabase();
 
         //if(genre.equals("")||assurance.equals("")||ville.equals("")||prenom.equals("")||nom.equals("")||email.equals("")
@@ -170,22 +172,28 @@ public class PatientSignupActivity extends AppCompatActivity {
             Boolean checkEmail = db.checkEmail(email);
            // Toast.makeText(getApplicationContext(),Idville+" :id",Toast.LENGTH_SHORT).show();
             if (checkEmail == true) {
-                try {
-                 sqLiteDatabase.beginTransaction(); ///////////////
-                Boolean insert = db.insertUser(nom, prenom, genre, phone, Idville, email, mdp, "patient");
-                int idUser=db.getIdUser(email);
-                 Boolean insert2 = db.insertPatient(idUser, age, adresse, assurance);
-                //|| insert2 ==true
-                if (insert == true && insert2 ==true) {
-                     sqLiteDatabase.setTransactionSuccessful(); ////////////
-                    Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                if (mdp.equals(confirmMdp)) {
+                    try {
+                        sqLiteDatabase.beginTransaction(); ///////////////
+                        Boolean insert = db.insertUser(nom, prenom, genre, phone, Idville, email, mdp, "patient");
+                        int idUser = db.getIdUser(email);
+                        Boolean insert2 = db.insertPatient(idUser, age, adresse, assurance);
+                        //|| insert2 ==true
+                        if (insert == true && insert2 == true) {
+                            sqLiteDatabase.setTransactionSuccessful(); ////////////
+                            Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        }
+                    } finally {
+                        sqLiteDatabase.endTransaction();
+                        db.close();
+                    }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT).show();
-                }
-                } finally{
-                    sqLiteDatabase.endTransaction();
-                    db.close();
+                    Toast.makeText(getApplicationContext(),"mdp and confimMDP not equal",Toast.LENGTH_SHORT).show();
                 }
             }
             else { Toast.makeText(getApplicationContext(),"Email already exists",Toast.LENGTH_SHORT).show();}
