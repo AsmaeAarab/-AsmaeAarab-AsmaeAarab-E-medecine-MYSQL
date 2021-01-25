@@ -33,6 +33,7 @@ import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class InscriptionSuite extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner spinnerV,spinnerS,spinnerE;
@@ -50,7 +51,9 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription_suite);
         init();
-        ArrayAdapter<CharSequence> adapterV = ArrayAdapter.createFromResource(this,R.array.ville, android.R.layout.simple_spinner_item);
+        db = new GlobalDbHelper(this);
+        ArrayList<String> listville = db.getAllVilles();
+        ArrayAdapter<CharSequence> adapterV = ArrayAdapter.createFromResource(this,listville, android.R.layout.simple_spinner_item);
         adapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerV.setAdapter(adapterV);
         spinnerV.setOnItemSelectedListener(this);
@@ -70,7 +73,6 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         maildoc = new String(extras.getString("EmailD"));
         passwordoc = new String(extras.getString("Pass"));
         roledoc = new String(extras.getString("Role"));
-        db = new GlobalDbHelper(this);
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
