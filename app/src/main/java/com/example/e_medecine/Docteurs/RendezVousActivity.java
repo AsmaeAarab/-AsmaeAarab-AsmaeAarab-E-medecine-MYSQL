@@ -36,9 +36,7 @@ public class RendezVousActivity extends AppCompatActivity {
         adapterRDV = new RendezvousAdapter(this,R.layout.rendezvousitems,listRdv);
         listView.setAdapter(adapterRDV);
         db = new GlobalDbHelper(this);
-        Cursor cursor = db.getData("SELECT u.idUser,p.idPatient,R.idMedecin,u.imageUser,u.nomUser,u.prenomUser,R.titreRDV,R.dateRDV" +
-                " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'");
+        Cursor cursor = db.getdataRendezvous(id);
         listRdv.clear();
         while (cursor.moveToNext())
         {
@@ -81,9 +79,7 @@ public class RendezVousActivity extends AppCompatActivity {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Cursor cursor = db.getData("SELECT u.idUser,p.idPatient,R.idMedecin,u.imageUser,u.nomUser,u.prenomUser,R.titreRDV,R.dateRDV" +
-                        " FROM users AS u, patients AS p, RDVs AS R" +
-                        " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'");
+                Cursor cursor = db.getdataRendezvous(id);
                 listRdv.clear();
                 while (cursor.moveToNext())
                 {
