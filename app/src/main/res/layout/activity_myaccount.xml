@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D7D8DD"
+    tools:context=".Docteurs.Myaccount">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/DocteurLastname"
+            android:layout_width="303dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Prenom"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DocteurName" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="284dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:background="#D7D8DD"
+            android:gravity="center"
+            android:text="Mon Compte"
+            android:textColor="#3F51B5"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/DocteurName"
+            android:layout_width="303dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="44dp"
+            android:ems="10"
+            android:hint="Nom"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ChangeImage" />
+
+        <CheckBox
+            android:id="@+id/checkNom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="75dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/DocteurName"
+            app:layout_constraintTop_toBottomOf="@+id/ChangeImage" />
+
+        <CheckBox
+            android:id="@+id/checkPrenom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/DocteurLastname"
+            app:layout_constraintTop_toBottomOf="@+id/checkNom" />
+
+        <Button
+            android:id="@+id/ButtonUPdate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="#3F51B5"
+            android:text="Méttre à jour"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DocteurPhone" />
+
+        <CheckBox
+            android:id="@+id/checkAdresse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/DocteurAdresse"
+            app:layout_constraintTop_toBottomOf="@+id/checkPrenom" />
+
+        <EditText
+            android:id="@+id/DocteurAdresse"
+            android:layout_width="303dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Adresse"
+            android:inputType="textEmailAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DocteurLastname" />
+
+        <EditText
+            android:id="@+id/DocteurPhone"
+            android:layout_width="303dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Téléphone"
+            android:inputType="phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DocteurAdresse" />
+
+        <CheckBox
+            android:id="@+id/checkTelephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/DocteurPhone"
+            app:layout_constraintTop_toBottomOf="@+id/checkAdresse" />
+
+        <ImageView
+            android:id="@+id/imageP"
+            android:layout_width="286dp"
+            android:layout_height="157dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <Button
+            android:id="@+id/ChangeImage"
+            android:layout_width="150dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="28dp"
+            android:background="#3F51B5"
+            android:text="Choisir nouvelle Image"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageP" />
+
+        <Button
+            android:id="@+id/buttonsave"
+            android:layout_width="150dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="28dp"
+            android:background="#3F51B5"
+            android:text="Sauvegarder"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.715"
+            app:layout_constraintStart_toEndOf="@+id/ChangeImage"
+            app:layout_constraintTop_toBottomOf="@+id/imageP" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

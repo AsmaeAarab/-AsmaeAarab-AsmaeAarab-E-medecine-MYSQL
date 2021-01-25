@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_acceuil"
+          android:icon="@drawable/ic_baseline_home_24"
+          android:title="Acceuil"/>
+    <item android:id="@+id/menu_RD"
+          android:icon="@drawable/ic_baseline_people_24"
+          android:title="Rendez-Vous "/>
+    <item android:id="@+id/menu_Notification"
+          android:icon="@drawable/ic_baseline_notification_important_24"
+          android:title="Notification"/>
+    <item android:id="@+id/menu_MonCompte"
+          android:icon="@drawable/ic_baseline_account_circle_24"
+          android:title="Mon compte"/>
+    <item android:id="@+id/menu_calender"
+          android:icon="@drawable/ic_baseline_calendar_today_24"
+          android:title="Modifier Calendrier"/>
+    <item android:id="@+id/menu_TC"
+          android:icon="@drawable/ic_baseline_contact_page_24"
+          android:title="Termes et Conditions"/>
+    <item android:id="@+id/menu_logout"
+          android:icon="@drawable/ic_baseline_meeting_room_24"
+          android:title="Se déconnécter"/>
+</menu>

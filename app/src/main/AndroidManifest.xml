@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.e_medecine">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +11,15 @@
         android:theme="@style/Theme.Emedecine">
         <activity android:name=".PatientSignupActivity"></activity>
         <activity android:name=".PatientLoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".Docteurs.Calendrier"></activity>
+        <activity android:name=".Docteurs.RendezVousActivity" />
+        <activity android:name=".Docteurs.Myaccount" />
+        <activity android:name=".Docteurs.Updateaccount" />
+        <activity android:name=".Docteurs.InscriptionSuite" />
+        <activity android:name=".Docteurs.Acceuil" />
+        <activity android:name=".Docteurs.Inscription" />
+        <activity android:name=".Docteurs.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

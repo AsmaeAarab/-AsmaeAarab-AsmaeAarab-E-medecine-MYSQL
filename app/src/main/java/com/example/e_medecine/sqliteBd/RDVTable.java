@@ -13,7 +13,7 @@ public class RDVTable {
             "CREATE TABLE " + TABLE_NAME + " ("
                     + ID  +" INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + TITRE +" TEXT, "
-                    + DATE +" DATE, "
+                    + DATE +" TEXT, "
                     + ID_PATIENT +" INTEGER, "
                     + ID_Medecin +" INTEGER, "
                     + "FOREIGN KEY(" + ID_PATIENT + ") REFERENCES patients(idPatient),"
