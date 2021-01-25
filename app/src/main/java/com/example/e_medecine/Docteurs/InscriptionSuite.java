@@ -53,7 +53,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         init();
         db = new GlobalDbHelper(this);
         ArrayList<String> listville = db.getAllVilles();
-        ArrayAdapter<CharSequence> adapterV = ArrayAdapter.createFromResource(this,listville, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterV = ArrayAdapter.createFromResource(this,android.R.layout.simple_spinner_item,listville); //createFromResource(this,listville, android.R.layout.simple_spinner_item);
         adapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerV.setAdapter(adapterV);
         spinnerV.setOnItemSelectedListener(this);
