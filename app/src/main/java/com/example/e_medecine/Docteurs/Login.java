@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
                     Intent iacceuil = new Intent(Login.this,Acceuil.class);
                     iacceuil.putExtra("Log",log);
                     startActivity(iacceuil);
-                    Toast.makeText(Login.this, "Authentification Réuissie", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Authentification Réussie", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(Login.this, "Login ou Mot de passe Incorrect", Toast.LENGTH_SHORT).show();
                 }
