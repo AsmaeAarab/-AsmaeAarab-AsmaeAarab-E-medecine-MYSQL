@@ -14,9 +14,9 @@ import android.widget.Toast;
 import com.example.e_medecine.R;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
-public class Inscription extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class Inscription extends AppCompatActivity  {
     private EditText nom, prenom, email, password, phone;
-    private String nomDoc,prenomDoc,emailDoc,passwordDoc,phoneDoc,Role,RadioMale,RadioFemale,RadioGlobal;
+    private String nomDoc,prenomDoc,emailDoc,passwordDoc,phoneDoc,RadioMale,RadioFemale,RadioGlobal;
     private Spinner spinnerR;
     private RadioButton RadM,RadF;
     private GlobalDbHelper db;
@@ -25,10 +25,6 @@ public class Inscription extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription);
         initViews();
-        ArrayAdapter<CharSequence> adapterR = ArrayAdapter.createFromResource(this,R.array.Role, android.R.layout.simple_spinner_item);
-        adapterR.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerR.setAdapter(adapterR);
-        spinnerR.setOnItemSelectedListener(this);
     }
 
     private void initViews() {
@@ -37,7 +33,6 @@ public class Inscription extends AppCompatActivity implements AdapterView.OnItem
         email = findViewById(R.id.DEmail);
         password = findViewById(R.id.DPassword);
         phone = findViewById(R.id.DPhone);
-        spinnerR = findViewById(R.id.spinnerRole);
         RadM = findViewById(R.id.GenderMale);
         RadF = findViewById(R.id.GenderFemale);
     }
@@ -61,8 +56,6 @@ public class Inscription extends AppCompatActivity implements AdapterView.OnItem
                 i2.putExtra("EmailD",emailDoc);
                 i2.putExtra("Pass",passwordDoc);
                 i2.putExtra("Phone",phoneDoc);
-                i2.putExtra("Role",Role);
-                System.out.println("Role: " + Role);
                 i2.putExtra("Radio",RadioGlobal);
                 startActivity(i2);
             }else {
@@ -78,23 +71,11 @@ public class Inscription extends AppCompatActivity implements AdapterView.OnItem
                 i2.putExtra("EmailD",emailDoc);
                 i2.putExtra("Pass",passwordDoc);
                 i2.putExtra("Phone",phoneDoc);
-                i2.putExtra("Role",Role);
-                System.out.println("Role: " + Role);
                 i2.putExtra("Radio",RadioGlobal);
                 startActivity(i2);
             }else {
                 Toast.makeText(this, "Veuillez remplir tous le champs s'il vous plait", Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Role = parent.getItemAtPosition(position).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

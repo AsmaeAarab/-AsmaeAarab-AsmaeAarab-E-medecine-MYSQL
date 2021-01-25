@@ -73,7 +73,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         phonedoc = new String(extras.getString("Phone"));
         maildoc = new String(extras.getString("EmailD"));
         passwordoc = new String(extras.getString("Pass"));
-        roledoc = new String(extras.getString("Role"));
+        roledoc = "Docteur";
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,13 +93,10 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                 {
                     if (genderdoc.equals("Homme"))
                     {
-                        if (roledoc.equals("Docteur"))
-                        {
-                            //insert user ville medecin specialite
-                            if (Condition.isChecked())
-                            {
-                                if (locate.length() > 1)
-                                {
+                       if (Condition.isChecked())
+                       {
+                           if (locate.length() > 1)
+                           {
                                     int idv = 0;
                                     int iduser = 0;
                                     int idspec = 0;
@@ -146,53 +143,18 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     Intent ilogin = new Intent(InscriptionSuite.this,Login.class);
                                     startActivity(ilogin);
 
-                                }else {
+                           }else {
                                     Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs ", Toast.LENGTH_SHORT).show();
-                                }
-                            }else
-                            {
-                                Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
-                            }
-                        }else if (roledoc.equals("Client")){
-                            //insert user et villes
-                            if (Condition.isChecked())
-                            {
-                                int id = 0;
-                                ContentValues values = new ContentValues();
-                                ContentValues valuesv = new ContentValues();
-                                valuesv.put("label",city);
-                                db.insertville(valuesv);
-                                Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
-                                if (cursor != null && cursor.moveToLast())
-                                {
-                                    id = cursor.getInt(0);
-                                }
-                                values.put("nomUser",namedoc);
-                                values.put("prenomUser",lastnamedoc);
-                                values.put("genreUser",genderdoc);
-                                values.put("telephoneUser",phonedoc);
-                                values.put("imageUser",imgprofileval);
-                                values.put("idVille",id);
-                                values.put("emailUser",maildoc);
-                                values.put("passwordUser",passwordoc);
-                                values.put("roleUser",roledoc);
-                                db.insertuser(values);
-                                Toast.makeText(InscriptionSuite.this, "Inscription du Client Réussie", Toast.LENGTH_SHORT).show();
-                                Intent ilogin = new Intent(InscriptionSuite.this,Login.class);
-                                startActivity(ilogin);
-                            }else{
-                                Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                           }
+                       }else {
+                           Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
+                       }
                     }else if (genderdoc.equals("Femme"))
                     {
-                        if (roledoc.equals("Docteur"))
+                        if (Condition.isChecked())
                         {
-                            //insert user ville medecin specialite
-                            if (Condition.isChecked())
+                            if (locate.length() > 1)
                             {
-                                if (locate.length() > 1)
-                                {
                                     int idv = 0;
                                     int iduser = 0;
                                     int idspec = 0;
@@ -238,42 +200,11 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     Toast.makeText(InscriptionSuite.this, "Inscription du Docteur Réussie", Toast.LENGTH_SHORT).show();
                                     Intent ilogin = new Intent(InscriptionSuite.this,Login.class);
                                     startActivity(ilogin);
-                                }else {
+                            }else {
                                     Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs", Toast.LENGTH_SHORT).show();
-                                }
-                            }else{
-                                Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
                             }
-                        }else if (roledoc.equals("Client")){
-                            //insert user et villes
-                            if (Condition.isChecked())
-                            {
-                                int id = 0;
-                                ContentValues values = new ContentValues();
-                                ContentValues valuesv = new ContentValues();
-                                valuesv.put("label",city);
-                                db.insertville(valuesv);
-                                Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
-                                if (cursor != null && cursor.moveToLast())
-                                {
-                                    id = cursor.getInt(0);
-                                }
-                                values.put("nomUser",namedoc);
-                                values.put("prenomUser",lastnamedoc);
-                                values.put("genreUser",genderdoc);
-                                values.put("telephoneUser",phonedoc);
-                                values.put("imageUser",imgprofileval);
-                                values.put("idVille",id);
-                                values.put("emailUser",maildoc);
-                                values.put("passwordUser",passwordoc);
-                                values.put("roleUser",roledoc);
-                                db.insertuser(values);
-                                Toast.makeText(InscriptionSuite.this, "Inscription du Client Réussie", Toast.LENGTH_SHORT).show();
-                                Intent ilogin = new Intent(InscriptionSuite.this,Login.class);
-                                startActivity(ilogin);
-                            }else{
+                        }else{
                                 Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
-                            }
                         }
                     }
                 }else{
