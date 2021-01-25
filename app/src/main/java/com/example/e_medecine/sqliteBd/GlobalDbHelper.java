@@ -1,5 +1,6 @@
 package com.example.e_medecine.sqliteBd;
 
+        import android.content.ContentValues;
         import android.content.Context;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
@@ -94,7 +95,8 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.beginTransaction();
         try {
             list.add(0,"Choose a city");
-            String selectQuery = "SELECT * FROM " + VilleTable.getTableName();
+            String selectQuery = "SELECT * FROM villes" ;
+                    //+ VilleTable.getTableName()
             Cursor cursor = db.rawQuery(selectQuery, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
@@ -110,6 +112,77 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return list;
     }
+
+    public boolean insertUser(String nomUser,String prenomUser ,String genreUser,String telephoneUser,
+                               int idVille ,String emailUser ,String passwordUser,String roleUser)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("nomUser",nomUser);
+        contentValues.put("prenomUser",prenomUser);
+        contentValues.put("genreUser",genreUser);
+        contentValues.put("telephoneUser",telephoneUser);
+        contentValues.put("idVille",idVille);
+        contentValues.put("emailUser",emailUser);
+        contentValues.put("passwordUser",passwordUser);
+        contentValues.put("roleUser",roleUser);
+
+        long ins=db.insert("users",null,contentValues);
+        if(ins==-1) return  false;
+        else return true;
+    }
+
+    public Boolean checkEmail(String emailUser){
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("Select * from users where emailUser=?",new String[]{emailUser});
+        if(cursor.getCount()>0) return false;
+        else return true;
+    }
+
+//String labelVille
+    public Integer getIdVille(String labelVille){
+        Integer idville=0;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("Select idVille from villes where label=?",new String[]{labelVille});
+        while (cursor.moveToNext()) {
+             idville = cursor.getInt(0);
+        }
+        return idville;
+    }
+
+    public boolean insertPatient(int idUser,String agePatient,String Adresse ,String cnssPatient )
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("idUser",idUser);
+        contentValues.put("agePatient",agePatient);
+        contentValues.put("Adresse",Adresse);
+        contentValues.put("cnssPatient",cnssPatient);
+
+        long ins=db.insert("patients",null,contentValues);
+        if(ins==-1) return  false;
+        else return true;
+    }
+
+    public int getIdUser(String email){
+        int idUser=0;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("Select idUser  from users where emailUser=?",new String[]{email});
+        //int idUser = cursor.getInt(cursor.getColumnIndex("idUser"));
+        while (cursor.moveToNext()) {
+            idUser = cursor.getInt(0);
+        }
+        return idUser;
+    }
+
+    public Boolean loginpassword(String login,String password){
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("select * from users where emailUser=? and passwordUser=?",new String[]{login,password});
+        if(cursor.getCount()>0) return true;
+        else return false;
+    }
+
+
 }
 
 
