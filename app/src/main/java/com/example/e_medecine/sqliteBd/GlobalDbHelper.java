@@ -180,7 +180,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         String sql = "SELECT u.idUser,p.idPatient,R.idMedecin,u.imageUser,u.nomUser,u.prenomUser,R.titreRDV,R.dateRDV" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
                 " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'" ;
-        QLiteDatabase database = getReadableDatabase();
+        SQLiteDatabase database = getReadableDatabase();
         return database.rawQuery(sql, null);
     }
     public static int insertFromFile(Context context, int resourceId, SQLiteDatabase db) throws IOException {
