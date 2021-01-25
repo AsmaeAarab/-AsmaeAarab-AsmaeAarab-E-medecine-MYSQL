@@ -10,6 +10,46 @@
         <item>Oui</item>
         <item>Non</item>
     </string-array>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string-array name="Role">
+        <item>Client</item>
+        <item>Docteur</item>
+    </string-array>
+    <string-array name="ville">
+        <item>Méknes</item>
+        <item>Rabat</item>
+        <item>Kénitra</item>
+        <item>Casablanca</item>
+        <item>Fes</item>
+        <item>Marrakech</item>
+        <item>Tanger</item>
+        <item>Tetouan</item>
+        <item>Araich</item>
+        <item>Mdiq</item>
+        <item>Oujda</item>
+        <item>Agadir</item>
+        <item>Tiflet</item>
+        <item>Khemisset</item>
+        <item>Ifran</item>
+    </string-array>
+    <string-array name="specialite">
+        <item>Allergologie</item>
+        <item>Cardiologie</item>
+        <item>Dermatologie</item>
+        <item>Gastro-entérologie</item>
+        <item>Gynécologie</item>
+        <item>Hématologie</item>
+        <item>Hépatologie</item>
+        <item>Infectiologie</item>
+        <item>Neurologie</item>
+        <item>Pédiatrie</item>
+        <item>Psychiatrie</item>
+    </string-array>
+    <string-array name="TypeDoc">
+        <item>Docteur</item>
+        <item>E-Docteur</item>
+    </string-array>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

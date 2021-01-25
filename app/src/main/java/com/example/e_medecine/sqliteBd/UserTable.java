@@ -8,6 +8,7 @@ public class UserTable {
     private static final String PRENOM = "prenomUser";
     private static final String GENRE = "genreUser";
     private static final String TELE = "telephoneUser";
+    private static final String IMAGE = "imageUser";
     private static final String VILLE = "idVille";
 
     private static final String EMAIL = "emailUser"; //login
@@ -21,6 +22,7 @@ public class UserTable {
                     + PRENOM +" TEXT, "
                     + GENRE +" TEXT, "
                     + TELE +" TEXT, "
+                    + IMAGE +" BLOB, "
                     + VILLE +" INTEGER, "
                     + EMAIL +" TEXT, "
                     + PASSWORD +" TEXT, "
