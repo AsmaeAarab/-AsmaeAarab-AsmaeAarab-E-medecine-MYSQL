@@ -22,9 +22,13 @@
         android:text="LOGIN"
         />
     <EditText
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:inputType="textEmailAddress"
+        android:drawableStart="@drawable/ic_email"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="12dp"
         />
 
     <TextView
@@ -33,9 +37,14 @@
         android:text="PASSWORD"
         />
     <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:drawableStart="@drawable/ic_password"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="12dp"
+
         />
 
     <CheckBox
@@ -47,6 +56,7 @@
         android:textColor="@color/black" />
 
     <Button
+        android:id="@+id/signIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign in"

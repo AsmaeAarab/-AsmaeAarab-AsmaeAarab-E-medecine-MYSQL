@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.example.e_medecine.Docteurs.Login;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import butterknife.ButterKnife;
@@ -31,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.patient)
     public void loginPatient() {
         Intent intent = new Intent(this, PatientLoginActivity.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.doctor)
+    public void loginDocteur() {
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 
