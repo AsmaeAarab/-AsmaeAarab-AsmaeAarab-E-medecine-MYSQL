@@ -190,15 +190,13 @@ public class PatientSignupActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientLoginActivity.class);
         db = new GlobalDbHelper(this);
         sqLiteDatabase=db.getWritableDatabase();
-
-        byte[] imgprofileval = imageViewToByte(imgpro);
-
         //if(genre.equals("")||assurance.equals("")||ville.equals("")||prenom.equals("")||nom.equals("")||email.equals("")
                // ||mdp.equals("")||confirmMdp.equals("")||phone.equals("")||age.equals("")||adresse.equals(""))
         if(ville.equals("")||prenom.equals("")||email.equals("")
-                ||mdp.equals(""))
+                ||mdp.equals("")||isclicked == false)
         {
-            Toast.makeText(getApplicationContext(),"Fiels are empty",Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(getApplicationContext(),"Fiels are empty or image not set",Toast.LENGTH_SHORT).show();
         }
         else {
             Integer Idville=db.getIdVille(ville);
@@ -207,6 +205,7 @@ public class PatientSignupActivity extends AppCompatActivity {
             if (checkEmail == true) {
                 if (mdp.equals(confirmMdp)) {
                     try {
+                        byte[] imgprofileval = imageViewToByte(imgpro);
                         sqLiteDatabase.beginTransaction(); ///////////////
                         Boolean insert = db.insertUser(imgprofileval,nom, prenom, genre, phone, Idville, email, mdp, "patient");
                         int idUser = db.getIdUser(email);
