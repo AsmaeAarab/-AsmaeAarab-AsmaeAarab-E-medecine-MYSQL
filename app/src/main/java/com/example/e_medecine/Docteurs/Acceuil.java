@@ -119,8 +119,7 @@ public class Acceuil extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.menu_logout:
-                        Intent il = new Intent(Acceuil.this,Login.class);
-                        startActivity(il);
+                        finish();
                         Toast.makeText(Acceuil.this, "Se déconnécter", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;

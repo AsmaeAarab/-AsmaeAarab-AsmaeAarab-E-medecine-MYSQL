@@ -22,6 +22,8 @@ public class Updateaccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updateaccount);
         initupdate();
+        Bundle extraterrestre = getIntent().getExtras();
+        String Doc = new String(extraterrestre.getString("Doc"));
         db = new GlobalDbHelper(this);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +32,7 @@ public class Updateaccount extends AppCompatActivity {
                 String newp = newpass.getText().toString();
                 if (anclog.length() > 1 && newp.length() > 1)
                 {
-                    if (db.isEmailvalid(anclog,newp) || db.isTelephonevalid(anclog,newp))
+                    if (db.isEmailvalid(anclog,newp,Doc) || db.isTelephonevalid(anclog,newp,Doc))
                     {
                         Toast.makeText(Updateaccount.this, "Votre Nouveau Mot de passe est identique a l'ancien ", Toast.LENGTH_SHORT).show();
                     }else{

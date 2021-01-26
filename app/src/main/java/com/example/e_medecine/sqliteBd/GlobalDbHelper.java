@@ -8,6 +8,7 @@ package com.example.e_medecine.sqliteBd;
         import android.database.sqlite.SQLiteStatement;
         import android.util.Log;
 
+        import com.example.e_medecine.Docteurs.Docteur;
         import com.example.e_medecine.R;
 
         import java.io.BufferedReader;
@@ -84,9 +85,9 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     {
         getWritableDatabase().insert("specialites",null,values);
     }
-    public boolean isEmailvalid(String email , String password)
+    public boolean isEmailvalid(String email , String password,String Docteur)
     {
-        String sql = "select count(*) from users where emailUser='"+email+"' and passwordUser='"+password+"'";
+        String sql = "select count(*) from users where emailUser='"+email+"' and passwordUser='"+password+"' and roleUser = '"+Docteur+"'";
         SQLiteStatement statement = getReadableDatabase().compileStatement(sql);
         Long l = statement.simpleQueryForLong();
         statement.close();
@@ -149,9 +150,9 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.update("users",values,"idUser = ?",new String[]{i});
         return true;
     }
-    public boolean isTelephonevalid(String Phone , String password)
+    public boolean isTelephonevalid(String Phone , String password, String Docteur)
     {
-        String sql = "select count(*) from users where telephoneUser='"+Phone+"' and passwordUser='"+password+"'";
+        String sql = "select count(*) from users where telephoneUser='"+Phone+"' and passwordUser='"+password+"' and roleUser = '"+Docteur+"'";
         SQLiteStatement statement = getReadableDatabase().compileStatement(sql);
         Long d = statement.simpleQueryForLong();
         statement.close();
@@ -399,6 +400,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return EmailU;
     }
+    //public int GetiduserRDV(int id)
 
     public Boolean loginpassword(String login,String password){
         SQLiteDatabase db=this.getReadableDatabase();
