@@ -209,8 +209,6 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     public void back(View v)
     {
         finish();
-        /*Intent i3 = new Intent(InscriptionSuite.this, Inscription.class);
-        startActivity(i3);*/
     }
     public void init()
     {
