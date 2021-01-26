@@ -20,11 +20,15 @@ public class Login extends AppCompatActivity {
     private TextView createcompte;
     private Button signin ;
     private GlobalDbHelper db;
+    private String Docteur;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //getActionBar().hide();
+        Bundle ex = getIntent().getExtras();
+        Docteur = new String(ex.getString("Docteur"));
+
         initViews();
         db = new GlobalDbHelper(this);
         signin.setOnClickListener(new View.OnClickListener() {
@@ -32,14 +36,16 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String log = login.getText().toString();
                 String pass = password.getText().toString();
-                if (db.isEmailvalid(log,pass) || db.isTelephonevalid(log,pass))
+                if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
+                    login.setText(null);
+                    password.setText(null);
                     Intent iacceuil = new Intent(Login.this,Acceuil.class);
                     iacceuil.putExtra("Log",log);
                     startActivity(iacceuil);
-                    Toast.makeText(Login.this, "Authentification Réussie", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(Login.this, "Login ou Mot de passe Incorrect", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -59,6 +65,7 @@ public class Login extends AppCompatActivity {
     public void changepassword(View v)
     {
         Intent ic = new Intent(Login.this,Updateaccount.class);
+        ic.putExtra("Doc",Docteur);
         startActivity(ic);
     }
 }

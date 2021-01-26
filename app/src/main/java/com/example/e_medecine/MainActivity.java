@@ -13,7 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-
+    private String Docteur = "Docteur";
+    private String Patient = "Patient";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.patient)
     public void loginPatient() {
         Intent intent = new Intent(this, PatientLoginActivity.class);
+        intent.putExtra("Patient",Patient);
         startActivity(intent);
     }
     @OnClick(R.id.doctor)
     public void loginDocteur() {
         Intent intent = new Intent(this, Login.class);
+        intent.putExtra("Docteur",Docteur);
         startActivity(intent);
     }
 

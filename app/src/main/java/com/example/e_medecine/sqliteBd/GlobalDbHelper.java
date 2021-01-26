@@ -8,12 +8,14 @@ package com.example.e_medecine.sqliteBd;
         import android.database.sqlite.SQLiteStatement;
         import android.util.Log;
 
+        import com.example.e_medecine.Docteurs.Docteur;
         import com.example.e_medecine.R;
 
         import java.io.BufferedReader;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
+        import java.sql.Blob;
         import java.util.ArrayList;
 
 public class GlobalDbHelper extends SQLiteOpenHelper {
@@ -75,10 +77,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     {
         getWritableDatabase().insert("medecins",null,values);
     }
-    public void insertuser(ContentValues values)
-    {
-        getWritableDatabase().insert("users",null,values);
-    }
     public void insertville(ContentValues values)
     {
         getWritableDatabase().insert("villes",null,values);
@@ -87,9 +85,9 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     {
         getWritableDatabase().insert("specialites",null,values);
     }
-    public boolean isEmailvalid(String email , String password)
+    public boolean isEmailvalid(String email , String password,String Docteur)
     {
-        String sql = "select count(*) from users where emailUser='"+email+"' and passwordUser='"+password+"'";
+        String sql = "select count(*) from users where emailUser='"+email+"' and passwordUser='"+password+"' and roleUser = '"+Docteur+"'";
         SQLiteStatement statement = getReadableDatabase().compileStatement(sql);
         Long l = statement.simpleQueryForLong();
         statement.close();
@@ -152,9 +150,9 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.update("users",values,"idUser = ?",new String[]{i});
         return true;
     }
-    public boolean isTelephonevalid(String Phone , String password)
+    public boolean isTelephonevalid(String Phone , String password, String Docteur)
     {
-        String sql = "select count(*) from users where telephoneUser='"+Phone+"' and passwordUser='"+password+"'";
+        String sql = "select count(*) from users where telephoneUser='"+Phone+"' and passwordUser='"+password+"' and roleUser = '"+Docteur+"'";
         SQLiteStatement statement = getReadableDatabase().compileStatement(sql);
         Long d = statement.simpleQueryForLong();
         statement.close();
@@ -303,7 +301,33 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return idville;
     }
-
+    public Integer getIdSpecialite(String labelspecialite)
+    {
+        Integer idspec = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT idSpecialite FROM specialites WHERE label = '"+labelspecialite+"' ",null);
+        while (cursor.moveToNext())
+        {
+            idspec = cursor.getInt(0);
+        }
+        return idspec;
+    }
+    public boolean insertMedecin(int iduser,int idspecialite,String typedoc,String Locate,String charte)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesD = new ContentValues();
+        valuesD.put("idUser", iduser);
+        valuesD.put("idSpecialite", idspecialite);
+        valuesD.put("typeMedecin", typedoc);
+        valuesD.put("localisationMedecin", Locate);
+        valuesD.put("TermeCondition", charte);
+        long insert  = db.insert("medecins",null,valuesD);
+        if (insert == -1)
+        {
+            return false;
+        }
+        return true;
+    }
     public boolean insertPatient(int idUser,String agePatient,String Adresse ,String cnssPatient )
     {
         SQLiteDatabase db=this.getWritableDatabase();
@@ -331,14 +355,182 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     public int getIdUser(String email){
         int idUser=0;
         SQLiteDatabase db=this.getReadableDatabase();
-        Cursor cursor=db.rawQuery("Select idUser  from users where emailUser=?",new String[]{email});
+        Cursor cursor=db.rawQuery("Select idUser  from users where emailUser=? ",new String[]{email});
         //int idUser = cursor.getInt(cursor.getColumnIndex("idUser"));
         while (cursor.moveToNext()) {
             idUser = cursor.getInt(0);
         }
         return idUser;
     }
-
+    public int getIdUserMailPhone(String mailphone){
+        int idUser=0;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("SELECT idUser  FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        //int idUser = cursor.getInt(cursor.getColumnIndex("idUser"));
+        while (cursor.moveToNext()) {
+            idUser = cursor.getInt(0);
+        }
+        return idUser;
+    }
+    public String getNomUser(String mailphone)
+    {
+        String nomU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nomUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            nomU = cursor.getString(0);
+        }
+        return nomU;
+    }
+    public String getPrenomUser(String mailphone)
+    {
+        String PrenomU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT prenomUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            PrenomU = cursor.getString(0);
+        }
+        return PrenomU;
+    }
+    public String getPhoneUser(String mailphone)
+    {
+        String PhoneU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT telephoneUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            PhoneU = cursor.getString(0);
+        }
+        return PhoneU;
+    }
+    public byte[] getImageUser(String mailphone)
+    {
+        byte[] ImageU = new byte[0];
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT imageUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            ImageU = cursor.getBlob(0);
+        }
+        return ImageU;
+    }
+    public String getEmailUser(String mailphone)
+    {
+        String EmailU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT emailUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            EmailU = cursor.getString(0);
+        }
+        return EmailU;
+    }
+    public int GetiduserRDV(int id)
+    {
+        int iduser = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.idUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            iduser = cursor.getInt(0);
+        }
+        return iduser;
+    }
+    public int GetidpatientRDV(int id)
+    {
+        int idpatient = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT p.idPatient" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            idpatient = cursor.getInt(0);
+        }
+        return idpatient;
+    }
+    public int GetidmedecinRDV(int id)
+    {
+        int idmedecin = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT R.idMedecin" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            idmedecin = cursor.getInt(0);
+        }
+        return idmedecin;
+    }
+    public byte[] GetImageRDV(int id)
+    {
+        byte[] imageUserRDV = new byte[0];
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.imageUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            imageUserRDV = cursor.getBlob(0);
+        }
+        return imageUserRDV;
+    }
+    public String GetNomUserRDV(int id)
+    {
+        String NomUserRDv = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.nomUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            NomUserRDv = cursor.getString(0);
+        }
+        return NomUserRDv;
+    }
+    public String GetPrenomUserRDV(int id)
+    {
+        String PrenomUserRDV = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.prenomUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            PrenomUserRDV = cursor.getString(0);
+        }
+        return PrenomUserRDV;
+    }
+    public String GetTitrePatientRDV(int id)
+    {
+        String TitrePatientRDV = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT R.titreRDV" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            TitrePatientRDV = cursor.getString(0);
+        }
+        return TitrePatientRDV;
+    }
+    public String GetDatePatientRDV(int id)
+    {
+        String DatePatientRDV = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT R.dateRDV" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            DatePatientRDV = cursor.getString(0);
+        }
+        return DatePatientRDV;
+    }
     public Boolean loginpassword(String login,String password){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.rawQuery("select * from users where emailUser=? and passwordUser=?",new String[]{login,password});
