@@ -14,6 +14,7 @@ package com.example.e_medecine.sqliteBd;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
+        import java.sql.Blob;
         import java.util.ArrayList;
 
 public class GlobalDbHelper extends SQLiteOpenHelper {
@@ -326,12 +327,77 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     public int getIdUser(String email){
         int idUser=0;
         SQLiteDatabase db=this.getReadableDatabase();
-        Cursor cursor=db.rawQuery("Select idUser  from users where emailUser=?",new String[]{email});
+        Cursor cursor=db.rawQuery("Select idUser  from users where emailUser=? ",new String[]{email});
         //int idUser = cursor.getInt(cursor.getColumnIndex("idUser"));
         while (cursor.moveToNext()) {
             idUser = cursor.getInt(0);
         }
         return idUser;
+    }
+    public int getIdUserMailPhone(String mailphone){
+        int idUser=0;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("SELECT idUser  FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        //int idUser = cursor.getInt(cursor.getColumnIndex("idUser"));
+        while (cursor.moveToNext()) {
+            idUser = cursor.getInt(0);
+        }
+        return idUser;
+    }
+    public String getNomUser(String mailphone)
+    {
+        String nomU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nomUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            nomU = cursor.getString(0);
+        }
+        return nomU;
+    }
+    public String getPrenomUser(String mailphone)
+    {
+        String PrenomU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT prenomUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            PrenomU = cursor.getString(0);
+        }
+        return PrenomU;
+    }
+    public String getPhoneUser(String mailphone)
+    {
+        String PhoneU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT telephoneUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            PhoneU = cursor.getString(0);
+        }
+        return PhoneU;
+    }
+    public byte[] getImageUser(String mailphone)
+    {
+        byte[] ImageU = new byte[0];
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT imageUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            ImageU = cursor.getBlob(0);
+        }
+        return ImageU;
+    }
+    public String getEmailUser(String mailphone)
+    {
+        String EmailU = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT emailUser FROM users WHERE emailUser = '"+mailphone+"' OR telephoneUser = '"+mailphone+"'",null);
+        while (cursor.moveToNext())
+        {
+            EmailU = cursor.getString(0);
+        }
+        return EmailU;
     }
 
     public Boolean loginpassword(String login,String password){

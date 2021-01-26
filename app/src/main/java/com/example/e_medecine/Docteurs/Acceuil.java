@@ -53,16 +53,12 @@ public class Acceuil extends AppCompatActivity {
         View v = nav.getHeaderView(0);
         Bundle ex = getIntent().getExtras();
         String lo = new String(ex.getString("Log"));
-        Cursor cursor = db.getData("SELECT * FROM users WHERE emailUser = '"+ lo +"' OR telephoneUser = '"+lo+"'");
-        if (cursor != null && cursor.moveToNext())
-        {
-            id = cursor.getInt(0);
-            NomU = cursor.getString(1);
-            PrenomU = cursor.getString(2);
-            TelephoneU = cursor.getString(4);
-            ImageU = cursor.getBlob(5);
-            AdresseU = cursor.getString(7);
-        }
+        id = db.getIdUserMailPhone(lo);
+        NomU = db.getNomUser(lo);
+        PrenomU = db.getPrenomUser(lo);
+        TelephoneU = db.getPhoneUser(lo);
+        ImageU = db.getImageUser(lo);
+        AdresseU = db.getEmailUser(lo);
         name = (TextView) v.findViewById(R.id.TextNom);
         name.setText(NomU);
         prename = (TextView) v.findViewById(R.id.TextPrenom);
@@ -139,16 +135,12 @@ public class Acceuil extends AppCompatActivity {
                 View v = nav.getHeaderView(0);
                 Bundle ex = getIntent().getExtras();
                 String lo = new String(ex.getString("Log"));
-                Cursor cursor = db.getData("SELECT * FROM users WHERE emailUser = '"+ lo +"' OR telephoneUser = '"+lo+"'");
-                if (cursor != null && cursor.moveToNext())
-                {
-                    id = cursor.getInt(0);
-                    NomU = cursor.getString(1);
-                    PrenomU = cursor.getString(2);
-                    TelephoneU = cursor.getString(4);
-                    ImageU = cursor.getBlob(5);
-                    AdresseU = cursor.getString(7);
-                }
+                id = db.getIdUserMailPhone(lo);
+                NomU = db.getNomUser(lo);
+                PrenomU = db.getPrenomUser(lo);
+                TelephoneU = db.getPhoneUser(lo);
+                ImageU = db.getImageUser(lo);
+                AdresseU = db.getEmailUser(lo);
                 name = (TextView) v.findViewById(R.id.TextNom);
                 name.setText(NomU);
                 prename = (TextView) v.findViewById(R.id.TextPrenom);
