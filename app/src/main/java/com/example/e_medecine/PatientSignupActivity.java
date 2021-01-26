@@ -178,7 +178,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         //if(genre.equals("")||assurance.equals("")||ville.equals("")||prenom.equals("")||nom.equals("")||email.equals("")
                // ||mdp.equals("")||confirmMdp.equals("")||phone.equals("")||age.equals("")||adresse.equals(""))
         if(ville.equals("")||prenom.equals("")||email.equals("")
-                ||mdp.equals("")||isclicked == false)
+                ||mdp.equals(""))
         {
 
             Toast.makeText(getApplicationContext(),"Fiels are empty or image not set",Toast.LENGTH_SHORT).show();
