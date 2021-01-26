@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,6 +47,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     private String namedoc,lastnamedoc,maildoc,passwordoc,phonedoc,roledoc,genderdoc;
     private final int REQUEST_CODE_GALLERY = 999;
     private GlobalDbHelper db;
+    private SQLiteDatabase sqLiteDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,57 +95,27 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
                             if (locate.length() > 1) {
-                                int idv = 0;
-                                int iduser = 0;
-                                int idspec = 0;
-                                ContentValues values = new ContentValues();
-                                ContentValues valuesv = new ContentValues();
-                                ContentValues valuesS = new ContentValues();
-                                ContentValues valuesD = new ContentValues();
-                                valuesv.put("label", city);
-                                db.insertville(valuesv);
-                                Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
-                                if (cursor != null && cursor.moveToLast()) {
-                                    idv = cursor.getInt(0);
+                                int Idville = db.getIdVille(city);
+                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,roledoc);
+                                int iduser = db.getIdUser(maildoc);
+                                int IdSpecialite = db.getIdSpecialite(specialite);
+                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte);
+                                if (insertuser == true && insertmedecin == true)
+                                {
+                                    Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
+                                    Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
+                                    startActivity(ilogin);
+                                }else {
+                                    Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
                                 }
-                                values.put("nomUser", namedoc);
-                                values.put("prenomUser", lastnamedoc);
-                                values.put("genreUser", genderdoc);
-                                values.put("telephoneUser", phonedoc);
-                                values.put("imageUser", imgprofileval);
-                                values.put("idVille", idv);
-                                values.put("emailUser", maildoc);
-                                values.put("passwordUser", passwordoc);
-                                values.put("roleUser", roledoc);
-                                db.insertuser(values);
-                                Cursor cursor1 = db.getData("SELECT * FROM users WHERE idUser");
-                                if (cursor1 != null && cursor1.moveToLast()) {
-                                    iduser = cursor1.getInt(0);
-                                }
-                                valuesS.put("label", specialite);
-                                db.insertspecialite(valuesS);
-                                Cursor cursor2 = db.getData("SELECT * FROM specialites WHERE idSpecialite");
-                                if (cursor2 != null && cursor2.moveToLast()) {
-                                    idspec = cursor2.getInt(0);
-                                }
-                                valuesD.put("idUser", iduser);
-                                valuesD.put("idSpecialite", idspec);
-                                valuesD.put("typeMedecin", typedoc);
-                                valuesD.put("localisationMedecin", locate);
-                                valuesD.put("TermeCondition", charte);
-                                db.insertdocteur(valuesD);
-                                Toast.makeText(InscriptionSuite.this, "Inscription du Docteur Réussie", Toast.LENGTH_SHORT).show();
-                                Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
-                                startActivity(ilogin);
-
                             } else {
-                                Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InscriptionSuite.this, "Please fill the fields", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InscriptionSuite.this, "Please check the terms and conditions", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(InscriptionSuite.this, "Veuillez Monsieur choisir la photo de votre profil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InscriptionSuite.this, "May sir choose a photo for your profil", Toast.LENGTH_SHORT).show();
                     }
                 } else if (genderdoc.equals("Femme")) {
                     if (click == true)
@@ -151,56 +123,27 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
                             if (locate.length() > 1) {
-                                int idv = 0;
-                                int iduser = 0;
-                                int idspec = 0;
-                                ContentValues values = new ContentValues();
-                                ContentValues valuesv = new ContentValues();
-                                ContentValues valuesS = new ContentValues();
-                                ContentValues valuesD = new ContentValues();
-                                valuesv.put("label", city);
-                                db.insertville(valuesv);
-                                Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
-                                if (cursor != null && cursor.moveToLast()) {
-                                    idv = cursor.getInt(0);
+                                int Idville = db.getIdVille(city);
+                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,roledoc);
+                                int iduser = db.getIdUser(maildoc);
+                                int IdSpecialite = db.getIdSpecialite(specialite);
+                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte);
+                                if (insertuser == true && insertmedecin == true)
+                                {
+                                    Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
+                                    Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
+                                    startActivity(ilogin);
+                                }else {
+                                    Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
                                 }
-                                values.put("nomUser", namedoc);
-                                values.put("prenomUser", lastnamedoc);
-                                values.put("genreUser", genderdoc);
-                                values.put("telephoneUser", phonedoc);
-                                values.put("imageUser", imgprofileval);
-                                values.put("idVille", idv);
-                                values.put("emailUser", maildoc);
-                                values.put("passwordUser", passwordoc);
-                                values.put("roleUser", roledoc);
-                                db.insertuser(values);
-                                Cursor cursor1 = db.getData("SELECT * FROM users WHERE idUser");
-                                if (cursor1 != null && cursor1.moveToLast()) {
-                                    iduser = cursor1.getInt(0);
-                                }
-                                valuesS.put("label", specialite);
-                                db.insertspecialite(valuesS);
-                                Cursor cursor2 = db.getData("SELECT * FROM specialites WHERE idSpecialite");
-                                if (cursor2 != null && cursor2.moveToLast()) {
-                                    idspec = cursor2.getInt(0);
-                                }
-                                valuesD.put("idUser", iduser);
-                                valuesD.put("idSpecialite", idspec);
-                                valuesD.put("typeMedecin", typedoc);
-                                valuesD.put("localisationMedecin", locate);
-                                valuesD.put("TermeCondition", charte);
-                                db.insertdocteur(valuesD);
-                                Toast.makeText(InscriptionSuite.this, "Inscription du Docteur Réussie", Toast.LENGTH_SHORT).show();
-                                Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
-                                startActivity(ilogin);
                             } else {
-                                Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InscriptionSuite.this, "Please fill the fields", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InscriptionSuite.this, "Please check the terms and conditions", Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(InscriptionSuite.this, "Veuillez Ma Dame choisir la photo de votre profil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InscriptionSuite.this, "May Mrs choose a photo for her profil", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -75,10 +75,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     {
         getWritableDatabase().insert("medecins",null,values);
     }
-    public void insertuser(ContentValues values)
-    {
-        getWritableDatabase().insert("users",null,values);
-    }
     public void insertville(ContentValues values)
     {
         getWritableDatabase().insert("villes",null,values);
@@ -286,7 +282,33 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return idville;
     }
-
+    public Integer getIdSpecialite(String labelspecialite)
+    {
+        Integer idspec = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT idSpecialite FROM specialites WHERE label = '"+labelspecialite+"' ",null);
+        while (cursor.moveToNext())
+        {
+            idspec = cursor.getInt(0);
+        }
+        return idspec;
+    }
+    public boolean insertMedecin(int iduser,int idspecialite,String typedoc,String Locate,String charte)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesD = new ContentValues();
+        valuesD.put("idUser", iduser);
+        valuesD.put("idSpecialite", idspecialite);
+        valuesD.put("typeMedecin", typedoc);
+        valuesD.put("localisationMedecin", Locate);
+        valuesD.put("TermeCondition", charte);
+        long insert  = db.insert("medecins",null,valuesD);
+        if (insert == -1)
+        {
+            return false;
+        }
+        return true;
+    }
     public boolean insertPatient(int idUser,String agePatient,String Adresse ,String cnssPatient )
     {
         SQLiteDatabase db=this.getWritableDatabase();
