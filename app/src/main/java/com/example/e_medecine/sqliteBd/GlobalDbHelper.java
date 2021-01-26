@@ -400,8 +400,110 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return EmailU;
     }
-    //public int GetiduserRDV(int id)
-
+    public int GetiduserRDV(int id)
+    {
+        int iduser = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.idUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            iduser = cursor.getInt(0);
+        }
+        return iduser;
+    }
+    public int GetidpatientRDV(int id)
+    {
+        int idpatient = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT p.idPatient" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            idpatient = cursor.getInt(0);
+        }
+        return idpatient;
+    }
+    public int GetidmedecinRDV(int id)
+    {
+        int idmedecin = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT R.idMedecin" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            idmedecin = cursor.getInt(0);
+        }
+        return idmedecin;
+    }
+    public byte[] GetImageRDV(int id)
+    {
+        byte[] imageUserRDV = new byte[0];
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.imageUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            imageUserRDV = cursor.getBlob(0);
+        }
+        return imageUserRDV;
+    }
+    public String GetNomUserRDV(int id)
+    {
+        String NomUserRDv = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.nomUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            NomUserRDv = cursor.getString(0);
+        }
+        return NomUserRDv;
+    }
+    public String GetPrenomUserRDV(int id)
+    {
+        String PrenomUserRDV = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT u.prenomUser" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            PrenomUserRDV = cursor.getString(0);
+        }
+        return PrenomUserRDV;
+    }
+    public String GetTitrePatientRDV(int id)
+    {
+        String TitrePatientRDV = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT R.titreRDV" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            TitrePatientRDV = cursor.getString(0);
+        }
+        return TitrePatientRDV;
+    }
+    public String GetDatePatientRDV(int id)
+    {
+        String DatePatientRDV = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT R.dateRDV" +
+                " FROM users AS u, patients AS p, RDVs AS R" +
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+        while (cursor.moveToNext())
+        {
+            DatePatientRDV = cursor.getString(0);
+        }
+        return DatePatientRDV;
+    }
     public Boolean loginpassword(String login,String password){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.rawQuery("select * from users where emailUser=? and passwordUser=?",new String[]{login,password});
