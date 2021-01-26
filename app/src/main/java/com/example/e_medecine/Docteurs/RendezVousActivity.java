@@ -36,8 +36,7 @@ public class RendezVousActivity extends AppCompatActivity {
         adapterRDV = new RendezvousAdapter(this,R.layout.rendezvousitems,listRdv);
         listView.setAdapter(adapterRDV);
         db = new GlobalDbHelper(this);
-        listRdv.clear();
-        int idu = db.GetiduserRDV(id);
+        /*int idu = db.GetiduserRDV(id);
         int idp = db.GetidpatientRDV(id);
         int idm = db.GetidmedecinRDV(id);
         byte[] img = db.GetImageRDV(id);
@@ -45,7 +44,21 @@ public class RendezVousActivity extends AppCompatActivity {
         String prenom = db.GetPrenomUserRDV(id);
         String titrerdv = db.GetTitrePatientRDV(id);
         String daterdv = db.GetDatePatientRDV(id);
-        listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
+        listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));*/
+        Cursor cursor = db.getdataRendezvous(id);
+        listRdv.clear();
+        while (cursor.moveToNext())
+        {
+            int idu = cursor.getInt(0);
+            int idp = cursor.getInt(1);
+            int idm = cursor.getInt(2);
+            byte[] img = cursor.getBlob(3);
+            String nom = cursor.getString(4);
+            String prenom = cursor.getString(5);
+            String titrerdv = cursor.getString(6);
+            String daterdv = cursor.getString(7);
+            listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
+        }
         adapterRDV.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,21 +82,19 @@ public class RendezVousActivity extends AppCompatActivity {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                Cursor cursor = db.getdataRendezvous(id);
                 listRdv.clear();
-                int idu = db.GetiduserRDV(id);
-                int idp = db.GetidpatientRDV(id);
-                int idm = db.GetidmedecinRDV(id);
-                byte[] img = db.GetImageRDV(id);
-                String nom = db.GetNomUserRDV(id);
-                String prenom = db.GetPrenomUserRDV(id);
-                String titrerdv = db.GetTitrePatientRDV(id);
-                String daterdv = db.GetDatePatientRDV(id);
-                try {
-                    //Date date = new SimpleDateFormat("dd/MM/yyyy").parse(daterdv);
-                    listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
-                }catch (Exception e)
+                while (cursor.moveToNext())
                 {
-                    e.printStackTrace();
+                    int idu = cursor.getInt(0);
+                    int idp = cursor.getInt(1);
+                    int idm = cursor.getInt(2);
+                    byte[] img = cursor.getBlob(3);
+                    String nom = cursor.getString(4);
+                    String prenom = cursor.getString(5);
+                    String titrerdv = cursor.getString(6);
+                    String daterdv = cursor.getString(7);
+                    listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
                 }
                 adapterRDV.notifyDataSetChanged();
                 swipe.setRefreshing(false);
