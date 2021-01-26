@@ -42,7 +42,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     private RadioButton Condition;
     private Button ajout,choose;
     private String locate,charte,city,specialite,typedoc;
-    private boolean isclicked = false;
+    private boolean click = false;
     private String namedoc,lastnamedoc,maildoc,passwordoc,phonedoc,roledoc,genderdoc;
     private final int REQUEST_CODE_GALLERY = 999;
     private GlobalDbHelper db;
@@ -53,12 +53,12 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         init();
         db = new GlobalDbHelper(this);
         ArrayList<String> listville = db.getAllVilles();
-        //ArrayAdapter<CharSequence> adapterV = ArrayAdapter.createFromResource(this,R.array.ville, android.R.layout.simple_spinner_item);
         ArrayAdapter<String> adapterV = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listville);
         adapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerV.setAdapter(adapterV);
         spinnerV.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapterS = ArrayAdapter.createFromResource(this,R.array.specialite,android.R.layout.simple_spinner_item);
+        ArrayList<String> listspecialite = db.getAllSpecialites();
+        ArrayAdapter<String> adapterS = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listspecialite);
         adapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerS.setAdapter(adapterS);
         spinnerS.setOnItemSelectedListener(this);
@@ -80,7 +80,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                 ActivityCompat.requestPermissions(InscriptionSuite.this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         REQUEST_CODE_GALLERY);
-                isclicked = true;
+                click = true;
             }
         });
         ajout.setOnClickListener(new View.OnClickListener() {
@@ -88,127 +88,120 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 locate = localisation.getText().toString();
                 charte = Condition.getText().toString();
-                byte[] imgprofileval = imageViewToByte(imgpro);
-                if (isclicked)
-                {
-                    if (genderdoc.equals("Homme"))
-                    {
-                       if (Condition.isChecked())
-                       {
-                           if (locate.length() > 1)
-                           {
-                                    int idv = 0;
-                                    int iduser = 0;
-                                    int idspec = 0;
-                                    ContentValues values = new ContentValues();
-                                    ContentValues valuesv = new ContentValues();
-                                    ContentValues valuesS = new ContentValues();
-                                    ContentValues valuesD = new ContentValues();
-                                    valuesv.put("label",city);
-                                    db.insertville(valuesv);
-                                    Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
-                                    if (cursor != null && cursor.moveToLast())
-                                    {
-                                        idv = cursor.getInt(0);
-                                    }
-                                    values.put("nomUser",namedoc);
-                                    values.put("prenomUser",lastnamedoc);
-                                    values.put("genreUser",genderdoc);
-                                    values.put("telephoneUser",phonedoc);
-                                    values.put("imageUser",imgprofileval);
-                                    values.put("idVille",idv);
-                                    values.put("emailUser",maildoc);
-                                    values.put("passwordUser",passwordoc);
-                                    values.put("roleUser",roledoc);
-                                    db.insertuser(values);
-                                    Cursor cursor1 = db.getData("SELECT * FROM users WHERE idUser");
-                                    if (cursor1 != null && cursor1.moveToLast())
-                                    {
-                                        iduser = cursor1.getInt(0);
-                                    }
-                                    valuesS.put("label",specialite);
-                                    db.insertspecialite(valuesS);
-                                    Cursor cursor2 = db.getData("SELECT * FROM specialites WHERE idSpecialite");
-                                    if (cursor2 != null && cursor2.moveToLast())
-                                    {
-                                        idspec = cursor2.getInt(0);
-                                    }
-                                    valuesD.put("idUser",iduser);
-                                    valuesD.put("idSpecialite",idspec);
-                                    valuesD.put("typeMedecin",typedoc);
-                                    valuesD.put("localisationMedecin",locate);
-                                    valuesD.put("TermeCondition",charte);
-                                    db.insertdocteur(valuesD);
-                                    Toast.makeText(InscriptionSuite.this, "Inscription du Docteur Réussie", Toast.LENGTH_SHORT).show();
-                                    Intent ilogin = new Intent(InscriptionSuite.this,Login.class);
-                                    startActivity(ilogin);
+                if (genderdoc.equals("Homme")) {
+                    if (click == true) {
+                        byte[] imgprofileval = imageViewToByte(imgpro);
+                        if (Condition.isChecked()) {
+                            if (locate.length() > 1) {
+                                int idv = 0;
+                                int iduser = 0;
+                                int idspec = 0;
+                                ContentValues values = new ContentValues();
+                                ContentValues valuesv = new ContentValues();
+                                ContentValues valuesS = new ContentValues();
+                                ContentValues valuesD = new ContentValues();
+                                valuesv.put("label", city);
+                                db.insertville(valuesv);
+                                Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
+                                if (cursor != null && cursor.moveToLast()) {
+                                    idv = cursor.getInt(0);
+                                }
+                                values.put("nomUser", namedoc);
+                                values.put("prenomUser", lastnamedoc);
+                                values.put("genreUser", genderdoc);
+                                values.put("telephoneUser", phonedoc);
+                                values.put("imageUser", imgprofileval);
+                                values.put("idVille", idv);
+                                values.put("emailUser", maildoc);
+                                values.put("passwordUser", passwordoc);
+                                values.put("roleUser", roledoc);
+                                db.insertuser(values);
+                                Cursor cursor1 = db.getData("SELECT * FROM users WHERE idUser");
+                                if (cursor1 != null && cursor1.moveToLast()) {
+                                    iduser = cursor1.getInt(0);
+                                }
+                                valuesS.put("label", specialite);
+                                db.insertspecialite(valuesS);
+                                Cursor cursor2 = db.getData("SELECT * FROM specialites WHERE idSpecialite");
+                                if (cursor2 != null && cursor2.moveToLast()) {
+                                    idspec = cursor2.getInt(0);
+                                }
+                                valuesD.put("idUser", iduser);
+                                valuesD.put("idSpecialite", idspec);
+                                valuesD.put("typeMedecin", typedoc);
+                                valuesD.put("localisationMedecin", locate);
+                                valuesD.put("TermeCondition", charte);
+                                db.insertdocteur(valuesD);
+                                Toast.makeText(InscriptionSuite.this, "Inscription du Docteur Réussie", Toast.LENGTH_SHORT).show();
+                                Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
+                                startActivity(ilogin);
 
-                           }else {
-                                    Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs ", Toast.LENGTH_SHORT).show();
-                           }
-                       }else {
-                           Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
-                       }
-                    }else if (genderdoc.equals("Femme"))
-                    {
-                        if (Condition.isChecked())
-                        {
-                            if (locate.length() > 1)
-                            {
-                                    int idv = 0;
-                                    int iduser = 0;
-                                    int idspec = 0;
-                                    ContentValues values = new ContentValues();
-                                    ContentValues valuesv = new ContentValues();
-                                    ContentValues valuesS = new ContentValues();
-                                    ContentValues valuesD = new ContentValues();
-                                    valuesv.put("label",city);
-                                    db.insertville(valuesv);
-                                    Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
-                                    if (cursor != null && cursor.moveToLast())
-                                    {
-                                        idv = cursor.getInt(0);
-                                    }
-                                    values.put("nomUser",namedoc);
-                                    values.put("prenomUser",lastnamedoc);
-                                    values.put("genreUser",genderdoc);
-                                    values.put("telephoneUser",phonedoc);
-                                    values.put("imageUser",imgprofileval);
-                                    values.put("idVille",idv);
-                                    values.put("emailUser",maildoc);
-                                    values.put("passwordUser",passwordoc);
-                                    values.put("roleUser",roledoc);
-                                    db.insertuser(values);
-                                    Cursor cursor1 = db.getData("SELECT * FROM users WHERE idUser");
-                                    if (cursor1 != null && cursor1.moveToLast())
-                                    {
-                                        iduser = cursor1.getInt(0);
-                                    }
-                                    valuesS.put("label",specialite);
-                                    db.insertspecialite(valuesS);
-                                    Cursor cursor2 = db.getData("SELECT * FROM specialites WHERE idSpecialite");
-                                    if (cursor2 != null && cursor2.moveToLast())
-                                    {
-                                        idspec = cursor2.getInt(0);
-                                    }
-                                    valuesD.put("idUser",iduser);
-                                    valuesD.put("idSpecialite",idspec);
-                                    valuesD.put("typeMedecin",typedoc);
-                                    valuesD.put("localisationMedecin",locate);
-                                    valuesD.put("TermeCondition",charte);
-                                    db.insertdocteur(valuesD);
-                                    Toast.makeText(InscriptionSuite.this, "Inscription du Docteur Réussie", Toast.LENGTH_SHORT).show();
-                                    Intent ilogin = new Intent(InscriptionSuite.this,Login.class);
-                                    startActivity(ilogin);
-                            }else {
-                                    Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs ", Toast.LENGTH_SHORT).show();
                             }
-                        }else{
-                                Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(InscriptionSuite.this, "Veuillez Monsieur choisir la photo de votre profil", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(InscriptionSuite.this, "Veuillez choisir une photo de profile", Toast.LENGTH_SHORT).show();
+                } else if (genderdoc.equals("Femme")) {
+                    if (click == true)
+                    {
+                        byte[] imgprofileval = imageViewToByte(imgpro);
+                        if (Condition.isChecked()) {
+                            if (locate.length() > 1) {
+                                int idv = 0;
+                                int iduser = 0;
+                                int idspec = 0;
+                                ContentValues values = new ContentValues();
+                                ContentValues valuesv = new ContentValues();
+                                ContentValues valuesS = new ContentValues();
+                                ContentValues valuesD = new ContentValues();
+                                valuesv.put("label", city);
+                                db.insertville(valuesv);
+                                Cursor cursor = db.getData("SELECT * FROM villes WHERE idVille");
+                                if (cursor != null && cursor.moveToLast()) {
+                                    idv = cursor.getInt(0);
+                                }
+                                values.put("nomUser", namedoc);
+                                values.put("prenomUser", lastnamedoc);
+                                values.put("genreUser", genderdoc);
+                                values.put("telephoneUser", phonedoc);
+                                values.put("imageUser", imgprofileval);
+                                values.put("idVille", idv);
+                                values.put("emailUser", maildoc);
+                                values.put("passwordUser", passwordoc);
+                                values.put("roleUser", roledoc);
+                                db.insertuser(values);
+                                Cursor cursor1 = db.getData("SELECT * FROM users WHERE idUser");
+                                if (cursor1 != null && cursor1.moveToLast()) {
+                                    iduser = cursor1.getInt(0);
+                                }
+                                valuesS.put("label", specialite);
+                                db.insertspecialite(valuesS);
+                                Cursor cursor2 = db.getData("SELECT * FROM specialites WHERE idSpecialite");
+                                if (cursor2 != null && cursor2.moveToLast()) {
+                                    idspec = cursor2.getInt(0);
+                                }
+                                valuesD.put("idUser", iduser);
+                                valuesD.put("idSpecialite", idspec);
+                                valuesD.put("typeMedecin", typedoc);
+                                valuesD.put("localisationMedecin", locate);
+                                valuesD.put("TermeCondition", charte);
+                                db.insertdocteur(valuesD);
+                                Toast.makeText(InscriptionSuite.this, "Inscription du Docteur Réussie", Toast.LENGTH_SHORT).show();
+                                Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
+                                startActivity(ilogin);
+                            } else {
+                                Toast.makeText(InscriptionSuite.this, "Veuillez Remplir les Champs", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(InscriptionSuite.this, "Veuillez cochez les termes & conditions", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(InscriptionSuite.this, "Veuillez Ma Dame choisir la photo de votre profil", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
