@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3F51B5"
+    android:background="#D7D8DD"
     tools:context=".Docteurs.Inscription">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,7 +94,7 @@
             android:layout_marginTop="44dp"
             android:gravity="center"
             android:text="Inscription"
-            android:textColor="#C6C5C5"
+            android:textColor="#050505"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +115,7 @@
                 android:layout_width="122dp"
                 android:layout_height="wrap_content"
                 android:text="Homme"
-                android:textColor="#CCC4C4"
+                android:textColor="#0E0E0E"
                 android:textSize="18sp" />
 
             <RadioButton
@@ -123,7 +123,7 @@
                 android:layout_width="122dp"
                 android:layout_height="wrap_content"
                 android:text="Femme"
-                android:textColor="#CCC4C4"
+                android:textColor="#100F0F"
                 android:textSize="18sp" />
         </RadioGroup>
 
@@ -136,7 +136,7 @@
             android:layout_marginRight="64dp"
             android:onClick="NextInscription"
             android:text="Suivant"
-            android:textColor="#E91E63"
+            android:textColor="#36383A"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
