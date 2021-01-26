@@ -38,6 +38,8 @@ public class Login extends AppCompatActivity {
                 String pass = password.getText().toString();
                 if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
+                    login.setText(null);
+                    password.setText(null);
                     Intent iacceuil = new Intent(Login.this,Acceuil.class);
                     iacceuil.putExtra("Log",log);
                     startActivity(iacceuil);
