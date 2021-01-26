@@ -153,11 +153,14 @@
     <ImageView
         android:id="@+id/imageProfil"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@drawable/user_icon"
+        android:scaleX=".8"
+        android:scaleY=".8"
+        />
 
     <Button
         android:id="@+id/ChooseProfile"

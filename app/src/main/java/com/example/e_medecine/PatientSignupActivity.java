@@ -118,22 +118,7 @@ public class PatientSignupActivity extends AppCompatActivity {
 
     }
 
-    private boolean validateEmail(){
 
-        String emailInput=editTextEmail.getText().toString().trim();
-        if(emailInput.isEmpty()){
-            editTextEmail.setError("Field can't be empty");
-            return false;}
-        else if(!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
-            editTextEmail.setError("Please enter a valid email address");
-            return false;
-        }
-        else {
-            editTextEmail.setError(null);
-            return true;
-        }
-
-    }
     @OnTextChanged({R.id.email,R.id.mdp})
     public void ValidationFields(){
 
