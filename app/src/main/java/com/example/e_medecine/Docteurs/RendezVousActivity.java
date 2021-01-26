@@ -45,13 +45,7 @@ public class RendezVousActivity extends AppCompatActivity {
         String prenom = db.GetPrenomUserRDV(id);
         String titrerdv = db.GetTitrePatientRDV(id);
         String daterdv = db.GetDatePatientRDV(id);
-        try {
-            //Date date = new SimpleDateFormat("dd/MM/yyyy").parse(daterdv);
-            listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
         adapterRDV.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
