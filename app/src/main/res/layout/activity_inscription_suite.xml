@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3F51B5"
+    android:background="#D7D8DD"
     tools:context=".Docteurs.InscriptionSuite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#D7D8DD">
 
         <TextView
             android:id="@+id/textViewType"
@@ -18,7 +19,7 @@
             android:layout_marginTop="28dp"
             android:gravity="center"
             android:text="Type de Docteur"
-            android:textColor="#FFFFFF"
+            android:textColor="#0C0C0C"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,17 +29,15 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="44dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="36dp"
             android:onClick="back"
             android:text="Precédent"
-            android:textColor="#E91E63"
+            android:textColor="#232021"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DCharte"
-            app:layout_constraintVertical_bias="0.989" />
+            app:layout_constraintTop_toBottomOf="@+id/DCharte" />
 
         <Spinner
             android:id="@+id/DSpecialite"
@@ -76,6 +75,7 @@
             android:gravity="center"
             android:hint="Localisation"
             android:inputType="textPersonName"
+            android:textColorHint="#121111"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
             android:text="j'ai lu et j'accepte les termes et conditions"
-            android:textColor="#FFFFFF"
+            android:textColor="#0C0C0C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/DAdresse" />
@@ -110,12 +110,12 @@
             android:id="@+id/Sinscrire"
             android:layout_width="121dp"
             android:layout_height="40dp"
-            android:layout_marginTop="68dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginRight="56dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginRight="64dp"
             android:background="#3F51B5"
             android:text="S'inscrire"
-            android:textColor="#B5B2B2"
+            android:textColor="#F1ECEC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/DCharte" />
 
@@ -126,7 +126,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Villes"
-            android:textColor="#FFFFFF"
+            android:textColor="#090909"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
@@ -139,8 +139,9 @@
             android:layout_height="39dp"
             android:layout_marginTop="28dp"
             android:gravity="center"
+            android:shadowColor="#131313"
             android:text="Spécialités"
-            android:textColor="#FFFFFF"
+            android:textColor="#0C0C0C"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
