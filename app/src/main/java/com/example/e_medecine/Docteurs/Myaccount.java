@@ -73,7 +73,7 @@ public class Myaccount extends AppCompatActivity {
                 {
                     byte[] imgval = imageProToByte(ImageP);
                     db.updateImage(imgval,ID);
-                    Toast.makeText(Myaccount.this, "Votre Image de profil a été changé", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Myaccount.this, "Your Profile Image has been changed", Toast.LENGTH_SHORT).show();
                     finish();
                     Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                 }else{
