@@ -75,9 +75,9 @@ public class Myaccount extends AppCompatActivity {
                     db.updateImage(imgval,ID);
                     Toast.makeText(Myaccount.this, "Votre Image de profil a été changé", Toast.LENGTH_SHORT).show();
                     finish();
-                    Toast.makeText(Myaccount.this, "Balayer la page Acceuil vers le bas pour l'actualiser ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(Myaccount.this, "Veuillez choisir Votre nouvelle image de profile", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Myaccount.this, "Please choose your New Profil Image", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -93,30 +93,30 @@ public class Myaccount extends AppCompatActivity {
                     if (BoxNom.isChecked())
                     {
                         db.updatenom(Dnom,ID);
-                        Toast.makeText(Myaccount.this, "Votre Nom a été changé avec succès", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Balayer la page Acceuil vers le bas pour l'actualiser ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Your Last Name has been successfully changed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     if (BoxPrenom.isChecked())
                     {
                         db.updateprenom(Dprenom,ID);
-                        Toast.makeText(Myaccount.this, "Votre Prénom a été changé avec succès", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Balayer la page Acceuil vers le bas pour l'actualiser ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Your first name has been changed successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     if (BoxAdresse.isChecked())
                     {
                         db.updatemail(Dmail,ID);
-                        Toast.makeText(Myaccount.this, "Votre addresse a été changé avec succès", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Balayer la page Acceuil vers le bas pour l'actualiser ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Your address has been successfully changed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     if (BoxPhone.isChecked())
                     {
                         db.updatephone(Dphone,ID);
-                        Toast.makeText(Myaccount.this, "Votre Téléphone a été changé avec succès", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Balayer la page Acceuil vers le bas pour l'actualiser ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Your Number Phone has been successfully changed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     finish();
                 }else {
-                    Toast.makeText(Myaccount.this, "Veuillez écrire La nouvelle donnée et cocher la case voulue", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Myaccount.this, "Please fill at least one of the fields and check the corresponding checkbox ", Toast.LENGTH_LONG).show();
                 }
             }
         });
