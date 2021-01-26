@@ -225,12 +225,36 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return list;
     }
+    public ArrayList<String> getAllSpecialites() {
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.beginTransaction();
+        try {
+            list.add(0,"Choose speciality");
+            String selectQuery = "SELECT * FROM specialites" ;
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    String specialite = cursor.getString(cursor.getColumnIndex("label"));
+                    list.add(specialite);
+                }
+            }
+            db.setTransactionSuccessful();
+        }catch (Exception e){e.printStackTrace();}
+        finally {
+            db.endTransaction();
+            db.close();
+        }
+        return list;
+    }
 
-    public boolean insertUser(String nomUser,String prenomUser ,String genreUser,String telephoneUser,
+    public boolean insertUser(byte[] imageUser,String nomUser,String prenomUser ,String genreUser,String telephoneUser,
                                int idVille ,String emailUser ,String passwordUser,String roleUser)
     {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
+        contentValues.put("imageUser",imageUser);
+        contentValues.put("nomUser",nomUser);
         contentValues.put("nomUser",nomUser);
         contentValues.put("prenomUser",prenomUser);
         contentValues.put("genreUser",genreUser);
