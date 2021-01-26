@@ -533,7 +533,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     }
     public Boolean loginpassword(String login,String password){
         SQLiteDatabase db=this.getReadableDatabase();
-        Cursor cursor=db.rawQuery("select * from users where emailUser=? and passwordUser=?",new String[]{login,password});
+        Cursor cursor=db.rawQuery("select * from users where emailUser=? and passwordUser=? and roleUser=?",new String[]{login,password,"patient"});
         if(cursor.getCount()>0) return true;
         else return false;
     }
