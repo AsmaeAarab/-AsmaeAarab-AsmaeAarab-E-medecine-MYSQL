@@ -9,14 +9,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.e_medecine.activity.MedecinDetailleActivity;
+import com.example.e_medecine.activity.SpecialitesActivity;
+import com.example.e_medecine.model.Specialite;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PatientAccueilActivity extends AppCompatActivity {
 
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,4 +72,13 @@ public class PatientAccueilActivity extends AppCompatActivity {
 
     }
     //DARAWER CODE END
+
+    @OnClick(R.id.rdv)
+    public void rendezVous(){
+        Intent intent=new Intent(this, SpecialitesActivity.class);
+        Bundle ex = getIntent().getExtras();
+        String lo = new String(ex.getString("emailPatient"));
+        intent.putExtra("email_patient",lo);
+        startActivity(intent);
+    }
 }

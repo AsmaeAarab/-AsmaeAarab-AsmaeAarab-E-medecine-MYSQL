@@ -6,36 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".activity.SpecialitesActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/patient_toolbar" />
 
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:drawableRight="@drawable/ic_search"
+        android:elevation="4dp"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/search"
+        android:inputType="text"
         android:padding="16dp"
         android:paddingRight="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/recycleView"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="8dp"
-        android:elevation="4dp"
-        android:inputType="text"/>
+        tools:layout_editor_absoluteX="0dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/specialite_item" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,6 +41,7 @@ public class SpecialitesActivity extends AppCompatActivity implements Specialite
         setContentView(R.layout.activity_specialites);
         ButterKnife.bind(this);
 
+
         list=new ArrayList<>(db.getSpecialites());
         adapter=new SpecialitesAdapter(this,list,this);
 
@@ -73,7 +74,10 @@ public class SpecialitesActivity extends AppCompatActivity implements Specialite
 
         Intent intent=new Intent(this,MedecinActivity.class);
         Specialite specialite=list.get(position);
+        Bundle ex = getIntent().getExtras();
+        String lo = new String(ex.getString("email_patient"));
         intent.putExtra("specialite",specialite.getId_specialite());
+        intent.putExtra("mail",lo);
         startActivity(intent);
     }
 
