@@ -115,6 +115,7 @@ public class MedecinDetailleActivity extends AppCompatActivity {
            @Override
            public void onPositiveButtonClick(Object selection) {
                String date=materialDatePicker.getHeaderText();
+               System.out.println("date "+date);
                //db.addRendezVous(specialite,date,idpatient,id);
            }
        });

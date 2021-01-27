@@ -45,19 +45,19 @@ public class PatientLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientSignupActivity.class);
         startActivity(intent);
     }
-    /*
-    @OnClick(R.id.singIn)
+
+    @OnClick(R.id.signIn)
     void signin(){
         Intent intent = new Intent(this, SpecialitesActivity.class);
         startActivity(intent);
     }
 
-     */
+    /*
 
     @OnClick(R.id.signIn)
     void signIn(){
         db = new GlobalDbHelper(this);
-        Intent intent = new Intent(this, PatientAccueilActivity.class);
+        Intent intent = new Intent(this, SpecialitesActivity.class);
         String login = editTextLogin.getText().toString();
         String password = editTextPassword.getText().toString();
         Boolean checkloginpass = db.loginpassword(login, password);
@@ -86,6 +86,8 @@ public class PatientLoginActivity extends AppCompatActivity {
 
     }
 
+     */
+
     private void getPreferencesData(){
         SharedPreferences sp= getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         if(sp.contains("pref_name")){
@@ -101,6 +103,8 @@ public class PatientLoginActivity extends AppCompatActivity {
             RemenberMe.setChecked(b);
         }
     }
+
+
 
 
 }
