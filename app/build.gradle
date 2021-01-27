@@ -45,9 +45,17 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.github.jd-alexander:library:1.1.0'
+<<<<<<< HEAD
 
     implementation 'com.firebaseui:firebase-ui-auth:6.1.0'
 
+||||||| a617eaa
+
+=======
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+>>>>>>> rania
     implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

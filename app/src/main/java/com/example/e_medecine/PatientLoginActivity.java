@@ -2,7 +2,6 @@ package com.example.e_medecine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,9 +9,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import butterknife.BindView;
+||||||| a617eaa
+=======
+import com.example.e_medecine.activity.MedecinActivity;
+import com.example.e_medecine.activity.SpecialitesActivity;
+
+>>>>>>> rania
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -42,6 +48,11 @@ public class PatientLoginActivity extends AppCompatActivity {
     @OnClick(R.id.signUp)
     void signup(){
         Intent intent = new Intent(this, PatientSignupActivity.class);
+        startActivity(intent);
+    }
+    @OnClick(R.id.singIn)
+    void signin(){
+        Intent intent = new Intent(this, SpecialitesActivity.class);
         startActivity(intent);
     }
 

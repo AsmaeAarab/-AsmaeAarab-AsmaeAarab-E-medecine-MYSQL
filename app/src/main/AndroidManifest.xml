@@ -9,9 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Emedecine">
+<<<<<<< HEAD
         <activity android:name=".PatientUpdateActivity"></activity>
         <activity android:name=".PatientAccueilActivity" />
         <activity android:name=".PatientSignupActivity" />
+||||||| a617eaa
+        <activity android:name=".PatientSignupActivity"></activity>
+=======
+        <activity android:name=".activity.MedecinDetailleActivity"></activity>
+        <activity android:name=".activity.MedecinActivity" />
+        <activity android:name=".activity.SpecialitesActivity" />
+        <activity android:name=".PatientSignupActivity" />
+>>>>>>> rania
         <activity android:name=".PatientLoginActivity" />
         <activity android:name=".Docteurs.Login"/>
         <activity android:name=".Docteurs.Calendrier"></activity>
