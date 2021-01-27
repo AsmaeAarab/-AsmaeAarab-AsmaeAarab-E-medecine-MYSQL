@@ -191,18 +191,20 @@ public class PatientSignupActivity extends AppCompatActivity {
                 if (mdp.equals(confirmMdp)) {
                     try {
                         byte[] imgprofileval = imageViewToByte(imgpro);
-                        sqLiteDatabase.beginTransaction(); ///////////////
+                        sqLiteDatabase.beginTransaction();
                         Boolean insert = db.insertUser(imgprofileval,nom, prenom, genre, phone, Idville, email, mdp, "patient");
                         int idUser = db.getIdUser(email);
                         Boolean insert2 = db.insertPatient(idUser, age, adresse, assurance);
                         //|| insert2 ==true
                         if (insert == true && insert2 == true) {
-                            sqLiteDatabase.setTransactionSuccessful(); ////////////
+                            sqLiteDatabase.setTransactionSuccessful();
                             Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "Registration failed", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
+                            finish();
                         }
                     } finally {
                         sqLiteDatabase.endTransaction();

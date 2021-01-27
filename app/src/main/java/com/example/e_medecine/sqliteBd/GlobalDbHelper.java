@@ -253,7 +253,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         ContentValues contentValues= new ContentValues();
         contentValues.put("imageUser",imageUser);
         contentValues.put("nomUser",nomUser);
-        contentValues.put("nomUser",nomUser);
         contentValues.put("prenomUser",prenomUser);
         contentValues.put("genreUser",genreUser);
         contentValues.put("telephoneUser",telephoneUser);
@@ -266,23 +265,27 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         if(ins==-1) return  false;
         else return true;
     }
-    public void updateUser(byte[] imageUser,String nomUser,String prenomUser ,String genreUser,String telephoneUser,
-                           int idVille ,String emailUser ,String passwordUser,String roleUser){
+    public boolean updateUser(byte[] imageUser,String nomUser,String prenomUser ,String telephoneUser,
+                         String emailUser){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put("imageUser",imageUser);
         contentValues.put("nomUser",nomUser);
-        contentValues.put("nomUser",nomUser);
         contentValues.put("prenomUser",prenomUser);
-        contentValues.put("genreUser",genreUser);
         contentValues.put("telephoneUser",telephoneUser);
-        contentValues.put("idVille",idVille);
         contentValues.put("emailUser",emailUser);
-        contentValues.put("passwordUser",passwordUser);
-        contentValues.put("roleUser",roleUser);
-        db.update("users", contentValues, "emailUser=?" ,new String[]{emailUser});
+        //contentValues.put("passwordUser",passwordUser);
+        long ins=db.update("users", contentValues, "emailUser=?" ,new String[]{emailUser});
+        if(ins==-1) return  false;
+        else return true;
     }
 
+    public void updatePatient(int idUser,String agePatient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("agePatient",agePatient);
+        db.update("patients", contentValues, "idUser=?", new String[]{Integer.toString(idUser)});
+    }
 
     public Boolean checkEmail(String emailUser){
         SQLiteDatabase db=this.getReadableDatabase();
@@ -342,15 +345,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         else return true;
     }
 
-    public void updatePatient(int idUser,String agePatient,String Adresse ,String cnssPatient) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("idUser",idUser);
-        contentValues.put("agePatient",agePatient);
-        contentValues.put("Adresse",Adresse);
-        contentValues.put("cnssPatient",cnssPatient);
-        db.update("patients", contentValues, "idUser=?", new String[]{Integer.toString(idUser)});
-    }
 
     public int getIdUser(String email){
         int idUser=0;

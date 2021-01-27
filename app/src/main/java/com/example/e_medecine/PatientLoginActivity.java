@@ -66,7 +66,9 @@ public class PatientLoginActivity extends AppCompatActivity {
                 } else {
                     mPrefs.edit().clear().apply();
                 }
+                intent.putExtra("EmailUser",login);
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(getApplicationContext(), "Wrong login or password", Toast.LENGTH_SHORT).show();
             }
