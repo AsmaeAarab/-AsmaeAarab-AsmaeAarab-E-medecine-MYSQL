@@ -77,5 +77,14 @@ public class Inscription extends AppCompatActivity  {
                 Toast.makeText(this, "Veuillez remplir tous le champs s'il vous plait", Toast.LENGTH_LONG).show();
             }
         }
+        nom.setText(null);
+        prenom.setText(null);
+        email.setText(null);
+        password.setText(null);
+        phone.setText(null);
+    }
+    public void BackInscription(View v)
+    {
+        finish();
     }
 }

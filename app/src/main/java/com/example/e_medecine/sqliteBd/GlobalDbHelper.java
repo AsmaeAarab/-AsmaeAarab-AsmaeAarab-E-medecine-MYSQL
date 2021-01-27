@@ -421,13 +421,14 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return EmailU;
     }
+    String Role = "Patient";
     public int GetiduserRDV(int id)
     {
         int iduser = 0;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT u.idUser" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"'",null);
         while (cursor.moveToNext())
         {
             iduser = cursor.getInt(0);
@@ -440,7 +441,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT p.idPatient" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"'",null);
         while (cursor.moveToNext())
         {
             idpatient = cursor.getInt(0);
@@ -453,7 +454,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT R.idMedecin" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"'",null);
         while (cursor.moveToNext())
         {
             idmedecin = cursor.getInt(0);
@@ -466,7 +467,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT u.imageUser" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"'",null);
         while (cursor.moveToNext())
         {
             imageUserRDV = cursor.getBlob(0);
@@ -479,7 +480,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT u.nomUser" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"'",null);
         while (cursor.moveToNext())
         {
             NomUserRDv = cursor.getString(0);
@@ -492,7 +493,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT u.prenomUser" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"'",null);
         while (cursor.moveToNext())
         {
             PrenomUserRDV = cursor.getString(0);
@@ -505,7 +506,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT R.titreRDV" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"'",null);
         while (cursor.moveToNext())
         {
             TitrePatientRDV = cursor.getString(0);
@@ -518,7 +519,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT R.dateRDV" +
                 " FROM users AS u, patients AS p, RDVs AS R" +
-                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"'",null);
+                " WHERE u.idUser = p.idUser AND p.idPatient = R.idPatient AND R.idMedecin = '"+id+"' AND roleUser = '"+Role+"' ",null);
         while (cursor.moveToNext())
         {
             DatePatientRDV = cursor.getString(0);

@@ -44,7 +44,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     private Button ajout,choose;
     private String locate,charte,city,specialite,typedoc;
     private boolean click = false;
-    private String namedoc,lastnamedoc,maildoc,passwordoc,phonedoc,roledoc,genderdoc;
+    private String namedoc,lastnamedoc,maildoc,passwordoc,phonedoc,genderdoc;
     private final int REQUEST_CODE_GALLERY = 999;
     private GlobalDbHelper db;
     private SQLiteDatabase sqLiteDatabase;
@@ -75,7 +75,6 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         phonedoc = new String(extras.getString("Phone"));
         maildoc = new String(extras.getString("EmailD"));
         passwordoc = new String(extras.getString("Pass"));
-        roledoc = "Docteur";
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,15 +95,14 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         if (Condition.isChecked()) {
                             if (locate.length() > 1) {
                                 int Idville = db.getIdVille(city);
-                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,roledoc);
+                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte);
                                 if (insertuser == true && insertmedecin == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
-                                    Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
-                                    startActivity(ilogin);
+                                    finish();
                                 }else {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
                                 }
@@ -124,15 +122,14 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         if (Condition.isChecked()) {
                             if (locate.length() > 1) {
                                 int Idville = db.getIdVille(city);
-                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,roledoc);
+                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte);
                                 if (insertuser == true && insertmedecin == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
-                                    Intent ilogin = new Intent(InscriptionSuite.this, Login.class);
-                                    startActivity(ilogin);
+                                    finish();
                                 }else {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
                                 }

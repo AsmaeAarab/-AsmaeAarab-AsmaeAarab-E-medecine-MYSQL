@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
         //getActionBar().hide();
         Bundle ex = getIntent().getExtras();
         Docteur = new String(ex.getString("Docteur"));
-
+        System.out.println("Docteur" + Docteur);
         initViews();
         db = new GlobalDbHelper(this);
         signin.setOnClickListener(new View.OnClickListener() {
