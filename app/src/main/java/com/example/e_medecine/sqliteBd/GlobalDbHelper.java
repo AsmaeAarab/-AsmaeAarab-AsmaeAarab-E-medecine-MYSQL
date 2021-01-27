@@ -273,7 +273,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         contentValues.put("nomUser",nomUser);
         contentValues.put("prenomUser",prenomUser);
         contentValues.put("telephoneUser",telephoneUser);
-        contentValues.put("emailUser",emailUser);
+        //contentValues.put("emailUser",emailUser);
         //contentValues.put("passwordUser",passwordUser);
         long ins=db.update("users", contentValues, "emailUser=?" ,new String[]{emailUser});
         if(ins==-1) return  false;

@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
+import static com.example.e_medecine.PatientUpdateActivity.modif;
+
 public class PatientAccueilActivity extends AppCompatActivity {
 
     GlobalDbHelper db;
@@ -36,7 +38,6 @@ public class PatientAccueilActivity extends AppCompatActivity {
     TextView email;
 
     private byte[] ImageU;
-
 
 
     @Override
@@ -56,6 +57,17 @@ public class PatientAccueilActivity extends AppCompatActivity {
         Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
         imgProfile.setImageBitmap(ImgUser);
 
+        if(modif.equals("yes")){
+            Intent intent1=getIntent();
+            String EmailUpdate=intent1.getStringExtra("EmailUpdate");
+            email.setText(EmailUpdate);
+            nom.setText(db.getNomUser(EmailUpdate));
+            prenom.setText(db.getPrenomUser(EmailUpdate));
+            ImageU=db.getImageUser(EmailUpdate);
+            Bitmap ImgUser1 = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
+            imgProfile.setImageBitmap(ImgUser1);
+            modif="no";
+        }
 
     }
 
@@ -91,7 +103,9 @@ public class PatientAccueilActivity extends AppCompatActivity {
         }
     }
     public  void ClickHome(View view){
-        recreate();
+        redirectActivity(this,PatientAccueilActivity.class);
+        //recreate();
+        finish();
     }
     public void ClickUpdate(View view){
         redirectActivity(this,PatientUpdateActivity.class);

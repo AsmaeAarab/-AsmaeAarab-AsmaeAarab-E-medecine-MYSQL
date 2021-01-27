@@ -48,14 +48,14 @@ public class PatientUpdateActivity extends AppCompatActivity {
     EditText editTextNom;
     @BindView(R.id.email)
     EditText editTextEmail;
-    @BindView(R.id.mdp)
-    EditText editTextMdp;
     @BindView(R.id.phone)
     EditText editTextPhone;
     @BindView(R.id.imageProfil)
     ImageView ImageP;
 
-   /* @BindView(R.id.age)
+   /*  @BindView(R.id.mdp)
+    EditText editTextMdp;
+   @BindView(R.id.age)
     EditText editTextAge;*/
 
     private final int REQUEST_CODE_GALLERY = 999;
@@ -66,6 +66,7 @@ public class PatientUpdateActivity extends AppCompatActivity {
     String emailUser;
     private byte[] ImageU;
 
+    public static String modif="no";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +85,6 @@ public class PatientUpdateActivity extends AppCompatActivity {
         ImageU=db.getImageUser(emailUser);
         Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
         ImageP.setImageBitmap(ImgUser);
-
-        //emailUser= db.getEmailUser("");
-        //imgUser=db.getImageUser("");
-
     }
 
     @OnClick(R.id.update)
@@ -99,8 +96,10 @@ public class PatientUpdateActivity extends AppCompatActivity {
         String email = editTextEmail.getText().toString();
         byte[] imgProfile = imageProToByte(ImageP);
 
-        Boolean insert = db.updateUser(imgProfile,nom,prenom ,phone,email);
-        if (insert == true) {
+        Boolean update = db.updateUser(imgProfile,nom,prenom ,phone,email);
+        if (update == true) {
+            modif="yes";
+            intent.putExtra("EmailUpdate",email);
             Toast.makeText(getApplicationContext(), "updated successfully", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             finish();
@@ -110,8 +109,6 @@ public class PatientUpdateActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
-
     }
 
     @OnClick(R.id.ChooseProfile)
