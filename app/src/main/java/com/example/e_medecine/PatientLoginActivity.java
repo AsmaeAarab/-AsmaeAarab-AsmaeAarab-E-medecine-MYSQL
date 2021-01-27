@@ -9,16 +9,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-<<<<<<< HEAD
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import butterknife.BindView;
-||||||| a617eaa
-=======
-import com.example.e_medecine.activity.MedecinActivity;
 import com.example.e_medecine.activity.SpecialitesActivity;
 
->>>>>>> rania
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -50,11 +45,14 @@ public class PatientLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientSignupActivity.class);
         startActivity(intent);
     }
+    /*
     @OnClick(R.id.singIn)
     void signin(){
         Intent intent = new Intent(this, SpecialitesActivity.class);
         startActivity(intent);
     }
+
+     */
 
     @OnClick(R.id.signIn)
     void signIn(){

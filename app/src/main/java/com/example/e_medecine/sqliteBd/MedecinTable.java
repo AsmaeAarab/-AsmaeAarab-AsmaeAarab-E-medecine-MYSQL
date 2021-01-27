@@ -11,16 +11,9 @@ public class MedecinTable {
     private static final String SPECIALITE = "idSpecialite";
     private static final String TYPE = "typeMedecin";// e-doctor or simple doctor
     private static final String LOCALISATION = "localisationMedecin";// localisation du medecin dans le cas du non e-medecin
-<<<<<<< HEAD
     private static final String CHARTE = "TermeCondition";
-||||||| a617eaa
-=======
     private static final String FRAIS="frais";
-
     private static final String EXPERIENCE="experience";
-    private static final String CHARTE = "TermeCondition";
-
->>>>>>> rania
 
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ("
@@ -29,14 +22,9 @@ public class MedecinTable {
                     + SPECIALITE + " INTEGER, "
                     + TYPE +" TEXT, "
                     + LOCALISATION +" TEXT, "
-<<<<<<< HEAD
-                    + CHARTE + " TEXT, "
-||||||| a617eaa
-=======
                     + CHARTE + " TEXT, "
                     + FRAIS+" INTEGER,"
                     + EXPERIENCE+" INTEGER,"
->>>>>>> rania
                     + "FOREIGN KEY(" + ID_USER + ") REFERENCES users(idUser),"
                     + "FOREIGN KEY(" + SPECIALITE + ") REFERENCES specialites(idSpecialite))";
 

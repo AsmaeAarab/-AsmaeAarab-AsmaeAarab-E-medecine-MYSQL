@@ -1,12 +1,6 @@
 package com.example.e_medecine.sqliteBd;
-<<<<<<< HEAD
 
         import android.content.ContentValues;
-||||||| a617eaa
-
-=======
-        import android.content.ContentValues;
->>>>>>> rania
         import android.content.Context;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
@@ -86,7 +80,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-<<<<<<< HEAD
     public void insertdocteur(ContentValues values)
     {
         getWritableDatabase().insert("medecins",null,values);
@@ -195,10 +188,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = getReadableDatabase();
         return database.rawQuery(sql, null);
     }
-||||||| a617eaa
-=======
-
->>>>>>> rania
     public static int insertFromFile(Context context, int resourceId, SQLiteDatabase db) throws IOException {
         // Reseting Counter
         int result = 0;
@@ -241,7 +230,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return list;
     }
-<<<<<<< HEAD
     public ArrayList<String> getAllSpecialites() {
         ArrayList<String> list = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -558,10 +546,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         else return false;
     }
 
-
-||||||| a617eaa
-=======
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Specialities
     public ArrayList<Specialite> getSpecialites(){
         Log.d(TAG,"invoke read");
@@ -691,7 +675,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.insert(RDVTable.getTableName(),null,values);
         db.close();
     }
->>>>>>> rania
+
 }
 
 
