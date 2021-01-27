@@ -1,4 +1,5 @@
 package com.example.e_medecine.sqliteBd;
+        import android.content.ContentValues;
         import android.content.Context;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
@@ -7,13 +8,17 @@ package com.example.e_medecine.sqliteBd;
 
         import com.example.e_medecine.R;
         import com.example.e_medecine.model.Medecin;
+        import com.example.e_medecine.model.Rendezvous;
         import com.example.e_medecine.model.Specialite;
+        import com.example.e_medecine.model.User;
 
         import java.io.BufferedReader;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
         import java.util.ArrayList;
+
+        import static android.database.DatabaseUtils.stringForQuery;
 
 public class GlobalDbHelper extends SQLiteOpenHelper {
     public Context context;
@@ -39,18 +44,17 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.execSQL(ConsultationTable.CreateTable());
         db.execSQL(PaiementTable.CREATE_TABLE());
         insertSpecialites(db);
-
         try {
             insertFromFile(context, R.raw.villes,db);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            insertFromFile(context, R.raw.users,db);
+            insertFromFile(context, R.raw.medecin,db);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        insertMedecins(db);
+
         Log.d(TAG, "database created" );
     }
 
@@ -157,35 +161,10 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////Medecin
-
-    public void insertMedecins(SQLiteDatabase db){
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(1,1,1,\"doctor\",\"190 Rue Mostafa El Maani, Rdc, Centre Ville, 20250, Casablanca\", "+R.drawable.lahlou+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(2,2,1,\"doctor\",\"Bd Akid El Allam. Imm 89 1er Etg N°2. Bournasel. Casablanca\", "+R.drawable.hachimi+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(3,3,2,\"doctor\",\"+600, avenue du Cdt Driss Lharti - ex A 1°ét. Ben Msik, Q. Sbata casablanca\", "+R.drawable.doctor+", 300,14)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(4,4,2,\"doctor\",\"1er etage, Residence Ryad Garden , Bd laymoun,Lt Yousra Rue 7,Oulfa.Immeuble N 2-Appart 3, Casablanca \", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(5,5,3,\"doctor\",\"Résidence Ryad Soundouss 2 apt 5 angle avenue Annakhil et rue Arromane Hay، ryad، Rabat\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(6,6,3,\"doctor\",\"76, Bd Abdelmoumen, Residence La Koutoubia. 5 Eme Étage, Casablanca\", "+R.drawable.doctor+", 250,10)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(7,7,4,\"doctor\",\"Sidi Maarouf Residence el Moustakbal gh 19 imm157 n4 rdc، Avenue Abou Bakr el Kadiri, Casablanca\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(8,8,4,\"doctor\",\" 432 Boulevard Commandant Driss Al Harti, Casablanca\", "+R.drawable.doctor+", 300,2)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(9,9,5,\"doctor\",\"511 Boulevard Al Qods, Ain Chock Californie Mandarona، En face de Renault Dacia، Casablanca\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(10,10,5,\"doctor\",\"18 Avenue Stendhal, Casablanca 2000\", "+R.drawable.doctor+", 250,5)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(11,11,6,\"doctor\",\"IMM RIF 68 BIS,APP 7, 2 ème étage Angle Fal Ould Oumeir et، Avenue de France, Rabat\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(12,12,6,\"doctor\",\"74 Rue Montaigne Quartier، Casablanca\", "+R.drawable.doctor+", 250,9)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(13,13,7,\"doctor\",\"Centre ville, près de Bank Al Maghrib, 4 Rue Driss Lahrizi, Casablanca\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(14,14,7,\"doctor\",\"BD ABDERRAHMAN SERGHINI IMM BOUARGANE 1er ÉTAGE, Mohammédia\", "+R.drawable.doctor+", 250,5)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(15,15,8,\"doctor\",\"Résidence El Jawahir, 86 Bd Moulay Driss 1er، Casablanca\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(16,16,8,\"doctor\",\" Fauchon، 5 Rue Oulad Bouzid، Rue 34, Casablanca\", "+R.drawable.doctor+", 250,8)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(17,17,9,\"doctor\",\"Avenue Abou Bakr el Kadiri, Casablanca\", "+R.drawable.doctor+", 250,3)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(18,18,9,\"doctor\",\"BD Mohamed V Rés Dos Mares N°46 étage 4، Tangier\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(19,19,10,\"doctor\",\"249, bd Yacoub El Mansour, résid. El Mansour, 2°ét. appt. n°3, Q، Casablanca\", "+R.drawable.doctor+", 300,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(20,20,10,\"doctor\",\" 3 rue Daraa -ex Danvillers Centre Ville, Casablanca\", "+R.drawable.doctor+", 300,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(21,21,11,\"doctor\",\"75 Rue Abou Alâa Zahr, Casablanca\", "+R.drawable.doctor+", 250,4)");
-        db.execSQL("INSERT INTO "+MedecinTable.getTableName()+" ("+MedecinTable.getID()+","+MedecinTable.getIdUser()+","+MedecinTable.getSPECIALITE()+","+MedecinTable.getTYPE()+","+MedecinTable.getLOCALISATION()+","+MedecinTable.getIMAGE_Medecin()+","+MedecinTable.getFRAIS()+","+MedecinTable.getEXPERIENCE()+") VALUES(22,22,11,\"doctor\",\"3ème étage 999 Amal 5 Av Al Massira CYM, Rabat 10000, Maroc، Rabat\", "+R.drawable.doctor+", 250,4)");
-    }
     public ArrayList<Medecin> getMedecins(int id){
         Log.d(TAG,"invoke read");
         ArrayList<Medecin> medecinList=new ArrayList<Medecin>();
-        String selectQuery="SELECT medecins.idMedecin, specialites.label,medecins.localisationMedecin,medecins.imageMedecin,medecins.frais, medecins.experience" +
+        String selectQuery="SELECT medecins.idMedecin, specialites.label,medecins.localisationMedecin,users.imageUser,medecins.frais, medecins.experience" +
                 ", users.nomUser, users.prenomUser FROM "+MedecinTable.getTableName()+" INNER JOIN "+UserTable.getTableName()+" ON medecins.idUser=users.idUser "+
                 "INNER JOIN "+SpecialiteTable.getTableName()+" ON medecins.idSpecialite=specialites.idSpecialite"+
                 " WHERE medecins.idSpecialite = "+id;
@@ -198,17 +177,76 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
                 medecin.setIdMedecin(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MedecinTable.getID()))));
                 medecin.setSpecialite(cursor.getString(cursor.getColumnIndex(SpecialiteTable.getLABEL())));
                 medecin.setLocation(cursor.getString(cursor.getColumnIndex(MedecinTable.getLOCALISATION())));
-                medecin.setImageMedecin(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MedecinTable.getIMAGE_Medecin()))));
+                byte[] image = cursor.getBlob(cursor.getColumnIndex(UserTable.getIMAGE()));
+                medecin.setImageMedecin(image);
                 medecin.setFrais(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MedecinTable.getFRAIS()))));
                 medecin.setExperience(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MedecinTable.getEXPERIENCE()))));
-                medecin.setNom(cursor.getString(cursor.getColumnIndex(UserTable.getNOM())));
-                medecin.setPrenom(cursor.getString(cursor.getColumnIndex(UserTable.getPRENOM())));
+                medecin.setNomMedecin(cursor.getString(cursor.getColumnIndex(UserTable.getNOM())));
+                medecin.setPrenomMedecin(cursor.getString(cursor.getColumnIndex(UserTable.getPRENOM())));
                 medecinList.add(medecin);
             }while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
         return medecinList;
+    }
+    //get phone number
+    public String getMedecinTele(int id){
+        Log.d(TAG,"invoke read");
+        SQLiteDatabase db=this.getReadableDatabase();
+        String tele= stringForQuery(db, "SELECT telephoneUser FROM "+UserTable.getTableName()+" WHERE idUser = "+id, null);
+        return tele;
+    }
+    //get location
+    public String getMedecinLocation(int id){
+        Log.d(TAG,"invoke read");
+        SQLiteDatabase db=this.getReadableDatabase();
+        String location= stringForQuery(db, "SELECT localisationMedecin FROM "+MedecinTable.getTableName()+" WHERE idUser = "+id, null);
+        return location;
+    }
+    public String getMedecinImage(int id){
+        Log.d(TAG,"invoke read");
+        SQLiteDatabase db=this.getReadableDatabase();
+        String image= stringForQuery(db, "SELECT imageUser FROM "+UserTable.getTableName()+" WHERE idUser = "+id, null);
+        return image;
+    }
+
+    ///////////////////////////////////////////////////////////////////////User
+    public void addUsers(User user) {
+        Log.d(TAG,"invoke insert");
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put(UserTable.getID(), user.getIdUser());
+        values.put(UserTable.getNOM(), user.getNomUser());
+        values.put(UserTable.getPRENOM(), user.getPrenomUser());
+        values.put(UserTable.getGENRE(), user.getGenre());
+        values.put(UserTable.getTELE(), user.getTele());
+        values.put(UserTable.getIMAGE(), user.getImageUser());
+        values.put(UserTable.getVILLE(), user.getIdVille());
+        values.put(UserTable.getEMAIL(), user.getEmail());
+        values.put(UserTable.getPASSWORD(), user.getPassword());
+        values.put(UserTable.getROLE(), user.getRole());
+        db.insert(UserTable.getTableName(),null,values);
+        db.close();
+    }
+    ///delete records
+    public  void deleteUsers(){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + UserTable.getTableName());
+        db.execSQL("DELETE FROM sqlite_sequence WHERE name= '"+UserTable.getTableName()+"'");
+        db.close();
+    }
+
+    /////////////////////////////////////////////////////////////////Rendez-vous
+    public void addRendezVous(String titre, String date, int idPatient, int idMedecin) {
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put(RDVTable.getTITRE(), titre);
+        values.put(RDVTable.getDATE(), date);
+        values.put(RDVTable.getIdPatient(), idPatient);
+        values.put(RDVTable.getID_Medecin(), idMedecin);
+        db.insert(RDVTable.getTableName(),null,values);
+        db.close();
     }
 }
 

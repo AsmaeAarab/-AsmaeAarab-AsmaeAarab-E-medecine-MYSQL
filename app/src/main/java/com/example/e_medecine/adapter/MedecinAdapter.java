@@ -1,6 +1,8 @@
 package com.example.e_medecine.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +41,8 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
     @Override
     public void onBindViewHolder(@NonNull MedecinAdapter.HolderMedecin holder, int position) {
         Medecin medecin=medecinList.get(position);
-        String nom=medecin.getNom();
-        String prenom=medecin.getPrenom();
+        String nom=medecin.getNomMedecin();
+        String prenom=medecin.getPrenomMedecin();
         String specialite=medecin.getSpecialite();
         int frais=medecin.getFrais();
         int experience=medecin.getExperience();
@@ -50,7 +52,9 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
         holder.medecinSpecialite.setText(specialite);
         holder.medecinFrais.setText(String.valueOf(frais)+" DH");
         holder.medecinExperience.setText(String.valueOf(experience)+" yrs");
-        holder.medecinImage.setImageResource(medecin.getImageMedecin());
+        byte[] medecin_img=medecin.getImageMedecin();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(medecin_img, 0, medecin_img.length);
+        holder.medecinImage.setImageBitmap(bitmap);
     }
 
     @Override
@@ -98,7 +102,7 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
             else {
                 String filterPattern=constraint.toString().toLowerCase().trim();
                 for(Medecin item: medecinListSearch){
-                    if(item.getNom().toLowerCase().startsWith(filterPattern) || item.getPrenom().toLowerCase().startsWith(filterPattern)){
+                    if(item.getNomMedecin().toLowerCase().startsWith(filterPattern) || item.getPrenomMedecin().toLowerCase().startsWith(filterPattern)){
                         filteredList.add(item);
                     }
                 }

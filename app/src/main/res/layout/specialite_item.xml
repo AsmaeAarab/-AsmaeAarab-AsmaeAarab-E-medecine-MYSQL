@@ -16,12 +16,12 @@
 
             <ImageView
                 android:id="@+id/medecinImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/medecinNom"
@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:text="specialite"
                 android:textColor="	#28447e"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@+id/medecinImage"
                 tools:layout_editor_absoluteX="16dp" />
 

@@ -15,7 +15,7 @@
         android:layout_marginBottom="8dp"
         android:background="@null"
         android:drawableRight="@drawable/ic_search"
-        android:ems="10"
+        android:ems="8"
         android:gravity="center_vertical"
         android:hint="@string/search"
         android:padding="16dp"

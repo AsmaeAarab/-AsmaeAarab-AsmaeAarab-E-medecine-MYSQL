@@ -1,37 +1,57 @@
 package com.example.e_medecine.model;
 
 public class Medecin {
-
     private int idMedecin;
-    private String nom;
-    private String prenom;
+    private int idUserMedecin;
+    private int idSpecialiteMedecin;
+    private String typeMedecin;
     private String specialite;
     private String location;
-    private String tele;
     private int experience;
     private int frais;
-    private int imageMedecin;
+    private String nomMedecin;
+    private String prenomMedecin;
+    private byte[] imageMedecin;
+
 
     public Medecin() {
     }
 
-    public Medecin(int idMedecin, String nom, String prenom, String specialite, String location, String tele, int experience, int frais, int imageMedecin) {
+    public Medecin(int idMedecin, int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String specialite, String location, int experience, int frais, String nomMedecin, String prenomMedecin, byte[] imageMedecin) {
         this.idMedecin = idMedecin;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.idUserMedecin = idUserMedecin;
+        this.idSpecialiteMedecin = idSpecialiteMedecin;
+        this.typeMedecin = typeMedecin;
         this.specialite = specialite;
         this.location = location;
-        this.tele = tele;
         this.experience = experience;
         this.frais = frais;
+        this.nomMedecin = nomMedecin;
+        this.prenomMedecin = prenomMedecin;
         this.imageMedecin = imageMedecin;
     }
 
-    public int getImageMedecin() {
+    public String getNomMedecin() {
+        return nomMedecin;
+    }
+
+    public void setNomMedecin(String nomMedecin) {
+        this.nomMedecin = nomMedecin;
+    }
+
+    public String getPrenomMedecin() {
+        return prenomMedecin;
+    }
+
+    public void setPrenomMedecin(String prenomMedecin) {
+        this.prenomMedecin = prenomMedecin;
+    }
+
+    public byte[] getImageMedecin() {
         return imageMedecin;
     }
 
-    public void setImageMedecin(int imageMedecin) {
+    public void setImageMedecin(byte[] imageMedecin) {
         this.imageMedecin = imageMedecin;
     }
 
@@ -43,20 +63,28 @@ public class Medecin {
         this.idMedecin = idMedecin;
     }
 
-    public String getNom() {
-        return nom;
+    public int getIdUserMedecin() {
+        return idUserMedecin;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setIdUserMedecin(int idUserMedecin) {
+        this.idUserMedecin = idUserMedecin;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public int getIdSpecialiteMedecin() {
+        return idSpecialiteMedecin;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setIdSpecialiteMedecin(int idSpecialiteMedecin) {
+        this.idSpecialiteMedecin = idSpecialiteMedecin;
+    }
+
+    public String getTypeMedecin() {
+        return typeMedecin;
+    }
+
+    public void setTypeMedecin(String typeMedecin) {
+        this.typeMedecin = typeMedecin;
     }
 
     public String getSpecialite() {
@@ -73,14 +101,6 @@ public class Medecin {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getTele() {
-        return tele;
-    }
-
-    public void setTele(String tele) {
-        this.tele = tele;
     }
 
     public int getExperience() {

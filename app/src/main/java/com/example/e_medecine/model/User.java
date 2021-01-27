@@ -1,29 +1,31 @@
 package com.example.e_medecine.model;
 
 public class User {
-    private int idUser;
-    private String nomUser;
-    private String prenomUser;
-    private String genreUser;
-    private String tele;
-    private int idVille;
-    private String email;
-    private String password;
-    private String roleUser;
+     private int idUser;
+     private String nomUser;
+     private String prenomUser;
+     private String genre;
+     private String tele;
+     private byte[] imageUser;
+     private int idVille;
+     private String email;
+     private String password;
+     private String role;
 
     public User() {
     }
 
-    public User(int idUser, String nomUser, String prenomUser, String genreUser, String tele, int idVille, String email, String password, String roleUser) {
+    public User(int idUser, String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, int idVille, String email, String password, String role) {
         this.idUser = idUser;
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
-        this.genreUser = genreUser;
+        this.genre = genre;
         this.tele = tele;
+        this.imageUser = imageUser;
         this.idVille = idVille;
         this.email = email;
         this.password = password;
-        this.roleUser = roleUser;
+        this.role = role;
     }
 
     public int getIdUser() {
@@ -50,12 +52,12 @@ public class User {
         this.prenomUser = prenomUser;
     }
 
-    public String getGenreUser() {
-        return genreUser;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGenreUser(String genreUser) {
-        this.genreUser = genreUser;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getTele() {
@@ -64,6 +66,14 @@ public class User {
 
     public void setTele(String tele) {
         this.tele = tele;
+    }
+
+    public byte[] getImageUser() {
+        return imageUser;
+    }
+
+    public void setImageUser(byte[] imageUser) {
+        this.imageUser = imageUser;
     }
 
     public int getIdVille() {
@@ -90,11 +100,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRoleUser() {
-        return roleUser;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleUser(String roleUser) {
-        this.roleUser = roleUser;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
