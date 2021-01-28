@@ -44,6 +44,11 @@ public class PatientLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientSignupActivity.class);
         startActivity(intent);
     }
+    @OnClick(R.id.forgetPswd)
+    void forgetPswd(){
+        Intent intent = new Intent(this, PatientForgetPswdActivity.class);
+        startActivity(intent);
+    }
 
     @OnClick(R.id.signIn)
     void signIn(){

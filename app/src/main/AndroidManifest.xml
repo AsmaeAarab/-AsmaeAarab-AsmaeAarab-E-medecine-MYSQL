@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.e_medecine">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,12 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Emedecine">
-        <activity android:name=".PatientUpdateActivity"></activity>
+        <activity android:name=".PatientForgetPswdActivity"></activity>
+        <activity android:name=".PatientUpdateActivity" />
         <activity android:name=".PatientAccueilActivity" />
         <activity android:name=".PatientSignupActivity" />
         <activity android:name=".PatientLoginActivity" />
-        <activity android:name=".Docteurs.Login"/>
-        <activity android:name=".Docteurs.Calendrier"></activity>
+        <activity android:name=".Docteurs.Login" />
+        <activity android:name=".Docteurs.Calendrier" />
         <activity android:name=".Docteurs.RendezVousActivity" />
         <activity android:name=".Docteurs.Myaccount" />
         <activity android:name=".Docteurs.Updateaccount" />
