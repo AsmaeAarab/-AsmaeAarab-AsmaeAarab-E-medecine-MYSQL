@@ -670,7 +670,19 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         values.put(RDVTable.getIdPatient(), idPatient);
         values.put(RDVTable.getID_Medecin(), idMedecin);
         db.insert(RDVTable.getTableName(),null,values);
+        System.out.println("insertRdv: ");
         db.close();
+        System.out.println("close db: ");
+    }
+
+    public int getIdPatient(String email){
+        int idPatient=0;
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.rawQuery("select idPatient from patients where (select emailUser from users where patients.idUser = users.idUser) = ? ",new String[]{email});
+        while (cursor.moveToNext()) {
+            idPatient = cursor.getInt(0);
+        }
+        return idPatient;
     }
 
 }

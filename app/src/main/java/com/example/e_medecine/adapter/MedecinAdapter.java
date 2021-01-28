@@ -47,11 +47,11 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
         int frais=medecin.getFrais();
         int experience=medecin.getExperience();
 
-        holder.medecinNom.setText(nom);
+        holder.medecinNom.setText("Dr."+nom);
         holder.medecinPrenom.setText(prenom);
         holder.medecinSpecialite.setText(specialite);
         holder.medecinFrais.setText(String.valueOf(frais)+" DH");
-        holder.medecinExperience.setText(String.valueOf(experience)+" yrs");
+        holder.medecinExperience.setText(String.valueOf(experience)+" anss");
         byte[] medecin_img=medecin.getImageMedecin();
         Bitmap bitmap = BitmapFactory.decodeByteArray(medecin_img, 0, medecin_img.length);
         holder.medecinImage.setImageBitmap(bitmap);

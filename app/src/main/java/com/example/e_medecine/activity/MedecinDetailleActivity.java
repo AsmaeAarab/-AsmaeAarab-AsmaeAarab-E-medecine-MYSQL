@@ -67,6 +67,8 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     @BindView(R.id.rendezVous)
     Button btn_rendezVous;
     Integer id;
+    int idPatient;
+    String specialite;
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -77,13 +79,12 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         id=new Integer(extras.getInt("idMedecin"));
 
         String login= extras.getString("patientEmail");
-        //String idPatient=db.getIdPatientByLogin(login);
+        idPatient=db.getIdPatient(login);
 
-        System.out.println("idPatient: "+login);
 
         String nom= extras.getString("nomMedecin");
         String prenom=extras.getString("prenomMedecin");
-        String specialite=extras.getString("specialiteMedecin");
+        specialite=extras.getString("specialiteMedecin");
         Integer experience= getIntent().getExtras().getInt("experienceMedecin");
         Integer image=getIntent().getExtras().getInt("imageMedecin");
         Integer frais=getIntent().getExtras().getInt("fraisMedecin");
@@ -91,10 +92,10 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         String  location=db.getMedecinLocation(id);
 
 
-        nomMedecin.setText(nom);
+        nomMedecin.setText("Dr."+nom);
         prenomMedecin.setText(prenom);
         specialiteMedecin.setText(specialite);
-        experienceMedecin.setText(String.valueOf(experience)+"yrs");
+        experienceMedecin.setText(String.valueOf(experience)+"ans");
         fraisMedecin.setText(String.valueOf(frais)+"DH");
         teleMedecin.setText(String.valueOf(tele));
         locationMedecin.setText(location);
@@ -131,7 +132,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMMMM yyyy", Locale.ENGLISH);
         //LocalDate date = LocalDate.parse(currentDateString, formatter);
         //System.out.println("date: "+date);
-
+        db.addRendezVous(specialite,currentDateString,idPatient, id);
         System.out.println("currentDate:  "+currentDateString);
     }
 }
