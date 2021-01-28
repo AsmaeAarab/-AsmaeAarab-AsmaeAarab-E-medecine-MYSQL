@@ -45,8 +45,8 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medecin);
         ButterKnife.bind(this);
-        db.deleteUsers();
-        insertUsers();
+        //db.deleteUsers();
+        //insertUsers();
         int id = (int) getIntent().getSerializableExtra("specialite");
         list=new ArrayList<>(db.getMedecins(id));
         adapter=new MedecinAdapter(this,list,this);
@@ -95,6 +95,7 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
+    /*
     public void insertUsers(){
         db.addUsers(new User( "Lahlou","Najib","homme","0522277997",imageViewToByte(R.drawable.lahlou,this),4,"lahlou@gmail.com","123","Docteur"));
         db.addUsers(new User( "EL Hachimi","Kawtar","femme","0522023933",imageViewToByte(R.drawable.hachimi,this),4,"hachimi@gmail.com","123","Docteur"));
@@ -119,4 +120,6 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
         db.addUsers(new User( "Reda","Anouar","homme","0522860465",imageViewToByte(R.drawable.doctor,this),4,"reda@gmail.com","123","Docteur"));
         db.addUsers(new User( "Touzani","Mohamed Ali","homme","0537280038",imageViewToByte(R.drawable.doctor,this),252,"touzani@gmail.com","123","Docteur"));
     }
+
+     */
 }
