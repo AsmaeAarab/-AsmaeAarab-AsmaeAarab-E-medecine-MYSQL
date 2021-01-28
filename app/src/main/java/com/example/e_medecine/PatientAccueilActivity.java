@@ -15,12 +15,17 @@ import android.widget.TextView;
 
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
+import com.example.e_medecine.activity.MedecinDetailleActivity;
+import com.example.e_medecine.activity.SpecialitesActivity;
+import com.example.e_medecine.model.Specialite;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
 import static com.example.e_medecine.PatientUpdateActivity.modif;
+
 
 public class PatientAccueilActivity extends AppCompatActivity {
 
@@ -38,6 +43,8 @@ public class PatientAccueilActivity extends AppCompatActivity {
     TextView email;
 
     private byte[] ImageU;
+
+
 
 
     @Override
@@ -128,4 +135,13 @@ public class PatientAccueilActivity extends AppCompatActivity {
 
     }
     //DARAWER CODE END
+
+    @OnClick(R.id.rdv)
+    public void rendezVous(){
+        Intent intent=new Intent(this, SpecialitesActivity.class);
+        Bundle ex = getIntent().getExtras();
+        String lo = new String(ex.getString("emailPatient"));
+        intent.putExtra("email_patient",lo);
+        startActivity(intent);
+    }
 }

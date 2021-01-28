@@ -15,8 +15,7 @@ public class User {
     public User() {
     }
 
-    public User(int idUser, String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, int idVille, String email, String password, String role) {
-        this.idUser = idUser;
+    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, int idVille, String email, String password, String role) {
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
         this.genre = genre;

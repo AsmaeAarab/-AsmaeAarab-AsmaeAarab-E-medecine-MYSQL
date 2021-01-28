@@ -17,8 +17,7 @@ public class Medecin {
     public Medecin() {
     }
 
-    public Medecin(int idMedecin, int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String specialite, String location, int experience, int frais, String nomMedecin, String prenomMedecin, byte[] imageMedecin) {
-        this.idMedecin = idMedecin;
+    public Medecin( int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String specialite, String location, int experience, int frais, String nomMedecin, String prenomMedecin, byte[] imageMedecin) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;
         this.typeMedecin = typeMedecin;
