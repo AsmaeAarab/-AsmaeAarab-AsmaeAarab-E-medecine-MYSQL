@@ -2,7 +2,6 @@ package com.example.e_medecine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +12,8 @@ import android.widget.Toast;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import butterknife.BindView;
+import com.example.e_medecine.activity.SpecialitesActivity;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -55,6 +56,7 @@ public class PatientLoginActivity extends AppCompatActivity {
         db = new GlobalDbHelper(this);
         Intent intent = new Intent(this, PatientAccueilActivity.class);
         String login = editTextLogin.getText().toString();
+        intent.putExtra("emailPatient",login);
         String password = editTextPassword.getText().toString();
         Boolean checkloginpass = db.loginpassword(login, password);
         if ((!login.equals("")) && (!password.equals(""))) {
@@ -83,7 +85,6 @@ public class PatientLoginActivity extends AppCompatActivity {
         // editTextPassword.getText().clear();
 
     }
-
     private void getPreferencesData(){
         SharedPreferences sp= getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         if(sp.contains("pref_name")){
@@ -99,6 +100,4 @@ public class PatientLoginActivity extends AppCompatActivity {
             RemenberMe.setChecked(b);
         }
     }
-
-
 }

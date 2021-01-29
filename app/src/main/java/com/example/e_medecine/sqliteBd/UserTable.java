@@ -15,6 +15,34 @@ public class UserTable {
     private static final String PASSWORD = "passwordUser";
     private static final String ROLE = "roleUser"; // medecin ou patient
 
+    public static String getGENRE() {
+        return GENRE;
+    }
+
+    public static String getTELE() {
+        return TELE;
+    }
+
+    public static String getVILLE() {
+        return VILLE;
+    }
+
+    public static String getEMAIL() {
+        return EMAIL;
+    }
+
+    public static String getPASSWORD() {
+        return PASSWORD;
+    }
+
+    public static String getROLE() {
+        return ROLE;
+    }
+
+    public static String getCreateTable() {
+        return CREATE_TABLE;
+    }
+
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ("
                     + ID  +" INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -34,5 +62,21 @@ public class UserTable {
     }
     public static String getTableName() {
         return TABLE_NAME;
+    }
+
+    public static String getID() {
+        return ID;
+    }
+
+    public static String getNOM() {
+        return NOM;
+    }
+
+    public static String getPRENOM() {
+        return PRENOM;
+    }
+
+    public static String getIMAGE() {
+        return IMAGE;
     }
 }

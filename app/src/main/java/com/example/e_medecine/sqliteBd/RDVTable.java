@@ -1,7 +1,6 @@
 package com.example.e_medecine.sqliteBd;
 
 public class RDVTable {
-
     private static final String TABLE_NAME = "RDVs";
     private static final String ID = "idRDV";
     private static final String TITRE = "titreRDV";
@@ -24,5 +23,29 @@ public class RDVTable {
     }
     public static String getTableName() {
         return TABLE_NAME;
+    }
+
+    public static String getID() {
+        return ID;
+    }
+
+    public static String getTITRE() {
+        return TITRE;
+    }
+
+    public static String getDATE() {
+        return DATE;
+    }
+
+    public static String getIdPatient() {
+        return ID_PATIENT;
+    }
+
+    public static String getID_Medecin() {
+        return ID_Medecin;
+    }
+
+    public static String getCreateTable() {
+        return CREATE_TABLE;
     }
 }

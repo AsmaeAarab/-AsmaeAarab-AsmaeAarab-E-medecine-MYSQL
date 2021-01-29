@@ -533,14 +533,6 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         else return false;
     }
 
-    public Boolean checkEmailPatient(String login)
-    {
-        SQLiteDatabase db=this.getReadableDatabase();
-        Cursor cursor=db.rawQuery("select * from users where emailUser=? and roleUser=?",new String[]{login,"patient"});
-        if(cursor.getCount()>0) return true;
-        else return false;
-    }
-
 
 }
 

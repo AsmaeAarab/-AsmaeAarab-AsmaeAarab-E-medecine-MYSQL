@@ -15,6 +15,9 @@
         <activity android:name=".PatientUpdateActivity" />
         <activity android:name=".PatientAccueilActivity" />
         <activity android:name=".PatientSignupActivity" />
+        <activity android:name=".activity.MedecinDetailleActivity"></activity>
+        <activity android:name=".activity.MedecinActivity" />
+        <activity android:name=".activity.SpecialitesActivity" />
         <activity android:name=".PatientLoginActivity" />
         <activity android:name=".Docteurs.Login" />
         <activity android:name=".Docteurs.Calendrier" />
