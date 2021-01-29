@@ -47,13 +47,14 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.execSQL(RDVTable.CREATE_TABLE());
         db.execSQL(ConsultationTable.CreateTable());
         db.execSQL(PaiementTable.CREATE_TABLE());
+        insertSpecialites(db);
         try {
             insertFromFile(context, R.raw.villes,db);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            insertFromFile(context, R.raw.specialites,db);
+            insertFromFile(context, R.raw.medecin,db);
         } catch (IOException e) {
             e.printStackTrace();
         }
