@@ -322,7 +322,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return idspec;
     }
-    public boolean insertMedecin(int iduser,int idspecialite,String typedoc,String Locate,String charte)
+    public boolean insertMedecin(int iduser,int idspecialite,String typedoc,String Locate,String charte,int frais,int experience)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues valuesD = new ContentValues();
@@ -331,6 +331,8 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         valuesD.put("typeMedecin", typedoc);
         valuesD.put("localisationMedecin", Locate);
         valuesD.put("TermeCondition", charte);
+        valuesD.put("frais",frais);
+        valuesD.put("experience",experience);
         long insert  = db.insert("medecins",null,valuesD);
         if (insert == -1)
         {
