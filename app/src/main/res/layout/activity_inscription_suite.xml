@@ -75,8 +75,8 @@
             android:gravity="center"
             android:hint="Localisation"
             android:inputType="textPersonName"
-            android:textColorHint="#121111"
-            android:textSize="24sp"
+            android:textColorHint="#7E7D7D"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/DEducation" />
@@ -99,12 +99,13 @@
             android:id="@+id/DCharte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="40dp"
             android:text="j'ai lu et j'accepte les termes et conditions"
             android:textColor="#0C0C0C"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DAdresse" />
+            app:layout_constraintTop_toBottomOf="@+id/DFrais" />
 
         <Button
             android:id="@+id/Sinscrire"
@@ -166,5 +167,59 @@
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageProfil" />
+
+        <EditText
+            android:id="@+id/DExperience"
+            android:layout_width="281dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="40dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:hint="Années d'éxpérience?"
+            android:inputType="number"
+            android:textColorHint="#7E7D7D"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DAdresse" />
+
+        <EditText
+            android:id="@+id/DFrais"
+            android:layout_width="281dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="40dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:hint="Frais de Consultation?"
+            android:inputType="number"
+            android:textColorHint="#7E7D7D"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DExperience" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="Années"
+            android:textColor="#070707"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.784"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DAdresse" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="MAD"
+            android:textColor="#101010"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.76"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/DFrais" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

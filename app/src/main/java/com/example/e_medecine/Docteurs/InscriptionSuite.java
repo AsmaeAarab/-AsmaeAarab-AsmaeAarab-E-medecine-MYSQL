@@ -38,11 +38,13 @@ import java.util.ArrayList;
 
 public class InscriptionSuite extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner spinnerV,spinnerS,spinnerE;
-    private EditText localisation;
+    private EditText localisation,Docfrais,DocExpe;
     private ImageView imgpro;
     private RadioButton Condition;
     private Button ajout,choose;
     private String locate,charte,city,specialite,typedoc;
+    private int DocteurFrais = 0;
+    private int DocteurExperience = 0;
     private boolean click = false;
     private String namedoc,lastnamedoc,maildoc,passwordoc,phonedoc,genderdoc;
     private final int REQUEST_CODE_GALLERY = 999;
@@ -88,17 +90,21 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 locate = localisation.getText().toString();
+                String frais = Docfrais.getText().toString();
+                String exp = DocExpe.getText().toString();
+                DocteurFrais = Integer.parseInt(frais);
+                DocteurExperience = Integer.parseInt(exp);
                 charte = Condition.getText().toString();
                 if (genderdoc.equals("Homme")) {
                     if (click == true) {
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
-                            if (locate.length() > 1) {
+                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
                                 int Idville = db.getIdVille(city);
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
-                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte);
+                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
                                 if (insertuser == true && insertmedecin == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
@@ -120,12 +126,12 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                     {
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
-                            if (locate.length() > 1) {
+                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1) {
                                 int Idville = db.getIdVille(city);
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
-                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte);
+                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
                                 if (insertuser == true && insertmedecin == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
@@ -157,6 +163,8 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         spinnerE = findViewById(R.id.DEducation);
         imgpro = findViewById(R.id.imageProfil);
         localisation = findViewById(R.id.DAdresse);
+        Docfrais = findViewById(R.id.DFrais);
+        DocExpe = findViewById(R.id.DExperience);
         Condition = findViewById(R.id.DCharte);
         ajout = findViewById(R.id.Sinscrire);
         choose = findViewById(R.id.ChooseProfile);
