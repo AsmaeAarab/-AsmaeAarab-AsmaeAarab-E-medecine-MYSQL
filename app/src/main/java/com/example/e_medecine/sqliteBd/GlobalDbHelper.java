@@ -53,11 +53,11 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            insertFromFile(context, R.raw.medecin,db);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //try {
+       //     insertFromFile(context, R.raw.medecin,db);
+       // } catch (IOException e) {
+       //     e.printStackTrace();
+       // }
         Log.d(TAG, "database created" );
     }
 

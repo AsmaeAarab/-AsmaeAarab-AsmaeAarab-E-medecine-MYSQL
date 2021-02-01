@@ -23,8 +23,8 @@ public class MedecinTable {
                     + TYPE +" TEXT, "
                     + LOCALISATION +" TEXT, "
                     + CHARTE + " TEXT, "
-                    + FRAIS+" INTEGER,"
-                    + EXPERIENCE+" INTEGER,"
+                    + FRAIS+" INTEGER DEFAULT 250,"
+                    + EXPERIENCE+" INTEGER DEFAULT 2,"
                     + "FOREIGN KEY(" + ID_USER + ") REFERENCES users(idUser),"
                     + "FOREIGN KEY(" + SPECIALITE + ") REFERENCES specialites(idSpecialite))";
 
