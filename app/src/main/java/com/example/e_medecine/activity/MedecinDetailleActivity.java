@@ -75,13 +75,14 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     Integer id;
     int idPatient;
     String specialite;
+    private  String typeDoc="";
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medecin_detaille);
         ButterKnife.bind(this);
         SharedPreferences spDoc= getSharedPreferences("PrefDoc",MODE_PRIVATE);
-        String typeDoc = spDoc.getString ("pref_typeDoc","valeur par défaut");
+        typeDoc = spDoc.getString ("pref_typeDoc","valeur par défaut");
         if(typeDoc.equals("Docteur")){
             btn_rendezVous.setText("Prendre rendez-vous");
         }
@@ -120,9 +121,10 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     btn_rendezVous.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            DialogFragment datePicker=new DatePickerFragment();
-            datePicker.show(getSupportFragmentManager(),"date picker");
-
+            if(typeDoc.equals("Docteur")){
+                DialogFragment datePicker=new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(),"date picker");
+            }
         }
     });
 
