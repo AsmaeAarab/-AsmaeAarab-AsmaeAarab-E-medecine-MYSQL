@@ -6,6 +6,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -43,7 +44,8 @@ public class PatientAccueilActivity extends AppCompatActivity {
     TextView email;
 
     private byte[] ImageU;
-
+    private SharedPreferences prefs;
+    private  static final String PREFS_TYPE="PrefDoc";
 
 
 
@@ -75,22 +77,10 @@ public class PatientAccueilActivity extends AppCompatActivity {
             imgProfile.setImageBitmap(ImgUser1);
             modif="no";
         }
-
+        prefs=getSharedPreferences(PREFS_TYPE,MODE_PRIVATE);
     }
 
-    @Optional
-    @OnClick(R.id.rdv)
-    public void prendreRDV(){
-        // Intent intent = new Intent(this, PatientAccueilActivity.class);
-        //   startActivity(intent);
-    }
 
-    @Optional
-    @OnClick(R.id.consultation)
-    public void consulter(){
-        //  Intent intent = new Intent(this, PatientAccueilActivity.class);
-        //  startActivity(intent);
-    }
 
     //DARAWER CODE START
     public void ClickMenu(View view){
@@ -139,9 +129,18 @@ public class PatientAccueilActivity extends AppCompatActivity {
     @OnClick(R.id.rdv)
     public void rendezVous(){
         Intent intent=new Intent(this, SpecialitesActivity.class);
-        Bundle ex = getIntent().getExtras();
-        String lo = new String(ex.getString("emailPatient"));
-        intent.putExtra("email_patient",lo);
+        SharedPreferences.Editor editor = prefs.edit ();
+        editor.putString("pref_typeDoc","Docteur");
+        editor.apply();
+        startActivity(intent);
+    }
+    @Optional
+    @OnClick(R.id.consultation)
+    public void consulter(){
+        Intent intent=new Intent(this, SpecialitesActivity.class);
+        SharedPreferences.Editor editor = prefs.edit ();
+        editor.putString("pref_typeDoc","E-Docteur");
+        editor.apply();
         startActivity(intent);
     }
 }

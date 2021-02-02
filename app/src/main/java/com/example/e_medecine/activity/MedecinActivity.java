@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -45,10 +46,10 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medecin);
         ButterKnife.bind(this);
-        //db.deleteUsers();
-        //insertUsers();
         int id = (int) getIntent().getSerializableExtra("specialite");
-        list=new ArrayList<>(db.getMedecins(id));
+        SharedPreferences sp= getSharedPreferences("PrefDoc",MODE_PRIVATE);
+        String typeDoc = sp.getString ("pref_typeDoc","valeur par défaut");
+        list=new ArrayList<>(db.getMedecins(id,typeDoc));
         adapter=new MedecinAdapter(this,list,this);
         recyclerViewMedecin.setAdapter(adapter);
 
@@ -74,9 +75,6 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
     public void onMedecinClick(int position) {
         Intent intent=new Intent(this,MedecinDetailleActivity.class);
         Medecin medecin=list.get(position);
-        Bundle ex = getIntent().getExtras();
-        String lo = new String(ex.getString("mail"));
-        intent.putExtra("patientEmail",lo);
         intent.putExtra("idMedecin",medecin.getIdMedecin());
         intent.putExtra("nomMedecin",medecin.getNomMedecin());
         intent.putExtra("prenomMedecin",medecin.getPrenomMedecin());

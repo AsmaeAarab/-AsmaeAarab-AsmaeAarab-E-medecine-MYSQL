@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -74,10 +74,7 @@ public class SpecialitesActivity extends AppCompatActivity implements Specialite
 
         Intent intent=new Intent(this,MedecinActivity.class);
         Specialite specialite=list.get(position);
-        Bundle ex = getIntent().getExtras();
-        String lo = new String(ex.getString("email_patient"));
         intent.putExtra("specialite",specialite.getId_specialite());
-        intent.putExtra("mail",lo);
         startActivity(intent);
     }
 

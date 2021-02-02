@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -66,6 +68,10 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
 
     @BindView(R.id.rendezVous)
     Button btn_rendezVous;
+
+    @BindView(R.id.paiment)
+    Button btn_paiment;
+
     Integer id;
     int idPatient;
     String specialite;
@@ -74,11 +80,20 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medecin_detaille);
         ButterKnife.bind(this);
-
+        SharedPreferences spDoc= getSharedPreferences("PrefDoc",MODE_PRIVATE);
+        String typeDoc = spDoc.getString ("pref_typeDoc","valeur par défaut");
+        if(typeDoc.equals("Docteur")){
+            btn_rendezVous.setText("Prendre rendez-vous");
+        }
+        else if(typeDoc.equals("E-Docteur")){
+            btn_rendezVous.setText("Consultation");
+            btn_paiment.setVisibility(View.VISIBLE);
+        }
         Bundle extras=getIntent().getExtras();
         id=new Integer(extras.getInt("idMedecin"));
 
-        String login= extras.getString("patientEmail");
+        SharedPreferences sp= getSharedPreferences("PrefsFile",MODE_PRIVATE);
+        String login = sp.getString ("pref_name","valeur par défaut");
         idPatient=db.getIdPatient(login);
 
 
@@ -86,7 +101,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         String prenom=extras.getString("prenomMedecin");
         specialite=extras.getString("specialiteMedecin");
         Integer experience= getIntent().getExtras().getInt("experienceMedecin");
-        Integer image=getIntent().getExtras().getInt("imageMedecin");
+        byte[] image=extras.getByteArray("imageMedecin");
         Integer frais=getIntent().getExtras().getInt("fraisMedecin");
         String tele=db.getMedecinTele(id);
         String  location=db.getMedecinLocation(id);
@@ -99,8 +114,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         fraisMedecin.setText(String.valueOf(frais)+"DH");
         teleMedecin.setText(String.valueOf(tele));
         locationMedecin.setText(location);
-        byte[] medecin_img=db.getMedecinImage(id).getBytes();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(medecin_img, 0, medecin_img.length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0,image.length);
         imageMedecin.setImageBitmap(bitmap);
 
     btn_rendezVous.setOnClickListener(new View.OnClickListener() {
@@ -124,15 +138,14 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
         Calendar calendar=Calendar.getInstance();
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,month);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        String currentDateString= DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE d MMMMM yyyy", Locale.ENGLISH);
-        //LocalDate date = LocalDate.parse(currentDateString, formatter);
-        //System.out.println("date: "+date);
-        db.addRendezVous(specialite,currentDateString,idPatient, id);
-        System.out.println("currentDate:  "+currentDateString);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String rdv_date= simpleDateFormat.format(calendar.getTime());
+        db.addRendezVous(specialite,rdv_date,idPatient, id);
+
     }
 }
