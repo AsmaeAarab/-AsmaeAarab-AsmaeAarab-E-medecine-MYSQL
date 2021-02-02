@@ -56,7 +56,6 @@ public class PatientLoginActivity extends AppCompatActivity {
         db = new GlobalDbHelper(this);
         Intent intent = new Intent(this, PatientAccueilActivity.class);
         String login = editTextLogin.getText().toString();
-        intent.putExtra("emailPatient",login);
         String password = editTextPassword.getText().toString();
         Boolean checkloginpass = db.loginpassword(login, password);
         if ((!login.equals("")) && (!password.equals(""))) {

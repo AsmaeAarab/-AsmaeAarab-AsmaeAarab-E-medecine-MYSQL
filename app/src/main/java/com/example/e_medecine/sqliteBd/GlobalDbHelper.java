@@ -53,11 +53,14 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        /*
         try {
             insertFromFile(context, R.raw.medecin,db);
         } catch (IOException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
+
+         */
         Log.d(TAG, "database created" );
     }
 
@@ -590,13 +593,13 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////Medecin
-    public ArrayList<Medecin> getMedecins(int id){
+    public ArrayList<Medecin> getMedecins(int id,String type){
         Log.d(TAG,"invoke read");
         ArrayList<Medecin> medecinList=new ArrayList<Medecin>();
         String selectQuery="SELECT medecins.idMedecin, specialites.label,medecins.localisationMedecin,users.imageUser,medecins.frais, medecins.experience" +
                 ", users.nomUser, users.prenomUser FROM "+MedecinTable.getTableName()+" INNER JOIN "+UserTable.getTableName()+" ON medecins.idUser=users.idUser "+
                 "INNER JOIN "+SpecialiteTable.getTableName()+" ON medecins.idSpecialite=specialites.idSpecialite"+
-                " WHERE medecins.idSpecialite = "+id;
+                " WHERE medecins.idSpecialite = "+id+" AND medecins.typeMedecin = '"+type+"'";
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.rawQuery(selectQuery,null);
 
@@ -633,12 +636,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         String location= stringForQuery(db, "SELECT localisationMedecin FROM "+MedecinTable.getTableName()+" WHERE idUser = "+id, null);
         return location;
     }
-    public String getMedecinImage(int id){
-        Log.d(TAG,"invoke read");
-        SQLiteDatabase db=this.getReadableDatabase();
-        String image= stringForQuery(db, "SELECT imageUser FROM "+UserTable.getTableName()+" WHERE idUser = "+id, null);
-        return image;
-    }
+
 
     ///////////////////////////////////////////////////////////////////////User
     public void addUsers(User user) {

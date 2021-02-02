@@ -263,7 +263,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
-                    android:text="Experience"
+                    android:text="Adresse"
                     android:textColor="@color/grey"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/textView1"
@@ -276,40 +276,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Créneaux Disponibles"
-                    android:textColor="@color/blue"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="-2dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Experience"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView11"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11"
-                    tools:ignore="InvalidId" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            android:layout_marginBottom="10dp"/>
 
         <Button
             android:id="@+id/rendezVous"
@@ -318,6 +285,14 @@
             android:inputType="textCapSentences"
             android:text="Prendre rendez-vous"
             android:textSize="16dp" />
+        <Button
+            android:id="@+id/paiment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            android:text="Paiment"
+            android:textSize="16dp"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
