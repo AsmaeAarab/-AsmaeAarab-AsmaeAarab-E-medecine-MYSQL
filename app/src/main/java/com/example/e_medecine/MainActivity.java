@@ -49,13 +49,5 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("Docteur",Docteur);
         startActivity(intent);
     }
-    public static byte[] imageViewToByte(int imageId, Context context) {
 
-        Drawable drawable = context.getResources().getDrawable(imageId);
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
-    }
 }

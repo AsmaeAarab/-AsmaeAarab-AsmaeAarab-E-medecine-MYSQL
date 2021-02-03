@@ -17,8 +17,11 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.e_medecine.DatePickerFragment;
+import com.example.e_medecine.Docteurs.Acceuil;
+import com.example.e_medecine.Docteurs.RendezVousActivity;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Medecin;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
@@ -148,6 +151,9 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String rdv_date= simpleDateFormat.format(calendar.getTime());
         db.addRendezVous(specialite,rdv_date,idPatient, id);
-
+        Toast.makeText(MedecinDetailleActivity.this, "Mes Rendez-vous", Toast.LENGTH_SHORT).show();
+        Intent ir = new Intent(MedecinDetailleActivity.this, RendezVousActivity.class);
+        ir.putExtra("Id",idPatient);
+        startActivity(ir);
     }
 }

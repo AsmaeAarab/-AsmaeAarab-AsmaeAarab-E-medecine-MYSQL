@@ -6,6 +6,9 @@ package com.example.e_medecine.sqliteBd;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.database.sqlite.SQLiteStatement;
+        import android.graphics.Bitmap;
+        import android.graphics.drawable.BitmapDrawable;
+        import android.graphics.drawable.Drawable;
         import android.util.Log;
 
         import com.example.e_medecine.Docteurs.Docteur;
@@ -16,6 +19,7 @@ package com.example.e_medecine.sqliteBd;
         import com.example.e_medecine.model.User;
 
         import java.io.BufferedReader;
+        import java.io.ByteArrayOutputStream;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
@@ -682,7 +686,15 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return idPatient;
     }
+    public static byte[] imageViewToByte(int imageId, Context context) {
 
+        Drawable drawable = context.getResources().getDrawable(imageId);
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
 }
 
 
