@@ -21,20 +21,25 @@ public class RestApi {
     public List<User> findAll()
     {
         try {
-            return restTemplate.exchange(Base_Url + "findall", HttpMethod.GET,null,new ParameterizedTypeReference<List<User>>(){}).getBody();
+            return restTemplate.exchange(Base_Url + "findall",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<User>>(){}).getBody();
         }catch (Exception e)
         {
             return null;
         }
     }
-    public boolean findPhone(String Phone,String Password)
+    public User findPhone(String Phone,String Password)
     {
         try {
-            restTemplate.exchange(Base_Url + "find/user/Phone/login/" + Password + "/" + Phone, HttpMethod.GET,null,new ParameterizedTypeReference<User>(){}).getBody();
-            return true;
+            return restTemplate.exchange(Base_Url + "/find/user/Phone/login/" + Password + "/" + Phone
+                    , HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<User>(){}).getBody();
         }catch (Exception e)
         {
-            return false;
+            return null;
         }
     }
     public boolean create(User user)
