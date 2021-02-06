@@ -31,15 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        btDoc = (Button) findViewById(R.id.doctor);
-        btDoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Login.class);
-                intent.putExtra("Docteur",Docteur);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -55,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("Patient",Patient);
         startActivity(intent);
     }
-    /*@OnClick(R.id.doctor)
+    @OnClick(R.id.doctor)
     public void loginDocteur() {
         Intent intent = new Intent(MainActivity.this, Login.class);
         intent.putExtra("Docteur",Docteur);
         startActivity(intent);
-    }*/
+    }
 
 }

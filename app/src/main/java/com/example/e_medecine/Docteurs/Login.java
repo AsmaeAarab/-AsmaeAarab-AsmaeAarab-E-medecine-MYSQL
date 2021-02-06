@@ -24,8 +24,7 @@ public class Login extends AppCompatActivity {
     private TextView createcompte;
     private Button signin ;
     private GlobalDbHelper db;
-    private String Docteur;
-    private RestApi rest;
+    private String Docteur,log,pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +38,9 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String log = login.getText().toString();
-                String pass = password.getText().toString();
+                log = login.getText().toString();
+                pass = password.getText().toString();
+                //User findphone = new HttpRequest().execute().get();
                 if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
