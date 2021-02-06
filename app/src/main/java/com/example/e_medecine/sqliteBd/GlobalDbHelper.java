@@ -639,7 +639,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
     }
 
 
-    ///////////////////////////////////////////////////////////////////////User
+    ///////////////////////////////////////////////////////////////////////RestApi
     public void addUsers(User user) {
         SQLiteDatabase db=getWritableDatabase();
         ContentValues values=new ContentValues();

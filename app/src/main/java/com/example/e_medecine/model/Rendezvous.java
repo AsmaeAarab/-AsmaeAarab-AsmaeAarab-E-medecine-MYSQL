@@ -1,6 +1,8 @@
 package com.example.e_medecine.model;
 
-public class Rendezvous {
+import java.io.Serializable;
+
+public class Rendezvous implements Serializable {
     private int id;
     private int idp;
     private int idm;

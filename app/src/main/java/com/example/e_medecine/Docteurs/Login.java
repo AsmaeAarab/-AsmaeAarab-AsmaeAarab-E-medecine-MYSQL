@@ -2,6 +2,8 @@ package com.example.e_medecine.Docteurs;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.directions.route.AbstractRouting;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 public class Login extends AppCompatActivity {
@@ -21,6 +25,7 @@ public class Login extends AppCompatActivity {
     private Button signin ;
     private GlobalDbHelper db;
     private String Docteur;
+    private RestApi rest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
     public void initViews()
     {
         login = (EditText) findViewById(R.id.emaillog);

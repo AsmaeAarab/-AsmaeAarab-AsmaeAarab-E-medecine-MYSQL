@@ -49,8 +49,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
+    implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    implementation 'org.springframework:org.springframework.core:3.2.2.RELEASE'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -1,6 +1,8 @@
 package com.example.e_medecine.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
      private int idUser;
      private String nomUser;
      private String prenomUser;
