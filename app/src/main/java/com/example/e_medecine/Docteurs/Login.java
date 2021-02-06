@@ -24,8 +24,7 @@ public class Login extends AppCompatActivity {
     private TextView createcompte;
     private Button signin ;
     private GlobalDbHelper db;
-    private String Docteur;
-    private RestApi rest;
+    private String Docteur,log,pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +38,12 @@ public class Login extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String log = login.getText().toString();
-                String pass = password.getText().toString();
-                if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
+                log = login.getText().toString();
+                pass = password.getText().toString();
+
+                User user = new HttpRequest().execute();
+
+                /*if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
                     password.setText(null);
@@ -51,11 +53,25 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
     }
+    public class HttpRequest extends AsyncTask<Void,Void,User>
+    {
 
+        @Override
+        protected User doInBackground(Void... voids) {
+            RestApi restApi = new RestApi();
+            return restApi.findPhone("0522277997","123");
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
+        }
+
+    }
     public void initViews()
     {
         login = (EditText) findViewById(R.id.emaillog);
