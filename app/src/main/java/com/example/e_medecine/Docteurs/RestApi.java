@@ -21,7 +21,7 @@ public class RestApi {
     public List<User> findAll()
     {
         try {
-            return restTemplate.exchange(Base_Url + "findall", HttpMethod.GET,null,new ParameterizedTypeReference<List<User>>()).getBody();
+            return restTemplate.exchange(Base_Url + "findall", HttpMethod.GET,null,new ParameterizedTypeReference<List<User>>(){}).getBody();
         }catch (Exception e)
         {
             return null;
@@ -40,18 +40,19 @@ public class RestApi {
     public boolean create(User user)
     {
         try {
-            Map<String,String> contentvalues = new HashMap<String, String>();
+            Map<String,String> contentValues = new HashMap<String, String>();
             String s = Base64.getEncoder().encodeToString(user.getImageUser());
             contentValues.put("image_User",s);
             contentValues.put("nom_User",user.getNomUser());
             contentValues.put("prenom_User",user.getPrenomUser());
             contentValues.put("genre_User",user.getGenre());
             contentValues.put("telephone_User",user.getTele());
-            contentValues.put("id_Ville",user.getIdVille());
+            String str1 = Integer.toString(user.getIdVille());
+            contentValues.put("id_Ville",str1);
             contentValues.put("email_User",user.getEmail());
             contentValues.put("password_User",user.getPassword());
             contentValues.put("role_User",user.getRole());
-            JSONObject jsonObject = new JSONObject(contentvalues);
+            JSONObject jsonObject = new JSONObject(contentValues);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(jsonObject.toString(),headers);

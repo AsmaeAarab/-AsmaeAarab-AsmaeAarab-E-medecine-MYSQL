@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.e_medecine.Docteurs.Login;
 import com.example.e_medecine.model.User;
@@ -23,11 +25,21 @@ public class MainActivity extends AppCompatActivity {
     GlobalDbHelper bd = new GlobalDbHelper(this);
     private String Docteur = "Docteur";
     private String Patient = "Patient";
+    private Button btDoc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        btDoc = (Button) findViewById(R.id.doctor);
+        btDoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Login.class);
+                intent.putExtra("Docteur",Docteur);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -43,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("Patient",Patient);
         startActivity(intent);
     }
-    @OnClick(R.id.doctor)
+    /*@OnClick(R.id.doctor)
     public void loginDocteur() {
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(MainActivity.this, Login.class);
         intent.putExtra("Docteur",Docteur);
         startActivity(intent);
-    }
+    }*/
 
 }
