@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.directions.route.AbstractRouting;
+import com.example.e_docteure.Docteurs.RestApi;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
@@ -60,7 +61,7 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected User doInBackground(Void... voids) {
-            RestApi restApi = new RestApi();
+            com.example.e_docteure.Docteurs.RestApi restApi = new RestApi();
             return restApi.findPhone("0522277997","123");
         }
 

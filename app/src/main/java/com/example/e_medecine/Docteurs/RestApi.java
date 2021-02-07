@@ -2,8 +2,8 @@ package com.example.e_docteure.Docteurs;
 
 import android.content.ContentValues;
 
-import com.example.e_docteure.model.docteur;
-import com.example.e_docteure.model.User;
+
+
 import com.example.e_medecine.Docteurs.Docteur;
 import com.example.e_medecine.model.User;
 
@@ -52,11 +52,11 @@ public class RestApi {
         try {
             Map<String,String> contentValues = new HashMap<String, String>();
             ContentValues valuesD = new ContentValues();
-            valuesD.put("idUser",String.valueOf(docteur.getIdUserMedecin()));
-            valuesD.put("idSpecialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
-            valuesD.put("typeMedecin", docteur.getTypedocteur());
-            valuesD.put("localisationMedecin", docteur.getLocation());
-            valuesD.put("TermeCondition", docteur.getTermeCondition());
+            valuesD.put("id_User",String.valueOf(docteur.getIdUserMedecin()));
+            valuesD.put("id_Specialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
+            valuesD.put("type_Medecin", docteur.getTypeMedecin());
+            valuesD.put("localisation_Medecin", docteur.getLocation());
+            valuesD.put("Terme_Condition", docteur.getTermeCondition());
             valuesD.put("frais",String.valueOf(docteur.getFrais()));
             valuesD.put("experience",String.valueOf(docteur.getExperience()));
             JSONObject jsonObject = new JSONObject(contentValues);
@@ -64,6 +64,7 @@ public class RestApi {
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(jsonObject.toString(),headers);
             restTemplate.postForEntity(Base_Url + "/insert/medecin",entity,null);
+            return true;
         }catch (Exception e){
             return false;
         }

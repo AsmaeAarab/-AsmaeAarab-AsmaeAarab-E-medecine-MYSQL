@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
+import com.example.e_docteure.Docteurs.RestApi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -122,7 +123,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
-                                if (insertuser == true && insertmedecin == true && insertmysqluser == true)
+                                if (insertuser == true && insertmedecin == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
                                     finish();
@@ -180,6 +181,20 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         protected Boolean doInBackground(User... users) {
             RestApi api = new RestApi();
             return api.create(users[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+        }
+    }
+    private class HttpRequestAddM extends AsyncTask<Docteur,Void,Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(Docteur... docteurs) {
+            RestApi restApi = new RestApi();
+            return restApi.createmedecin(docteurs[0]);
         }
 
         @Override
