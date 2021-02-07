@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RestApi {
-    private String Base_Url = "http://192.168.1.104:5000/user/";
+    private String Base_Url = "http://192.168.1.5:8080/user/";
     private RestTemplate restTemplate = new RestTemplate();
     public List<User> findAll()
     {
@@ -44,11 +44,12 @@ public class RestApi {
             return null;
         }
     }
-    public User findPhone(String Phone,String Password){
+    public User findPhone(String Phone,String Password,String Docteur){
         Map<String, String> params = new HashMap<String, String>();
         params.put("Password", "123");
         params.put("Phone", "0522277997");
-        String URL = Base_Url+"find/user/Phone/login/{Password}/{Phone}";
+        params.put("Docteur","Docteur");
+        String URL = Base_Url+"find/user/Phone/login/{Docteur}/{Password}/{Phone}";
         URI uri = UriComponentsBuilder.fromUriString(URL)
                 .buildAndExpand(params)
                 .toUri();
@@ -79,18 +80,18 @@ public class RestApi {
     {
         try {
             Map<String,String> valuesD = new HashMap<String, String>();
-            valuesD.put("id_User",String.valueOf(docteur.getIdUserMedecin()));
-            valuesD.put("id_Specialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
-            valuesD.put("type_Medecin", docteur.getTypeMedecin());
-            valuesD.put("localisation_Medecin", docteur.getLocation());
-            valuesD.put("Terme_Condition", docteur.getTermeCondition());
+            valuesD.put("idUser",String.valueOf(docteur.getIdUserMedecin()));
+            valuesD.put("idSpecialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
+            valuesD.put("typeMedecin", docteur.getTypeMedecin());
+            valuesD.put("localisationMedecin", docteur.getLocation());
+            valuesD.put("TermeCondition", docteur.getTermeCondition());
             valuesD.put("frais",String.valueOf(docteur.getFrais()));
             valuesD.put("experience",String.valueOf(docteur.getExperience()));
             JSONObject json = new JSONObject(valuesD);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(json.toString(),headers);
-            restTemplate.postForEntity(Base_Url + "/insert/medecin",entity,null);
+            restTemplate.postForEntity(Base_Url + "insert/medecin",entity,null);
             return true;
         }catch (Exception e){
             return false;
@@ -102,28 +103,28 @@ public class RestApi {
         try {
             Map<String,String> contentValues = new HashMap<String, String>();
             String s = Base64.getEncoder().encodeToString(user.getImageUser());
-            contentValues.put("image_User",s);
-            contentValues.put("nom_User",user.getNomUser());
-            contentValues.put("prenom_User",user.getPrenomUser());
+            contentValues.put("imageUser",s);
+            contentValues.put("nomUser",user.getNomUser());
+            contentValues.put("prenomUser",user.getPrenomUser());
 
-            contentValues.put("genre_User",user.getGenreUser());
-            contentValues.put("telephone_User",user.getTelephoneUser());
+            contentValues.put("genreUser",user.getGenreUser());
+            contentValues.put("telephoneUser",user.getTelephoneUser());
             String str1 = Integer.toString(user.getIdVille().getIdVille());
-            contentValues.put("id_Ville",str1);
-            contentValues.put("email_User",user.getEmailUser());
-            contentValues.put("password_User",user.getPasswordUser());
-            contentValues.put("role_User",user.getRoleUser());
-            contentValues.put("genre_User",user.getGenreUser());
-            contentValues.put("telephone_User",user.getTelephoneUser());
-            contentValues.put("id_Ville",String.valueOf(user.getIdVille()));
-            contentValues.put("email_User",user.getEmailUser());
-            contentValues.put("password_User",user.getPasswordUser());
-            contentValues.put("role_User",user.getRoleUser());
+            contentValues.put("idVille",str1);
+            contentValues.put("emailUser",user.getEmailUser());
+            contentValues.put("passwordUser",user.getPasswordUser());
+            contentValues.put("roleUser",user.getRoleUser());
+            contentValues.put("genreUser",user.getGenreUser());
+            contentValues.put("telephoneUser",user.getTelephoneUser());
+            contentValues.put("idVille",String.valueOf(user.getIdVille()));
+            contentValues.put("emailUser",user.getEmailUser());
+            contentValues.put("passwordUser",user.getPasswordUser());
+            contentValues.put("roleUser",user.getRoleUser());
             JSONObject jsonObject = new JSONObject(contentValues);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(jsonObject.toString(),headers);
-            restTemplate.postForEntity(Base_Url + "/insert/user",entity,null);
+            restTemplate.postForEntity(Base_Url + "insert/user",entity,null);
             return true;
         }catch (Exception e){
             return false;

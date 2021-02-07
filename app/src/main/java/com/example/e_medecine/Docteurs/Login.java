@@ -73,8 +73,8 @@ public class Login extends AppCompatActivity {
         @Override
         protected User doInBackground(Void... voids) {
             RestApi restApi = new RestApi();
-            userTest = restApi.findPhone("0522277997","123");
-            return restApi.findPhone("0522277997","123");
+            userTest = restApi.findPhone("0522277997","123","Docteur");
+            return restApi.findPhone("0522277997","123","Docteur");
         }
 
         @Override
