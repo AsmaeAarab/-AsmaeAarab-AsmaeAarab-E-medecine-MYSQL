@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.directions.route.AbstractRouting;
+import com.example.e_docteure.Docteurs.RestApi;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
@@ -41,9 +42,7 @@ public class Login extends AppCompatActivity {
                 log = login.getText().toString();
                 pass = password.getText().toString();
 
-                User user = new HttpRequest().execute();
-
-                /*if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
+                if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
                     password.setText(null);
@@ -53,7 +52,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
-                }*/
+                }
             }
         });
     }
@@ -62,7 +61,7 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected User doInBackground(Void... voids) {
-            RestApi restApi = new RestApi();
+            com.example.e_docteure.Docteurs.RestApi restApi = new RestApi();
             return restApi.findPhone("0522277997","123");
         }
 
