@@ -11,8 +11,7 @@ public class User implements Serializable {
     private String genreUser;
     private String telephoneUser;
     private byte[] imageUser;
-    // private int idVille;
-    private Ville idVille;
+    private int idVille;
     private String emailUser;
     private String passwordUser;
     private String roleUser;
@@ -20,7 +19,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, Ville idVille, String email, String password, String role) {
+    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, int idVille, String email, String password, String role) {
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
         this.genreUser = genre;
@@ -65,11 +64,11 @@ public class User implements Serializable {
         this.imageUser = imageUser;
     }
 
-    public Ville getIdVille() {
+    public int getIdVille() {
         return idVille;
     }
 
-    public void setIdVille(Ville idVille) {
+    public void setIdVille(int idVille) {
         this.idVille = idVille;
     }
 
