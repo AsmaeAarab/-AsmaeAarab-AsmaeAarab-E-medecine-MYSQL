@@ -1,138 +1,92 @@
 package com.example.e_medecine.Docteurs;
 
 public class Docteur  {
-    private int id;
-    private String nom;
-    private String prenom;
-    private String email;
-    private String password;
-    private String num;
-    private String ville;
-    private String Specialite;
-    private String Education;
-    private String Adresse;
-    private String Charte;
+    private int idMedecin;
+    private int idUserMedecin;
+    private int idSpecialiteMedecin;
+    private String typeMedecin;
+    private String location;
+    private int experience;
+    private int frais;
+    private String TermeCondition;
 
     public Docteur()
     {
 
     }
-    public Docteur(int id, String nom, String prenom, String email, String password, String num, String ville, String specialite, String education, String adresse, String charte) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.password = password;
-        this.num = num;
-        this.ville = ville;
-        Specialite = specialite;
-        Education = education;
-        Adresse = adresse;
-        Charte = charte;
+
+    public Docteur(int idMedecin, int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
+        this.idMedecin = idMedecin;
+        this.idUserMedecin = idUserMedecin;
+        this.idSpecialiteMedecin = idSpecialiteMedecin;
+        this.typeMedecin = typeMedecin;
+        this.location = location;
+        this.experience = experience;
+        this.frais = frais;
+        TermeCondition = termeCondition;
     }
 
-    public int getId() {
-        return id;
+    public int getIdMedecin() {
+        return idMedecin;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdMedecin(int idMedecin) {
+        this.idMedecin = idMedecin;
     }
 
-    public String getNom() {
-        return nom;
+    public int getIdUserMedecin() {
+        return idUserMedecin;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setIdUserMedecin(int idUserMedecin) {
+        this.idUserMedecin = idUserMedecin;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public int getIdSpecialiteMedecin() {
+        return idSpecialiteMedecin;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setIdSpecialiteMedecin(int idSpecialiteMedecin) {
+        this.idSpecialiteMedecin = idSpecialiteMedecin;
     }
 
-    public String getEmail() {
-        return email;
+    public String getTypeMedecin() {
+        return typeMedecin;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTypeMedecin(String typeMedecin) {
+        this.typeMedecin = typeMedecin;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLocation() {
+        return location;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getNum() {
-        return num;
+    public int getExperience() {
+        return experience;
     }
 
-    public void setNum(String num) {
-        this.num = num;
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
-    public String getVille() {
-        return ville;
+    public int getFrais() {
+        return frais;
     }
 
-    public void setVille(String ville) {
-        this.ville = ville;
+    public void setFrais(int frais) {
+        this.frais = frais;
     }
 
-    public String getSpecialite() {
-        return Specialite;
+    public String getTermeCondition() {
+        return TermeCondition;
     }
 
-    public void setSpecialite(String specialite) {
-        Specialite = specialite;
-    }
-
-    public String getEducation() {
-        return Education;
-    }
-
-    public void setEducation(String education) {
-        Education = education;
-    }
-
-    public String getAdresse() {
-        return Adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        Adresse = adresse;
-    }
-
-    public String getCharte() {
-        return Charte;
-    }
-
-    public void setCharte(String charte) {
-        Charte = charte;
-    }
-
-    @Override
-    public String toString() {
-        return "Docteurs{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", num='" + num + '\'' +
-                ", ville='" + ville + '\'' +
-                ", Specialite='" + Specialite + '\'' +
-                ", Education='" + Education + '\'' +
-                ", Adresse='" + Adresse + '\'' +
-                ", Charte='" + Charte + '\'' +
-                '}';
+    public void setTermeCondition(String termeCondition) {
+        TermeCondition = termeCondition;
     }
 }

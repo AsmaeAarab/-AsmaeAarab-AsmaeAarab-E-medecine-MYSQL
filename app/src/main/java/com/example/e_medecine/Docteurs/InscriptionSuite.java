@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +30,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
+import com.example.e_docteure.Docteurs.RestApi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -100,7 +103,39 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
                             if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
+                                User user = new User();
+                                Docteur docteur = new Docteur();
                                 int Idville = db.getIdVille(city);
+                                try {
+                                    user.setImageUser(imgprofileval);
+                                    user.setNomUser(namedoc);
+                                    user.setPrenomUser(lastnamedoc);
+                                    user.setGenre(genderdoc);
+                                    user.setTele(phonedoc);
+                                    user.setIdUser(Idville);
+                                    user.setEmail(maildoc);
+                                    user.setPassword(passwordoc);
+                                    user.setRole("Docteur");
+                                    boolean insertmysqluser = new HttpRequestAdd().execute(user).get();
+                                    int IdSpecialite = db.getIdSpecialite(specialite);
+                                    docteur.setIdUserMedecin(23);
+                                    docteur.setIdSpecialiteMedecin(IdSpecialite);
+                                    docteur.setTypeMedecin(typedoc);
+                                    docteur.setLocation(locate);
+                                    docteur.setTermeCondition(charte);
+                                    docteur.setFrais(DocteurFrais);
+                                    docteur.setExperience(DocteurExperience);
+                                    boolean insertmysqlmedecin = new HttpRequestAddM().execute(docteur).get();
+                                    if (insertmysqluser == true && insertmysqlmedecin == true)
+                                    {
+                                        Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }else {
+                                        Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }catch (Exception e){
+                                    e.getMessage();
+                                }
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
@@ -155,6 +190,34 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     public void back(View v)
     {
         finish();
+    }
+    private class HttpRequestAdd extends AsyncTask<User,Void,Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(User... users) {
+            RestApi api = new RestApi();
+            return api.create(users[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+        }
+    }
+    private class HttpRequestAddM extends AsyncTask<Docteur,Void,Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(Docteur... docteurs) {
+            RestApi restApi = new RestApi();
+            return restApi.createmedecin(docteurs[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+        }
     }
     public void init()
     {
