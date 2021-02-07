@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,8 +25,8 @@ public class Login extends AppCompatActivity {
     private TextView createcompte;
     private Button signin ;
     private GlobalDbHelper db;
-    private String Docteur;
-    private RestApi rest;
+    private String Docteur,log,pass;
+    User userTest = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +36,24 @@ public class Login extends AppCompatActivity {
         Docteur = new String(ex.getString("Docteur"));
         System.out.println("Docteur" + Docteur);
         initViews();
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         db = new GlobalDbHelper(this);
+        RestApi restApi = new RestApi();
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String log = login.getText().toString();
-                String pass = password.getText().toString();
-                if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
+                log = login.getText().toString();
+                pass = password.getText().toString();
+
+               // userTest = restApi.findPhone("0522277997","123");
+             //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
+               AsyncTask<Void, Void, User> user = new HttpRequest().execute();
+
+               /* if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
                     password.setText(null);
@@ -51,11 +63,29 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
     }
+   public class HttpRequest extends AsyncTask<Void,Void,User>
+    {
 
+        @Override
+        protected User doInBackground(Void... voids) {
+            RestApi restApi = new RestApi();
+            userTest = restApi.findPhone(log,pass,Docteur);
+            return userTest;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            //super.onPostExecute(user);
+          //  Toast.makeText(Login.this,"user id: "+userTest.getIdUser(),Toast.LENGTH_LONG).show();
+            TextView txt = (TextView) findViewById(R.id.userAffich);
+            txt.setText("user id: "+userTest.getIdUser()); // txt.setText(result);
+        }
+
+    }
     public void initViews()
     {
         login = (EditText) findViewById(R.id.emaillog);

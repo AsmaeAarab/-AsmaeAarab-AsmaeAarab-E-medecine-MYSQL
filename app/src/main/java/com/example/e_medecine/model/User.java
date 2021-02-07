@@ -1,32 +1,35 @@
 package com.example.e_medecine.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
-     private int idUser;
-     private String nomUser;
-     private String prenomUser;
-     private String genre;
-     private String tele;
-     private byte[] imageUser;
-     private int idVille;
-     private String email;
-     private String password;
-     private String role;
+    private int idUser;
+    private String nomUser;
+    private String prenomUser;
+    private String genreUser;
+    private String telephoneUser;
+    private byte[] imageUser;
+    // private int idVille;
+    private Ville idVille;
+    private String emailUser;
+    private String passwordUser;
+    private String roleUser;
 
     public User() {
     }
 
-    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, int idVille, String email, String password, String role) {
+    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, Ville idVille, String email, String password, String role) {
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
-        this.genre = genre;
-        this.tele = tele;
+        this.genreUser = genre;
+        this.telephoneUser = tele;
         this.imageUser = imageUser;
         this.idVille = idVille;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        this.emailUser = email;
+        this.passwordUser = password;
+        this.roleUser = role;
     }
 
     public int getIdUser() {
@@ -53,21 +56,6 @@ public class User implements Serializable {
         this.prenomUser = prenomUser;
     }
 
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getTele() {
-        return tele;
-    }
-
-    public void setTele(String tele) {
-        this.tele = tele;
-    }
 
     public byte[] getImageUser() {
         return imageUser;
@@ -77,35 +65,52 @@ public class User implements Serializable {
         this.imageUser = imageUser;
     }
 
-    public int getIdVille() {
+    public Ville getIdVille() {
         return idVille;
     }
 
-    public void setIdVille(int idVille) {
+    public void setIdVille(Ville idVille) {
         this.idVille = idVille;
     }
 
-    public String getEmail() {
-        return email;
+    public String getGenreUser() {
+        return genreUser;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGenreUser(String genreUser) {
+        this.genreUser = genreUser;
     }
 
-    public String getPassword() {
-        return password;
+    public String getTelephoneUser() {
+        return telephoneUser;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTelephoneUser(String telephoneUser) {
+        this.telephoneUser = telephoneUser;
     }
 
-    public String getRole() {
-        return role;
+    public String getEmailUser() {
+        return emailUser;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
+    }
+
+    public String getPasswordUser() {
+        return passwordUser;
+    }
+
+    public void setPasswordUser(String passwordUser) {
+        this.passwordUser = passwordUser;
+    }
+
+    public String getRoleUser() {
+        return roleUser;
+    }
+
+    public void setRoleUser(String roleUser) {
+        this.roleUser = roleUser;
     }
 }
+

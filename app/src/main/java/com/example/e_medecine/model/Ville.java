@@ -3,27 +3,28 @@ package com.example.e_medecine.model;
 import java.io.Serializable;
 
 public class Ville implements Serializable {
-    private int idVille;
-    private String Label;
+    private Integer idVille;
+    private String label;
 
     public Ville(int idVille, String label) {
         this.idVille = idVille;
-        Label = label;
+        this.label = label;
     }
-
-    public int getIdVille() {
+    public Ville() {
+    }
+    public Integer getIdVille() {
         return idVille;
     }
 
-    public void setIdVille(int idVille) {
+    public void setIdVille(Integer idVille) {
         this.idVille = idVille;
     }
 
     public String getLabel() {
-        return Label;
+        return label;
     }
 
     public void setLabel(String label) {
-        Label = label;
+        this.label = label;
     }
 }
