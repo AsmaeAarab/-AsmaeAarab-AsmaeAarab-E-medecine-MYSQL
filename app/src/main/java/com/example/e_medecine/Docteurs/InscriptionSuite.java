@@ -104,6 +104,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         if (Condition.isChecked()) {
                             if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
                                 User user = new User();
+                                Docteur docteur = new Docteur();
                                 int Idville = db.getIdVille(city);
                                 try {
                                     user.setImageUser(imgprofileval);
@@ -116,6 +117,22 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     user.setPassword(passwordoc);
                                     user.setRole("Docteur");
                                     boolean insertmysqluser = new HttpRequestAdd().execute(user).get();
+                                    int IdSpecialite = db.getIdSpecialite(specialite);
+                                    docteur.setIdUserMedecin(23);
+                                    docteur.setIdSpecialiteMedecin(IdSpecialite);
+                                    docteur.setTypeMedecin(typedoc);
+                                    docteur.setLocation(locate);
+                                    docteur.setTermeCondition(charte);
+                                    docteur.setFrais(DocteurFrais);
+                                    docteur.setExperience(DocteurExperience);
+                                    boolean insertmysqlmedecin = new HttpRequestAddM().execute(docteur).get();
+                                    if (insertmysqluser == true && insertmysqlmedecin == true)
+                                    {
+                                        Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }else {
+                                        Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
+                                    }
                                 }catch (Exception e){
                                     e.getMessage();
                                 }

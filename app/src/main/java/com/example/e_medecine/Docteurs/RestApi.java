@@ -50,8 +50,7 @@ public class RestApi {
     public boolean createmedecin(Docteur docteur)
     {
         try {
-            Map<String,String> contentValues = new HashMap<String, String>();
-            ContentValues valuesD = new ContentValues();
+            Map<String,String> valuesD = new HashMap<String, String>();
             valuesD.put("id_User",String.valueOf(docteur.getIdUserMedecin()));
             valuesD.put("id_Specialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
             valuesD.put("type_Medecin", docteur.getTypeMedecin());
@@ -59,10 +58,10 @@ public class RestApi {
             valuesD.put("Terme_Condition", docteur.getTermeCondition());
             valuesD.put("frais",String.valueOf(docteur.getFrais()));
             valuesD.put("experience",String.valueOf(docteur.getExperience()));
-            JSONObject jsonObject = new JSONObject(contentValues);
+            JSONObject json = new JSONObject(valuesD);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<String> entity = new HttpEntity<String>(jsonObject.toString(),headers);
+            HttpEntity<String> entity = new HttpEntity<String>(json.toString(),headers);
             restTemplate.postForEntity(Base_Url + "/insert/medecin",entity,null);
             return true;
         }catch (Exception e){
