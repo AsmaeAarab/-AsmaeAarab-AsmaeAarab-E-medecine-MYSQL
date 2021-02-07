@@ -5,6 +5,13 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+
+import android.content.ContentValues;
+
+
+
+import com.example.e_medecine.Docteurs.Docteur;
+
 import com.example.e_medecine.model.User;
 
 import org.json.JSONObject;
@@ -66,7 +73,30 @@ public class RestApi {
 
         }
     }
- /*   @RequiresApi(api = Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.O)
+
+    public boolean createmedecin(Docteur docteur)
+    {
+        try {
+            Map<String,String> valuesD = new HashMap<String, String>();
+            valuesD.put("id_User",String.valueOf(docteur.getIdUserMedecin()));
+            valuesD.put("id_Specialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
+            valuesD.put("type_Medecin", docteur.getTypeMedecin());
+            valuesD.put("localisation_Medecin", docteur.getLocation());
+            valuesD.put("Terme_Condition", docteur.getTermeCondition());
+            valuesD.put("frais",String.valueOf(docteur.getFrais()));
+            valuesD.put("experience",String.valueOf(docteur.getExperience()));
+            JSONObject json = new JSONObject(valuesD);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<String> entity = new HttpEntity<String>(json.toString(),headers);
+            restTemplate.postForEntity(Base_Url + "/insert/medecin",entity,null);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean create(User user)
     {
         try {
@@ -75,6 +105,7 @@ public class RestApi {
             contentValues.put("image_User",s);
             contentValues.put("nom_User",user.getNomUser());
             contentValues.put("prenom_User",user.getPrenomUser());
+
             contentValues.put("genre_User",user.getGenreUser());
             contentValues.put("telephone_User",user.getTelephoneUser());
             String str1 = Integer.toString(user.getIdVille().getIdVille());
@@ -82,14 +113,20 @@ public class RestApi {
             contentValues.put("email_User",user.getEmailUser());
             contentValues.put("password_User",user.getPasswordUser());
             contentValues.put("role_User",user.getRoleUser());
+            contentValues.put("genre_User",user.getGenreUser());
+            contentValues.put("telephone_User",user.getTelephoneUser());
+            contentValues.put("id_Ville",String.valueOf(user.getIdVille()));
+            contentValues.put("email_User",user.getEmailUser());
+            contentValues.put("password_User",user.getPasswordUser());
+            contentValues.put("role_User",user.getRoleUser());
             JSONObject jsonObject = new JSONObject(contentValues);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(jsonObject.toString(),headers);
-            restTemplate.postForEntity(Base_Url + "create",entity,null);
+            restTemplate.postForEntity(Base_Url + "/insert/user",entity,null);
             return true;
         }catch (Exception e){
             return false;
         }
-    }*/
+    }
 }

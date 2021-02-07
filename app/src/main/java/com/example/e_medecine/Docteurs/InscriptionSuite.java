@@ -32,8 +32,6 @@ import android.widget.Toast;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
-import com.example.e_docteure.Docteurs.RestApi;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -110,12 +108,12 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     user.setImageUser(imgprofileval);
                                     user.setNomUser(namedoc);
                                     user.setPrenomUser(lastnamedoc);
-                                    user.setGenre(genderdoc);
-                                    user.setTele(phonedoc);
+                                    user.setGenreUser(genderdoc);
+                                    user.setTelephoneUser(phonedoc);
                                     user.setIdUser(Idville);
-                                    user.setEmail(maildoc);
-                                    user.setPassword(passwordoc);
-                                    user.setRole("Docteur");
+                                    user.setEmailUser(maildoc);
+                                    user.setPasswordUser(passwordoc);
+                                    user.setRoleUser("Docteur");
                                     boolean insertmysqluser = new HttpRequestAdd().execute(user).get();
                                     int IdSpecialite = db.getIdSpecialite(specialite);
                                     docteur.setIdUserMedecin(23);
