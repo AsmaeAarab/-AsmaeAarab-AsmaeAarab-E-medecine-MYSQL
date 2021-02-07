@@ -46,10 +46,10 @@ public class RestApi {
     }
     public User findPhone(String Phone,String Password,String Docteur){
         Map<String, String> params = new HashMap<String, String>();
-        params.put("Password", "123");
-        params.put("Phone", "0522277997");
-        params.put("Docteur","Docteur");
-        String URL = Base_Url+"find/user/Phone/login/{Docteur}/{Password}/{Phone}";
+        params.put("Password", Password);
+        params.put("Phone", Phone);
+        params.put("Docteur",Docteur);
+        String URL = Base_Url+"find/user/Phone/login/"+Docteur+"/"+Password+"/"+Phone;
         URI uri = UriComponentsBuilder.fromUriString(URL)
                 .buildAndExpand(params)
                 .toUri();
@@ -106,7 +106,6 @@ public class RestApi {
             contentValues.put("imageUser",s);
             contentValues.put("nomUser",user.getNomUser());
             contentValues.put("prenomUser",user.getPrenomUser());
-
             contentValues.put("genreUser",user.getGenreUser());
             contentValues.put("telephoneUser",user.getTelephoneUser());
             String str1 = Integer.toString(user.getIdVille().getIdVille());
