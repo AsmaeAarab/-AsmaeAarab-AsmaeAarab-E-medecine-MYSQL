@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -100,12 +102,27 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
                             if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
+                                User user = new User();
                                 int Idville = db.getIdVille(city);
+                                try {
+                                    user.setImageUser(imgprofileval);
+                                    user.setNomUser(namedoc);
+                                    user.setPrenomUser(lastnamedoc);
+                                    user.setGenre(genderdoc);
+                                    user.setTele(phonedoc);
+                                    user.setIdUser(Idville);
+                                    user.setEmail(maildoc);
+                                    user.setPassword(passwordoc);
+                                    user.setRole("Docteur");
+                                    boolean insertmysqluser = new HttpRequestAdd().execute(user).get();
+                                }catch (Exception e){
+                                    e.getMessage();
+                                }
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
-                                if (insertuser == true && insertmedecin == true)
+                                if (insertuser == true && insertmedecin == true && insertmysqluser == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
                                     finish();
@@ -155,6 +172,20 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     public void back(View v)
     {
         finish();
+    }
+    private class HttpRequestAdd extends AsyncTask<User,Void,Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(User... users) {
+            RestApi api = new RestApi();
+            return api.create(users[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+        }
     }
     public void init()
     {

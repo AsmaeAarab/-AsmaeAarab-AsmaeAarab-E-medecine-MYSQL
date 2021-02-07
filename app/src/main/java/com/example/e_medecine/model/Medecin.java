@@ -7,23 +7,53 @@ public class Medecin implements Serializable {
     private int idUserMedecin;
     private int idSpecialiteMedecin;
     private String typeMedecin;
+    private String specialite;
     private String location;
     private int experience;
     private int frais;
-    private String TermeCondition;
+    private String nomMedecin;
+    private String prenomMedecin;
+    private byte[] imageMedecin;
+
 
     public Medecin() {
     }
 
-    public Medecin(int idMedecin, int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
-        this.idMedecin = idMedecin;
+    public Medecin( int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String specialite, String location, int experience, int frais, String nomMedecin, String prenomMedecin, byte[] imageMedecin) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;
         this.typeMedecin = typeMedecin;
+        this.specialite = specialite;
         this.location = location;
         this.experience = experience;
         this.frais = frais;
-        TermeCondition = termeCondition;
+        this.nomMedecin = nomMedecin;
+        this.prenomMedecin = prenomMedecin;
+        this.imageMedecin = imageMedecin;
+    }
+
+    public String getNomMedecin() {
+        return nomMedecin;
+    }
+
+    public void setNomMedecin(String nomMedecin) {
+        this.nomMedecin = nomMedecin;
+    }
+
+    public String getPrenomMedecin() {
+        return prenomMedecin;
+    }
+
+    public void setPrenomMedecin(String prenomMedecin) {
+        this.prenomMedecin = prenomMedecin;
+    }
+
+    public byte[] getImageMedecin() {
+        return imageMedecin;
+    }
+
+    public void setImageMedecin(byte[] imageMedecin) {
+        this.imageMedecin = imageMedecin;
     }
 
     public int getIdMedecin() {
@@ -58,6 +88,14 @@ public class Medecin implements Serializable {
         this.typeMedecin = typeMedecin;
     }
 
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -80,13 +118,5 @@ public class Medecin implements Serializable {
 
     public void setFrais(int frais) {
         this.frais = frais;
-    }
-
-    public String getTermeCondition() {
-        return TermeCondition;
-    }
-
-    public void setTermeCondition(String termeCondition) {
-        TermeCondition = termeCondition;
     }
 }
