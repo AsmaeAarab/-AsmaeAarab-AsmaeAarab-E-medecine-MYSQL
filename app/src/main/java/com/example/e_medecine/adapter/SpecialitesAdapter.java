@@ -1,6 +1,8 @@
 package com.example.e_medecine.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +42,11 @@ public class SpecialitesAdapter extends RecyclerView.Adapter<SpecialitesAdapter.
     @Override
     public void onBindViewHolder(@NonNull HolderSpecialite holder, int position) {
         Specialite specialite=specialitesList.get(position);
-        String label=specialite.getLabe();
-        holder.specialiteLabel.setText(label);
-        holder.specialiteImage.setImageResource(specialite.getImageSpecialite());
+        //String label=specialite.getLabe();
+        holder.specialiteLabel.setText(String.format("LABEL:%s",specialite.get(position)));
+        byte[] specialite_img=specialite.getImageSpecialite();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(specialite_img, 0, specialite_img.length);
+        holder.specialiteImage.setImageBitmap(bitmap);
     }
 
     @Override
