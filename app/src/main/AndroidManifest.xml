@@ -15,7 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Emedecine"
-        android:usesCleartextTraffic="true"
         >
         <activity android:name=".PatientForgetPswdActivity"></activity>
         <activity android:name=".PatientUpdateActivity" />
