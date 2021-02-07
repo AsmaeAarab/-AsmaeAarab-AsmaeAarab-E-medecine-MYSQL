@@ -59,7 +59,7 @@ public class RestApi {
                 .toUri();
         try {
             Log.i("url_User",uri.toString());
-            User user = restTemplate.exchange(//URL + "/etudiants",
+            User user = restTemplate.exchange(
                     uri,
                     HttpMethod.GET,
                     null,
