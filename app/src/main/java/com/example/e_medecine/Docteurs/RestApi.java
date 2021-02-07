@@ -74,6 +74,34 @@ public class RestApi {
 
         }
     }
+    public User findPhoneID(String Phone){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Phone", Phone);
+        String URL = Base_Url+"find/user/"+Phone;
+        URI uri = UriComponentsBuilder.fromUriString(URL)
+                .buildAndExpand(params)
+                .toUri();
+        uri = UriComponentsBuilder
+                .fromUri(uri)
+                .build()
+                .toUri();
+        try {
+            Log.i("url_User",uri.toString());
+            User user = restTemplate.exchange(
+                    uri,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<User>() {
+                    }
+            ).getBody();
+            Log.i("url_user_email",user.toString());
+            return user;
+        }catch (Exception e){
+            Log.e("url_error", "Exception: "+Log.getStackTraceString(e));
+            return null;
+
+        }
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     public boolean createmedecin(Docteur docteur)
@@ -91,7 +119,7 @@ public class RestApi {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(json.toString(),headers);
-            restTemplate.postForEntity(Base_Url + "insert/medecin",entity,null);
+            restTemplate.postForEntity(Base_Url + "find/insert/medecin",entity,null);
             return true;
         }catch (Exception e){
             return false;
@@ -123,7 +151,7 @@ public class RestApi {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(jsonObject.toString(),headers);
-            restTemplate.postForEntity(Base_Url + "insert/user",entity,null);
+            restTemplate.postForEntity(Base_Url + "find/insert/user",entity,null);
             return true;
         }catch (Exception e){
             return false;

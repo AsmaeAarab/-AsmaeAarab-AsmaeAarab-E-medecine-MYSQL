@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_medecine.R;
@@ -51,6 +52,8 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     private final int REQUEST_CODE_GALLERY = 999;
     private GlobalDbHelper db;
     private SQLiteDatabase sqLiteDatabase;
+    private User userid = null;
+    private int IDUser = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,16 +96,16 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                 locate = localisation.getText().toString();
                 String frais = Docfrais.getText().toString();
                 String exp = DocExpe.getText().toString();
-                DocteurFrais = Integer.parseInt(frais);
-                DocteurExperience = Integer.parseInt(exp);
-                charte = Condition.getText().toString();
+
                 if (genderdoc.equals("Homme")) {
                     if (click == true) {
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
                             if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
+                                charte = Condition.getText().toString();
                                 User user = new User();
                                 Docteur docteur = new Docteur();
+                                AsyncTask<Void, Void, User> userid = new HttpRequestuser().execute();
                                 int Idville = db.getIdVille(city);
                                 try {
                                     user.setImageUser(imgprofileval);
@@ -115,14 +118,14 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     user.setPasswordUser(passwordoc);
                                     user.setRoleUser("Docteur");
                                     boolean insertmysqluser = new HttpRequestAdd().execute(user).get();
-                                    int IdSpecialite = db.getIdSpecialite(specialite);
-                                    docteur.setIdUserMedecin(23);
+                                    /*int IdSpecialite = db.getIdSpecialite(specialite);
+                                    docteur.setIdUserMedecin(23);//IDUser
                                     docteur.setIdSpecialiteMedecin(IdSpecialite);
                                     docteur.setTypeMedecin(typedoc);
                                     docteur.setLocation(locate);
                                     docteur.setTermeCondition(charte);
-                                    docteur.setFrais(DocteurFrais);
-                                    docteur.setExperience(DocteurExperience);
+                                    docteur.setFrais(Integer.parseInt(frais));
+                                    docteur.setExperience(Integer.parseInt(exp));
                                     boolean insertmysqlmedecin = new HttpRequestAddM().execute(docteur).get();
                                     if (insertmysqluser == true && insertmysqlmedecin == true)
                                     {
@@ -130,11 +133,11 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                         finish();
                                     }else {
                                         Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                    }
+                                    }*/
                                 }catch (Exception e){
                                     e.getMessage();
                                 }
-                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
+                                /*boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
@@ -144,7 +147,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     finish();
                                 }else {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                }
+                                }*/
                             } else {
                                 Toast.makeText(InscriptionSuite.this, "Please fill the fields", Toast.LENGTH_SHORT).show();
                             }
@@ -216,6 +219,22 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
         }
+    }
+    public class HttpRequestuser extends AsyncTask<Void,Void,User>
+    {
+
+        @Override
+        protected User doInBackground(Void... voids) {
+            RestApi restApi = new RestApi();
+            userid = restApi.findPhoneID(phonedoc);
+            return userid;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            //IDUser = userid.getIdUser();
+        }
+
     }
     public void init()
     {
