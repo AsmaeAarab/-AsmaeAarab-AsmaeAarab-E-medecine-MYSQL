@@ -1,8 +1,10 @@
-package com.example.e_medecine.Docteurs;
+package com.example.e_docteure.Docteurs;
 
 import android.content.ContentValues;
 
-import com.example.e_medecine.model.Medecin;
+import com.example.e_docteure.model.docteur;
+import com.example.e_docteure.model.User;
+import com.example.e_medecine.Docteurs.Docteur;
 import com.example.e_medecine.model.User;
 
 import org.json.JSONObject;
@@ -45,18 +47,18 @@ public class RestApi {
             return null;
         }
     }
-    public boolean createmedecin(Medecin medecin)
+    public boolean createmedecin(Docteur docteur)
     {
         try {
             Map<String,String> contentValues = new HashMap<String, String>();
             ContentValues valuesD = new ContentValues();
-            valuesD.put("idUser",String.valueOf(medecin.getIdUserMedecin()));
-            valuesD.put("idSpecialite", String.valueOf(medecin.getIdSpecialiteMedecin()));
-            valuesD.put("typeMedecin", medecin.getTypeMedecin());
-            valuesD.put("localisationMedecin", medecin.getLocation());
-            valuesD.put("TermeCondition", medecin.getTermeCondition());
-            valuesD.put("frais",String.valueOf(medecin.getFrais()));
-            valuesD.put("experience",String.valueOf(medecin.getExperience()));
+            valuesD.put("idUser",String.valueOf(docteur.getIdUserMedecin()));
+            valuesD.put("idSpecialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
+            valuesD.put("typeMedecin", docteur.getTypedocteur());
+            valuesD.put("localisationMedecin", docteur.getLocation());
+            valuesD.put("TermeCondition", docteur.getTermeCondition());
+            valuesD.put("frais",String.valueOf(docteur.getFrais()));
+            valuesD.put("experience",String.valueOf(docteur.getExperience()));
             JSONObject jsonObject = new JSONObject(contentValues);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
