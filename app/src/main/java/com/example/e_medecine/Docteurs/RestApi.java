@@ -136,13 +136,6 @@ public class RestApi {
             contentValues.put("prenomUser",user.getPrenomUser());
             contentValues.put("genreUser",user.getGenreUser());
             contentValues.put("telephoneUser",user.getTelephoneUser());
-            String str1 = Integer.toString(user.getIdVille());
-            contentValues.put("idVille",str1);
-            contentValues.put("emailUser",user.getEmailUser());
-            contentValues.put("passwordUser",user.getPasswordUser());
-            contentValues.put("roleUser",user.getRoleUser());
-            contentValues.put("genreUser",user.getGenreUser());
-            contentValues.put("telephoneUser",user.getTelephoneUser());
             contentValues.put("idVille",String.valueOf(user.getIdVille()));
             contentValues.put("emailUser",user.getEmailUser());
             contentValues.put("passwordUser",user.getPasswordUser());
