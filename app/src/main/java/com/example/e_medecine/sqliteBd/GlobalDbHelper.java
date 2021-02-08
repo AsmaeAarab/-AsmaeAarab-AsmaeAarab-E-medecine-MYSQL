@@ -326,6 +326,17 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return idspec;
     }
+    public Integer getIconSpecialite(String labelspecialite)
+    {
+        Integer idicon = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT imageSpecialite FROM specialites WHERE label = '"+labelspecialite+"' ",null);
+        while (cursor.moveToNext())
+        {
+            idicon = cursor.getInt(0);
+        }
+        return idicon;
+    }
     public boolean insertMedecin(int iduser,int idspecialite,String typedoc,String Locate,String charte,int frais,int experience)
     {
         SQLiteDatabase db = this.getWritableDatabase();

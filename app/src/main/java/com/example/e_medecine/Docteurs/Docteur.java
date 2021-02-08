@@ -1,15 +1,36 @@
 package com.example.e_medecine.Docteurs;
 
+import com.example.e_medecine.model.Specialite;
+import com.example.e_medecine.model.Users;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Docteur implements Serializable {
+    @SerializedName("idMedecin")
+    @Expose
     private int idMedecin;
-    private int idUserMedecin;
-    private int idSpecialiteMedecin;
+    @SerializedName("idUser")
+    @Expose
+    private Users idUserMedecin;
+    @SerializedName("idSpecialite")
+    @Expose
+    private Specialite idSpecialiteMedecin;
+    @SerializedName("typeMedecin")
+    @Expose
     private String typeMedecin;
+    @SerializedName("localisationMedecin")
+    @Expose
     private String location;
+    @SerializedName("experience")
+    @Expose
     private int experience;
+    @SerializedName("frais")
+    @Expose
     private int frais;
+    @SerializedName("TermeCondition")
+    @Expose
     private String TermeCondition;
 
     public Docteur()
@@ -17,8 +38,7 @@ public class Docteur implements Serializable {
 
     }
 
-    public Docteur(int idMedecin, int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
-        this.idMedecin = idMedecin;
+    public Docteur(Users idUserMedecin, Specialite idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;
         this.typeMedecin = typeMedecin;
@@ -36,19 +56,19 @@ public class Docteur implements Serializable {
         this.idMedecin = idMedecin;
     }
 
-    public int getIdUserMedecin() {
+    public Users getIdUserMedecin() {
         return idUserMedecin;
     }
 
-    public void setIdUserMedecin(int idUserMedecin) {
+    public void setIdUserMedecin(Users idUserMedecin) {
         this.idUserMedecin = idUserMedecin;
     }
 
-    public int getIdSpecialiteMedecin() {
+    public Specialite getIdSpecialiteMedecin() {
         return idSpecialiteMedecin;
     }
 
-    public void setIdSpecialiteMedecin(int idSpecialiteMedecin) {
+    public void setIdSpecialiteMedecin(Specialite idSpecialiteMedecin) {
         this.idSpecialiteMedecin = idSpecialiteMedecin;
     }
 

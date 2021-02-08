@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 
 
 import com.example.e_medecine.model.User;
+import com.example.e_medecine.model.Users;
 
 
 import org.json.JSONObject;
@@ -68,7 +69,7 @@ public class RestApi {
 
         }
     }
-    public User findPhoneID(String Phone){
+    public Users findPhoneID(String Phone){
         Map<String, String> params = new HashMap<String, String>();
         params.put("Phone", Phone);
         String URL = Base_Url+"find/user/"+Phone;
@@ -81,11 +82,11 @@ public class RestApi {
                 .toUri();
         try {
             Log.i("url_User",uri.toString());
-            User user = restTemplate.exchange(
+            Users user = restTemplate.exchange(
                     uri,
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<User>() {
+                    new ParameterizedTypeReference<Users>() {
                     }
             ).getBody();
             Log.i("url_user_email",user.toString());
