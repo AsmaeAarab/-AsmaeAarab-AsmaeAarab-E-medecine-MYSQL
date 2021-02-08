@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.PatientService;
 import com.example.e_medecine.Docteurs.InscriptionSuite;
+import com.example.e_medecine.model.Patient;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.model.Ville;
@@ -188,18 +189,26 @@ public class PatientSignupActivity extends AppCompatActivity {
         byte[] imgprofile = imageViewToByte(imgpro);
         Users u=new Users();
        // u.setIdUser(3);
-        u.setNomUser("hell");
+        u.setNomUser(nom);
         u.setPrenomUser(prenom);
         u.setGenreUser(genre);
         u.setTelephoneUser(phone);
         u.setImageUser(imgprofile);
-        Ville v=new Ville(1,"Casablanca");
+        Ville v=new Ville(1,"Casa");
         u.setIdVille(v);
         u.setEmailUser(email);
         u.setPasswordUser(mdp);
         u.setRoleUser("patient");
-          addPatient(u);
+        addUser(u);
 
+        Patient p=new Patient();
+        p.setAdresse(adresse);
+        p.setAgePatient(age);
+        p.setCnssPatient(assurance);
+        Users u1=new Users(1);
+        p.setIdUser(u1);
+        
+        addPatient(p);
         ///////////FIN MYSQL
         Intent intent = new Intent(this, PatientLoginActivity.class);
         db = new GlobalDbHelper(this);
@@ -248,7 +257,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         }
 
     }
-    public void addPatient(Users u){
+    public boolean addUser(Users u){
         // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         service= Apis.getPatientsService();
         Call<Users> call=service.addUser(u);
@@ -266,9 +275,32 @@ public class PatientSignupActivity extends AppCompatActivity {
                 Log.e("Error:",t.getMessage());
             }
         });
-        Intent intent = new Intent(this, PatientLoginActivity.class);
+       /* Intent intent = new Intent(this, PatientLoginActivity.class);
         startActivity(intent);
-        finish();
+        finish();*/
+        return true;
+    }
+    public void addPatient(Patient p){
+        // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
+        service= Apis.getPatientsService();
+        Call<Patient> call=service.ajoutPatient(p);
+        call.enqueue(new Callback<Patient>() {
+            @Override
+            public void onResponse(Call<Patient> call, Response<Patient> response) {
+                //if(response.isSuccessful()){
+                Toast.makeText(getApplicationContext(), "yesADDPatient ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PatientSignupActivity.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
+                //}
+            }
+            @Override
+            public void onFailure(Call<Patient> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "NoADDPatient ", Toast.LENGTH_SHORT).show();
+                Log.e("Error:",t.getMessage());
+            }
+        });
+       /* Intent intent = new Intent(this, PatientLoginActivity.class);
+        startActivity(intent);
+        finish();*/
     }
 
     @OnClick(R.id.ChooseProfile)
