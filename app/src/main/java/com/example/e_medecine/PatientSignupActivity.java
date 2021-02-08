@@ -198,7 +198,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         u.setEmailUser(email);
         u.setPasswordUser(mdp);
         u.setRoleUser("patient");
-          addPatient(u);
+          addPatient(u );
 
         ///////////FIN MYSQL
         Intent intent = new Intent(this, PatientLoginActivity.class);
