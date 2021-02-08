@@ -1,12 +1,12 @@
 package com.example.e_medecine.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class Users implements Serializable {
+
     @SerializedName("idUser")
     @Expose
     private int idUser;
@@ -27,7 +27,7 @@ public class User implements Serializable {
     private byte[] imageUser;
     @SerializedName("idVille")
     @Expose
-    private int idVille;
+    private Ville idVille;
     @SerializedName("emailUser")
     @Expose
     private String emailUser;
@@ -38,19 +38,20 @@ public class User implements Serializable {
     @Expose
     private String roleUser;
 
-    public User() {
+    public Users() {
     }
 
-    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, int idVille, String email, String password, String role) {
+    public Users(int idUser, String nomUser, String prenomUser, String genreUser, String telephoneUser, byte[] imageUser, Ville idVille, String emailUser, String passwordUser, String roleUser) {
+        this.idUser = idUser;
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
-        this.genreUser = genre;
-        this.telephoneUser = tele;
+        this.genreUser = genreUser;
+        this.telephoneUser = telephoneUser;
         this.imageUser = imageUser;
         this.idVille = idVille;
-        this.emailUser = email;
-        this.passwordUser = password;
-        this.roleUser = role;
+        this.emailUser = emailUser;
+        this.passwordUser = passwordUser;
+        this.roleUser = roleUser;
     }
 
     public int getIdUser() {
@@ -77,23 +78,6 @@ public class User implements Serializable {
         this.prenomUser = prenomUser;
     }
 
-
-    public byte[] getImageUser() {
-        return imageUser;
-    }
-
-    public void setImageUser(byte[] imageUser) {
-        this.imageUser = imageUser;
-    }
-
-    public int getIdVille() {
-        return idVille;
-    }
-
-    public void setIdVille(int idVille) {
-        this.idVille = idVille;
-    }
-
     public String getGenreUser() {
         return genreUser;
     }
@@ -108,6 +92,22 @@ public class User implements Serializable {
 
     public void setTelephoneUser(String telephoneUser) {
         this.telephoneUser = telephoneUser;
+    }
+
+    public byte[] getImageUser() {
+        return imageUser;
+    }
+
+    public void setImageUser(byte[] imageUser) {
+        this.imageUser = imageUser;
+    }
+
+    public Ville getIdVille() {
+        return idVille;
+    }
+
+    public void setIdVille(Ville idVille) {
+        this.idVille = idVille;
     }
 
     public String getEmailUser() {
@@ -134,4 +134,3 @@ public class User implements Serializable {
         this.roleUser = roleUser;
     }
 }
-

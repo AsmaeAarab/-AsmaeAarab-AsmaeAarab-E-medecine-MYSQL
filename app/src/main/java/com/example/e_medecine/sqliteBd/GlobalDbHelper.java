@@ -650,13 +650,13 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         ContentValues values=new ContentValues();
         values.put(UserTable.getNOM(), user.getNomUser());
         values.put(UserTable.getPRENOM(), user.getPrenomUser());
-        values.put(UserTable.getGENRE(), user.getGenre());
-        values.put(UserTable.getTELE(), user.getTele());
+        values.put(UserTable.getGENRE(), user.getGenreUser());
+        values.put(UserTable.getTELE(), user.getTelephoneUser());
         values.put(UserTable.getIMAGE(), user.getImageUser());
         values.put(UserTable.getVILLE(), user.getIdVille());
-        values.put(UserTable.getEMAIL(), user.getEmail());
-        values.put(UserTable.getPASSWORD(), user.getPassword());
-        values.put(UserTable.getROLE(), user.getRole());
+        values.put(UserTable.getEMAIL(), user.getEmailUser());
+        values.put(UserTable.getPASSWORD(), user.getPasswordUser());
+        values.put(UserTable.getROLE(), user.getRoleUser());
         db.insert(UserTable.getTableName(),null,values);
         db.close();
     }

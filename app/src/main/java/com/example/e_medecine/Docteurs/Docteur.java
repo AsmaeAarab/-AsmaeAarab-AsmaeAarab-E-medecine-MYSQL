@@ -1,6 +1,8 @@
 package com.example.e_medecine.Docteurs;
 
-public class Docteur  {
+import java.io.Serializable;
+
+public class Docteur implements Serializable {
     private int idMedecin;
     private int idUserMedecin;
     private int idSpecialiteMedecin;

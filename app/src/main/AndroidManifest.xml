@@ -8,12 +8,14 @@
 
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Emedecine">
+        android:theme="@style/Theme.Emedecine"
+        >
         <activity android:name=".PatientForgetPswdActivity"></activity>
         <activity android:name=".PatientUpdateActivity" />
         <activity android:name=".PatientAccueilActivity" />

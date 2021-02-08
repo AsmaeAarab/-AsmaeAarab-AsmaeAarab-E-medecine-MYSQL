@@ -31,7 +31,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.PatientService;
 import com.example.e_medecine.Docteurs.InscriptionSuite;
+import com.example.e_medecine.model.User;
+import com.example.e_medecine.model.Users;
+import com.example.e_medecine.model.Ville;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -46,6 +51,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PatientSignupActivity extends AppCompatActivity {
 
@@ -86,7 +94,7 @@ public class PatientSignupActivity extends AppCompatActivity {
     private boolean isclicked = false;
     private final int REQUEST_CODE_GALLERY = 999;
 
-
+    PatientService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +180,27 @@ public class PatientSignupActivity extends AppCompatActivity {
         String age=editTextAge.getText().toString();
         String adresse=editTextAdresse.getText().toString();
 
+        ////////// START MYSQL
+        //getIdVille
+        service= Apis.getPatientsService();
+        //service.getIdVille("Casablanca")
+
+        byte[] imgprofile = imageViewToByte(imgpro);
+        Users u=new Users();
+       // u.setIdUser(3);
+        u.setNomUser("hell");
+        u.setPrenomUser(prenom);
+        u.setGenreUser(genre);
+        u.setTelephoneUser(phone);
+        u.setImageUser(imgprofile);
+        Ville v=new Ville(1,"Casablanca");
+        u.setIdVille(v);
+        u.setEmailUser(email);
+        u.setPasswordUser(mdp);
+        u.setRoleUser("patient");
+          addPatient(u);
+
+        ///////////FIN MYSQL
         Intent intent = new Intent(this, PatientLoginActivity.class);
         db = new GlobalDbHelper(this);
         sqLiteDatabase=db.getWritableDatabase();
@@ -218,6 +247,28 @@ public class PatientSignupActivity extends AppCompatActivity {
             else { Toast.makeText(getApplicationContext(),"Email already exists",Toast.LENGTH_SHORT).show();}
         }
 
+    }
+    public void addPatient(Users u){
+        // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
+        service= Apis.getPatientsService();
+        Call<Users> call=service.addUser(u);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                //if(response.isSuccessful()){
+                Toast.makeText(getApplicationContext(), "yesADD ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PatientSignupActivity.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
+                //}
+            }
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
+                Log.e("Error:",t.getMessage());
+            }
+        });
+        Intent intent = new Intent(this, PatientLoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @OnClick(R.id.ChooseProfile)
