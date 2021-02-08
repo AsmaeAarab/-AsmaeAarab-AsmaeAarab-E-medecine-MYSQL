@@ -6,13 +6,8 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 
-import android.content.ContentValues;
-
-
-
-import com.example.e_medecine.Docteurs.Docteur;
-
 import com.example.e_medecine.model.User;
+
 
 import org.json.JSONObject;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,7 +17,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.util.Base64;
 import java.util.HashMap;
@@ -44,7 +38,7 @@ public class RestApi {
             return null;
         }
     }
-    public User findPhone(String Phone,String Password,String Docteur){
+    public User findPhone(String Phone, String Password, String Docteur){
         Map<String, String> params = new HashMap<String, String>();
         params.put("Password", Password);
         params.put("Phone", Phone);

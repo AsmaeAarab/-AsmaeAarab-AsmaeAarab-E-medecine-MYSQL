@@ -190,14 +190,14 @@ public class PatientSignupActivity extends AppCompatActivity {
        // u.setIdUser(3);
         u.setNomUser("hell");
         u.setPrenomUser(prenom);
-        u.setGenre(genre);
-        u.setTele(phone);
+        u.setGenreUser(genre);
+        u.setTelephoneUser(phone);
         u.setImageUser(imgprofile);
         Ville v=new Ville(1,"Casablanca");
         u.setIdVille(v);
-        u.setEmail(email);
-        u.setPassword(mdp);
-        u.setRole("patient");
+        u.setEmailUser(email);
+        u.setPasswordUser(mdp);
+        u.setRoleUser("patient");
           addPatient(u);
 
         ///////////FIN MYSQL

@@ -1,19 +1,41 @@
 package com.example.e_medecine.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 public class User implements Serializable {
+    @SerializedName("idUser")
+    @Expose
     private int idUser;
+    @SerializedName("nomUser")
+    @Expose
     private String nomUser;
+    @SerializedName("prenomUser")
+    @Expose
     private String prenomUser;
+    @SerializedName("genreUser")
+    @Expose
     private String genreUser;
+    @SerializedName("telephoneUser")
+    @Expose
     private String telephoneUser;
+    @SerializedName("imageUser")
+    @Expose
     private byte[] imageUser;
+    @SerializedName("idVille")
+    @Expose
     private int idVille;
+    @SerializedName("emailUser")
+    @Expose
     private String emailUser;
+    @SerializedName("passwordUser")
+    @Expose
     private String passwordUser;
+    @SerializedName("roleUser")
+    @Expose
     private String roleUser;
 
     public User() {

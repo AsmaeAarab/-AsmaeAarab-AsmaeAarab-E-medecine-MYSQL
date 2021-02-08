@@ -51,8 +51,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M1'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
     implementation 'com.jakewharton:butterknife:10.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
     testImplementation 'junit:junit:4.+'
