@@ -187,18 +187,18 @@ public class PatientSignupActivity extends AppCompatActivity {
 
         byte[] imgprofile = imageViewToByte(imgpro);
         Users u=new Users();
-        // u.setIdUser(3);
+       // u.setIdUser(3);
         u.setNomUser("hell");
         u.setPrenomUser(prenom);
-        u.setGenre(genre);
-        u.setTele(phone);
+        u.setGenreUser(genre);
+        u.setTelephoneUser(phone);
         u.setImageUser(imgprofile);
         Ville v=new Ville(1,"Casablanca");
         u.setIdVille(v);
-        u.setEmail(email);
-        u.setPassword(mdp);
-        u.setRole("patient");
-        addPatient(u);
+        u.setEmailUser(email);
+        u.setPasswordUser(mdp);
+        u.setRoleUser("patient");
+          addPatient(u);
 
         ///////////FIN MYSQL
         Intent intent = new Intent(this, PatientLoginActivity.class);

@@ -648,7 +648,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         values.put(UserTable.getGENRE(), user.getGenreUser());
         values.put(UserTable.getTELE(), user.getTelephoneUser());
         values.put(UserTable.getIMAGE(), user.getImageUser());
-        values.put(UserTable.getVILLE(), user.getIdVille().getIdVille());
+        values.put(UserTable.getVILLE(), user.getIdVille());
         values.put(UserTable.getEMAIL(), user.getEmailUser());
         values.put(UserTable.getPASSWORD(), user.getPasswordUser());
         values.put(UserTable.getROLE(), user.getRoleUser());

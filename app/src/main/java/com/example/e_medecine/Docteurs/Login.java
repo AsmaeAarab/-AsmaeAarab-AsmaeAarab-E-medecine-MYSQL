@@ -10,11 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.directions.route.AbstractRouting;
-import com.example.e_medecine.R;
 import com.example.e_medecine.model.User;
+import com.example.e_medecine.R;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 public class Login extends AppCompatActivity {
@@ -25,7 +22,9 @@ public class Login extends AppCompatActivity {
     private TextView createcompte;
     private Button signin ;
     private GlobalDbHelper db;
-    private String Docteur,log,pass;
+    private String Docteur = "";
+    private String log = "";
+    private String pass = "";
     User userTest = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,17 @@ public class Login extends AppCompatActivity {
                // userTest = restApi.findPhone("0522277997","123");
              //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
                AsyncTask<Void, Void, User> user = new HttpRequest().execute();
-
+               /*if (userM == true)
+               {
+                   login.setText(null);
+                   password.setText(null);
+                   Intent iacceuil = new Intent(Login.this,Acceuil.class);
+                   iacceuil.putExtra("Log",log);
+                   startActivity(iacceuil);
+                   Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
+               }else {
+                   Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
+               }*/
                /* if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
@@ -67,7 +76,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-   public class HttpRequest extends AsyncTask<Void,Void,User>
+    public class HttpRequest extends AsyncTask<Void,Void,User>
     {
 
         @Override
@@ -79,13 +88,13 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(User user) {
-            //super.onPostExecute(user);
-          //  Toast.makeText(Login.this,"user id: "+userTest.getIdUser(),Toast.LENGTH_LONG).show();
             TextView txt = (TextView) findViewById(R.id.userAffich);
-            txt.setText("user id: "+userTest.getIdUser()); // txt.setText(result);
+            txt.setText("user id: "+userTest.getIdUser());
         }
 
     }
+
+
     public void initViews()
     {
         login = (EditText) findViewById(R.id.emaillog);

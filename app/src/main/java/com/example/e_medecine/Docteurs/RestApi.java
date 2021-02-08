@@ -6,13 +6,8 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 
-import android.content.ContentValues;
-
-
-
-import com.example.e_medecine.Docteurs.Docteur;
-
 import com.example.e_medecine.model.User;
+
 
 import org.json.JSONObject;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,7 +17,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.util.Base64;
 import java.util.HashMap;
@@ -44,12 +38,40 @@ public class RestApi {
             return null;
         }
     }
-    public User findPhone(String Phone,String Password,String Docteur){
+    public User findPhone(String Phone, String Password, String Docteur){
         Map<String, String> params = new HashMap<String, String>();
         params.put("Password", Password);
         params.put("Phone", Phone);
         params.put("Docteur",Docteur);
         String URL = Base_Url+"find/user/Phone/login/"+Docteur+"/"+Password+"/"+Phone;
+        URI uri = UriComponentsBuilder.fromUriString(URL)
+                .buildAndExpand(params)
+                .toUri();
+        uri = UriComponentsBuilder
+                .fromUri(uri)
+                .build()
+                .toUri();
+        try {
+            Log.i("url_User",uri.toString());
+            User user = restTemplate.exchange(
+                    uri,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<User>() {
+                    }
+            ).getBody();
+            Log.i("url_user_email",user.toString());
+            return user;
+        }catch (Exception e){
+            Log.e("url_error", "Exception: "+Log.getStackTraceString(e));
+            return null;
+
+        }
+    }
+    public User findPhoneID(String Phone){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Phone", Phone);
+        String URL = Base_Url+"find/user/"+Phone;
         URI uri = UriComponentsBuilder.fromUriString(URL)
                 .buildAndExpand(params)
                 .toUri();
@@ -91,7 +113,7 @@ public class RestApi {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(json.toString(),headers);
-            restTemplate.postForEntity(Base_Url + "insert/medecin",entity,null);
+            restTemplate.postForEntity(Base_Url + "find/insert/medecin",entity,null);
             return true;
         }catch (Exception e){
             return false;
@@ -108,13 +130,6 @@ public class RestApi {
             contentValues.put("prenomUser",user.getPrenomUser());
             contentValues.put("genreUser",user.getGenreUser());
             contentValues.put("telephoneUser",user.getTelephoneUser());
-            String str1 = Integer.toString(user.getIdVille().getIdVille());
-            contentValues.put("idVille",str1);
-            contentValues.put("emailUser",user.getEmailUser());
-            contentValues.put("passwordUser",user.getPasswordUser());
-            contentValues.put("roleUser",user.getRoleUser());
-            contentValues.put("genreUser",user.getGenreUser());
-            contentValues.put("telephoneUser",user.getTelephoneUser());
             contentValues.put("idVille",String.valueOf(user.getIdVille()));
             contentValues.put("emailUser",user.getEmailUser());
             contentValues.put("passwordUser",user.getPasswordUser());
@@ -123,7 +138,7 @@ public class RestApi {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> entity = new HttpEntity<String>(jsonObject.toString(),headers);
-            restTemplate.postForEntity(Base_Url + "insert/user",entity,null);
+            restTemplate.postForEntity(Base_Url + "find/insert/user",entity,null);
             return true;
         }catch (Exception e){
             return false;

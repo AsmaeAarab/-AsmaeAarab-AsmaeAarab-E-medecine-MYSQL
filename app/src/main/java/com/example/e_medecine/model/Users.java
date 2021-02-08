@@ -7,52 +7,51 @@ import java.io.Serializable;
 
 public class Users implements Serializable {
 
-    @SerializedName("id_user")
+    @SerializedName("idUser")
     @Expose
     private int idUser;
-    @SerializedName("nom_user")
+    @SerializedName("nomUser")
     @Expose
     private String nomUser;
-    @SerializedName("prenom_user")
+    @SerializedName("prenomUser")
     @Expose
     private String prenomUser;
-    @SerializedName("genre_user")
+    @SerializedName("genreUser")
     @Expose
-    private String genre;
-    @SerializedName("telephone_user")
+    private String genreUser;
+    @SerializedName("telephoneUser")
     @Expose
-    private String tele;
-    @SerializedName("image_user")
+    private String telephoneUser;
+    @SerializedName("imageUser")
     @Expose
     private byte[] imageUser;
-    @SerializedName("id_ville")
+    @SerializedName("idVille")
     @Expose
     private Ville idVille;
-    @SerializedName("email_user")
+    @SerializedName("emailUser")
     @Expose
-    private String email;
-    @SerializedName("password_user")
+    private String emailUser;
+    @SerializedName("passwordUser")
     @Expose
-    private String password;
-    @SerializedName("role_user")
+    private String passwordUser;
+    @SerializedName("roleUser")
     @Expose
-    private String role;
-
-
+    private String roleUser;
 
     public Users() {
     }
 
-    public Users( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, Ville idVille, String email, String password, String role) {
+    public Users(int idUser, String nomUser, String prenomUser, String genreUser, String telephoneUser, byte[] imageUser, Ville idVille, String emailUser, String passwordUser, String roleUser) {
+        this.idUser = idUser;
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
-        this.genre = genre;
-        this.tele = tele;
+        this.genreUser = genreUser;
+        this.telephoneUser = telephoneUser;
         this.imageUser = imageUser;
         this.idVille = idVille;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        this.emailUser = emailUser;
+        this.passwordUser = passwordUser;
+        this.roleUser = roleUser;
     }
 
     public int getIdUser() {
@@ -79,20 +78,20 @@ public class Users implements Serializable {
         this.prenomUser = prenomUser;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getGenreUser() {
+        return genreUser;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenreUser(String genreUser) {
+        this.genreUser = genreUser;
     }
 
-    public String getTele() {
-        return tele;
+    public String getTelephoneUser() {
+        return telephoneUser;
     }
 
-    public void setTele(String tele) {
-        this.tele = tele;
+    public void setTelephoneUser(String telephoneUser) {
+        this.telephoneUser = telephoneUser;
     }
 
     public byte[] getImageUser() {
@@ -111,29 +110,27 @@ public class Users implements Serializable {
         this.idVille = idVille;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailUser() {
+        return emailUser;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordUser() {
+        return passwordUser;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordUser(String passwordUser) {
+        this.passwordUser = passwordUser;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleUser() {
+        return roleUser;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleUser(String roleUser) {
+        this.roleUser = roleUser;
     }
-
-
 }

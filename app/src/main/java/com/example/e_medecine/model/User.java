@@ -1,26 +1,47 @@
 package com.example.e_medecine.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 public class User implements Serializable {
+    @SerializedName("idUser")
+    @Expose
     private int idUser;
+    @SerializedName("nomUser")
+    @Expose
     private String nomUser;
+    @SerializedName("prenomUser")
+    @Expose
     private String prenomUser;
+    @SerializedName("genreUser")
+    @Expose
     private String genreUser;
+    @SerializedName("telephoneUser")
+    @Expose
     private String telephoneUser;
+    @SerializedName("imageUser")
+    @Expose
     private byte[] imageUser;
-    // private int idVille;
-    private Ville idVille;
+    @SerializedName("idVille")
+    @Expose
+    private int idVille;
+    @SerializedName("emailUser")
+    @Expose
     private String emailUser;
+    @SerializedName("passwordUser")
+    @Expose
     private String passwordUser;
+    @SerializedName("roleUser")
+    @Expose
     private String roleUser;
 
     public User() {
     }
 
-    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, Ville idVille, String email, String password, String role) {
+    public User( String nomUser, String prenomUser, String genre, String tele, byte[] imageUser, int idVille, String email, String password, String role) {
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
         this.genreUser = genre;
@@ -65,11 +86,11 @@ public class User implements Serializable {
         this.imageUser = imageUser;
     }
 
-    public Ville getIdVille() {
+    public int getIdVille() {
         return idVille;
     }
 
-    public void setIdVille(Ville idVille) {
+    public void setIdVille(int idVille) {
         this.idVille = idVille;
     }
 
