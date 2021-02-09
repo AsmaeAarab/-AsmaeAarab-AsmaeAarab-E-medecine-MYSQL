@@ -3,59 +3,78 @@ package com.example.e_medecine.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Patient {
-    @SerializedName("age_patient")
-    @Expose
-    private String age;
-    @SerializedName("adresse")
-    @Expose
-    private String adresse;
-    @SerializedName("id_user")
-    @Expose
-    private int id_user;
-    @SerializedName("cnss_patient")
-    @Expose
-    private String cnss;
+import java.io.Serializable;
 
-    public Patient() {
+public class Patient implements Serializable {
+
+    @SerializedName("idPatient")
+    @Expose
+    private int idPatient;
+    @SerializedName("idUser")
+    @Expose
+    private Users idUser;
+    @SerializedName("agePatient")
+    @Expose
+    private String agePatient;
+    @SerializedName("Adresse")
+    @Expose
+    private String Adresse;
+    @SerializedName("cnssPatient")
+    @Expose
+    private String cnssPatient;
+
+    public Patient()
+    {
+
+    }
+    public Patient(int idPatient,Users idUser, String agePatient, String adresse, String cnssPatient) {
+        super();
+        this.idPatient = idPatient;
+        this.idUser = idUser;
+        this.agePatient = agePatient;
+        Adresse = adresse;
+        this.cnssPatient = cnssPatient;
     }
 
-    public Patient(String age, String adresse, int id_user, String cnss) {
-        this.age = age;
-        this.adresse = adresse;
-        this.id_user = id_user;
-        this.cnss = cnss;
+    public int getIdPatient() {
+        return idPatient;
     }
 
-    public String getAge() {
-        return age;
+    public void setIdPatient(int idPatient) {
+        this.idPatient = idPatient;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public Users getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Users idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getAgePatient() {
+        return agePatient;
+    }
+
+    public void setAgePatient(String agePatient) {
+        this.agePatient = agePatient;
     }
 
     public String getAdresse() {
-        return adresse;
+        return Adresse;
     }
 
     public void setAdresse(String adresse) {
-        this.adresse = adresse;
+        Adresse = adresse;
     }
 
-    public int getId_user() {
-        return id_user;
+    public String getCnssPatient() {
+        return cnssPatient;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setCnssPatient(String cnssPatient) {
+        this.cnssPatient = cnssPatient;
     }
 
-    public String getCnss() {
-        return cnss;
-    }
 
-    public void setCnss(String cnss) {
-        this.cnss = cnss;
-    }
 }

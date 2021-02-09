@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     @SerializedName("idUser")
     @Expose
-    private int idUser;
+    private Integer idUser;
     @SerializedName("nomUser")
     @Expose
     private String nomUser;
