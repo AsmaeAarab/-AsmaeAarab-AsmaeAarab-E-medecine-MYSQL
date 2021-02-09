@@ -1,42 +1,54 @@
 package com.example.e_medecine.model;
 
-import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public  class Specialite implements Serializable {
-    private int id_specialite;
-    private String labe;
-    private byte[] imageSpecialite;
+public class Specialite {
+    @SerializedName("idSpecialite")
+    @Expose
+    private Integer idSpecialite;
+    @SerializedName("label")
+    @Expose
+    private String label;
+    @SerializedName("imageSpecialite")
+    @Expose
+    private String imageSpecialite;
 
     public Specialite() {
+
     }
-    public Specialite(int id_specialite, String labe, byte[] imageSpecialite) {
-        this.id_specialite = id_specialite;
-        this.labe = labe;
+    public Specialite( String label, String imageSpecialite) {
+        this.label = label;
+        this.imageSpecialite = imageSpecialite;
+    }
+    public Specialite(Integer idSpecialite, String label, String imageSpecialite) {
+        this.idSpecialite = idSpecialite;
+        this.label = label;
         this.imageSpecialite = imageSpecialite;
     }
 
-    public byte[] getImageSpecialite() {
+    public Integer getIdSpecialite() {
+        return idSpecialite;
+    }
+
+    public void setIdSpecialite(Integer idSpecialite) {
+        this.idSpecialite = idSpecialite;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getImageSpecialite() {
         return imageSpecialite;
     }
 
-    public void setImageSpecialite(byte[] imageSpecialite) {
+    public void setImageSpecialite(String imageSpecialite) {
         this.imageSpecialite = imageSpecialite;
-    }
-
-    public int getId_specialite() {
-        return id_specialite;
-    }
-
-    public void setId_specialite(int id_specialite) {
-        this.id_specialite = id_specialite;
-    }
-
-    public String getLabe() {
-        return labe;
-    }
-
-    public void setLabe(String labe) {
-        this.labe = labe;
     }
 
 }

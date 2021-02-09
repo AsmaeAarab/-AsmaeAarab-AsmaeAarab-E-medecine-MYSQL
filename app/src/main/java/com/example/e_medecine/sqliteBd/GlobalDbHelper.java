@@ -553,7 +553,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         else return false;
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Specialities
-    public ArrayList<Specialite> getSpecialites(){
+   /* public ArrayList<Specialite> getSpecialites(){
         Log.d(TAG,"invoke read");
         ArrayList<Specialite> specialiteList=new ArrayList<Specialite>();
         SQLiteDatabase db=getReadableDatabase();
@@ -581,6 +581,8 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.close();
         return specialiteList;
     }
+
+    */
     /*
     public void insertSpecialites(SQLiteDatabase db){
         db.execSQL("INSERT INTO "+SpecialiteTable.getTableName()+" ("+SpecialiteTable.getLABEL()+","+SpecialiteTable.getImageSpecialite()+") VALUES( \"Allergologie\", "+R.drawable.allergic+")");

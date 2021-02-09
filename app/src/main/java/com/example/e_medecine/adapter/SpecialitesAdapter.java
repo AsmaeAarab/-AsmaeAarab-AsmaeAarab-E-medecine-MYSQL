@@ -3,6 +3,7 @@ package com.example.e_medecine.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,24 +15,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Specialite;
-import com.example.e_medecine.service.SpecialiteService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.ResponseBody;
 
 public class SpecialitesAdapter extends RecyclerView.Adapter<SpecialitesAdapter.HolderSpecialite> implements Filterable {
 
     private Context context;
-    private List<Specialite> specialitesList;
-    private List<Specialite> specialitesListSearch;
+    private ArrayList<Specialite> specialitesList;
+    private ArrayList<Specialite> specialitesListSearch;
     private OnSpecialiteListener mOnSpecialiteListener;
-    public SpecialitesAdapter(Context context, List<Specialite> List, OnSpecialiteListener onSpecialiteListener ) {
+    public SpecialitesAdapter(Context context, ArrayList<Specialite> List, OnSpecialiteListener onSpecialiteListener ) {
         this.context = context;
         this.specialitesList = List;
         specialitesListSearch=new ArrayList<>(List);
@@ -48,13 +45,29 @@ public class SpecialitesAdapter extends RecyclerView.Adapter<SpecialitesAdapter.
     @Override
     public void onBindViewHolder(@NonNull HolderSpecialite holder, int position) {
         Specialite specialite=specialitesList.get(position);
-        //String label=specialite.getLabe();
-        holder.specialiteLabel.setText(String.format("Label:%s",specialite.getLabe()));
-        //Glide.with(holder.specialiteImage.getContext()).load(specialite.getImageSpecialite()).into(holder.specialiteImage);
+
+        holder.specialiteLabel.setText(specialite.getLabel());
+        byte[] byteArray =  Base64.decode(specialite.getImageSpecialite(), Base64.DEFAULT) ;
+        Bitmap bmp1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        holder.specialiteImage.setImageBitmap(bmp1);
+        //String specialite_img=specialite.getImageSpecialite().replaceAll("^\"|\"$", "");
+        //byte[] imageBytes= Base64.decode(specialite.getImageSpecialite(), Base64.DEFAULT);
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(specialite_img, 0, specialite_img.length);
+        //holder.specialiteImage.setImageBitmap(bitmap);
+
+        //Picasso.get().load(carsModels.get(i).getImage()).into(viewHolder.car_image);
+        /*
+        Specialite specialite=specialitesList.get(position);
+        String label=specialite.getLabe();
+        holder.specialiteLabel.setText(label);
+        byte[] specialite_img=specialite.getImageSpecialite();
+        Glide.with(holder.specialiteImage.getContext()).load(specialite.getImageSpecialite()).into(holder.specialiteImage);
         //Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         //byte[] specialite_img=specialite.getImageSpecialite();
         //Bitmap bitmap = BitmapFactory.decodeByteArray(specialite_img, 0, specialite_img.length);
         //holder.specialiteImage.setImageBitmap(bitmap);
+
+         */
     }
 
     @Override
@@ -97,7 +110,7 @@ public class SpecialitesAdapter extends RecyclerView.Adapter<SpecialitesAdapter.
             else {
                 String filterPattern=constraint.toString().toLowerCase().trim();
                 for(Specialite item: specialitesListSearch){
-                    if(item.getLabe().toLowerCase().contains(filterPattern)){
+                    if(item.getLabel().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }

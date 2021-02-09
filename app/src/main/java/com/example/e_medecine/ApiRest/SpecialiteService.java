@@ -1,4 +1,4 @@
-package com.example.e_medecine.service;
+package com.example.e_medecine.ApiRest;
 
 import com.example.e_medecine.model.Specialite;
 
@@ -12,8 +12,6 @@ import retrofit2.http.GET;
 
 public interface SpecialiteService {
     @GET("all")
-    Call<List<Specialite>> getspecialite();
+    Call<List<Specialite>> getSpecialitiesJson();
 
-    @GET("image/")
-    Call<ResponseBody> retrieveImageData();
 }
