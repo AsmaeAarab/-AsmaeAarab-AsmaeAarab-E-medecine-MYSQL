@@ -19,6 +19,10 @@ import com.example.e_medecine.model.User;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
+import java.net.URL;
+
+
+import org.springframework.http.HttpEntity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +40,7 @@ public class Login extends AppCompatActivity {
     private String log = "";
     private String pass = "";
     Users userTest = null;
+    private String loginPhone = "";
     MedecinService medecinService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +68,7 @@ public class Login extends AppCompatActivity {
                //userTest = restApi.findPhone(log,pass,Docteur);
              //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
                AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
-               /*if (userM == true)
-               {
-                   login.setText(null);
-                   password.setText(null);
-                   Intent iacceuil = new Intent(Login.this,Acceuil.class);
-                   iacceuil.putExtra("Log",log);
-                   startActivity(iacceuil);
-                   Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
-               }else {
-                   Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
-               }*/
+
                /* if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
@@ -88,26 +83,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-    public void FindUserPhone(String Password,String Phone,String Docteur){
-        medecinService = Apis.getMedecinService();
-        Call<Users> call = medecinService.FinduserbyPhone(Password,Phone,Docteur);
-        call.enqueue(new Callback<Users>() {
-            @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
-                Toast.makeText(getApplicationContext(), "yesFound", Toast.LENGTH_SHORT).show();
-                Toast.makeText(Login.this,"Found",Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
-                Log.e("Error:",t.getMessage());
-            }
-        });
-        /*Intent intent = new Intent(this, PatientLoginActivity.class);
-        startActivity(intent);
-        finish();*/
-    }
     public class HttpRequest extends AsyncTask<Void,Void,Users>
     {
 
@@ -122,6 +98,7 @@ public class Login extends AppCompatActivity {
         protected void onPostExecute(Users user) {
             TextView txt = (TextView) findViewById(R.id.userAffich);
             txt.setText("user id: "+userTest.getIdUser());
+            loginPhone = userTest.getTelephoneUser();
         }
 
     }

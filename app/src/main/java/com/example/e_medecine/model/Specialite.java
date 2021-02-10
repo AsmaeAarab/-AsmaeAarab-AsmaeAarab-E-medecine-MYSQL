@@ -5,21 +5,21 @@ import java.io.Serializable;
 public  class Specialite implements Serializable {
     private int id_specialite;
     private String labe;
-    private int imageSpecialite;
+    private byte[] imageSpecialite;
 
     public Specialite() {
     }
-    public Specialite(int id_specialite, String labe, int imageSpecialite) {
+    public Specialite(int id_specialite, String labe, byte[] imageSpecialite) {
         this.id_specialite = id_specialite;
         this.labe = labe;
         this.imageSpecialite = imageSpecialite;
     }
 
-    public int getImageSpecialite() {
+    public byte[] getImageSpecialite() {
         return imageSpecialite;
     }
 
-    public void setImageSpecialite(int imageSpecialite) {
+    public void setImageSpecialite(byte[] imageSpecialite) {
         this.imageSpecialite = imageSpecialite;
     }
 
@@ -27,7 +27,7 @@ public  class Specialite implements Serializable {
         return id_specialite;
     }
 
-    public void setId_specialite(int id_specialite) {
+    public void setId_specialite(Integer id_specialite) {
         this.id_specialite = id_specialite;
     }
 
