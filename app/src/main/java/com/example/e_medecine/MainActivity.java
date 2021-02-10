@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     GlobalDbHelper bd = new GlobalDbHelper(this);
-    private String Docteur = "Docteur";
+    private String Docteur = "Medecin";
     private String Patient = "Patient";
     private Button btDoc;
     @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.doctor)
     public void loginDocteur() {
         Intent intent = new Intent(MainActivity.this, Login.class);
-        intent.putExtra("Docteur",Docteur);
+        intent.putExtra("Medecin",Docteur);
         startActivity(intent);
     }
 
