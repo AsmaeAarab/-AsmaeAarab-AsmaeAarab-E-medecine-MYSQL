@@ -43,7 +43,7 @@ public class RestApi {
         Map<String, String> params = new HashMap<String, String>();
         params.put("Password", Password);
         params.put("Phone", Phone);
-        params.put("Docteur",Docteur);
+        params.put("Medecin",Docteur);
         String URL = Base_Url+"find/user/Phone/login/"+Docteur+"/"+Password+"/"+Phone;
         URI uri = UriComponentsBuilder.fromUriString(URL)
                 .buildAndExpand(params)
@@ -99,17 +99,17 @@ public class RestApi {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
 
-    public boolean createmedecin(Docteur docteur)
+    public boolean createmedecin(Medecin medecin)
     {
         try {
             Map<String,String> valuesD = new HashMap<String, String>();
-            valuesD.put("idUser",String.valueOf(docteur.getIdUserMedecin()));
-            valuesD.put("idSpecialite", String.valueOf(docteur.getIdSpecialiteMedecin()));
-            valuesD.put("typeMedecin", docteur.getTypeMedecin());
-            valuesD.put("localisationMedecin", docteur.getLocation());
-            valuesD.put("TermeCondition", docteur.getTermeCondition());
-            valuesD.put("frais",String.valueOf(docteur.getFrais()));
-            valuesD.put("experience",String.valueOf(docteur.getExperience()));
+            valuesD.put("idUser",String.valueOf(medecin.getIdUserMedecin()));
+            valuesD.put("idSpecialite", String.valueOf(medecin.getIdSpecialiteMedecin()));
+            valuesD.put("typeMedecin", medecin.getTypeMedecin());
+            valuesD.put("localisationMedecin", medecin.getLocation());
+            valuesD.put("TermeCondition", medecin.getTermeCondition());
+            valuesD.put("frais",String.valueOf(medecin.getFrais()));
+            valuesD.put("experience",String.valueOf(medecin.getExperience()));
             JSONObject json = new JSONObject(valuesD);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

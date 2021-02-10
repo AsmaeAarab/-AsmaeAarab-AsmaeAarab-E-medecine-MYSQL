@@ -3,8 +3,7 @@ package com.example.e_medecine.ApiRest;
 
 
 
-import com.example.e_medecine.Docteurs.Docteur;
-import com.example.e_medecine.model.User;
+import com.example.e_medecine.Docteurs.Medecin;
 import com.example.e_medecine.model.Users;
 
 import java.util.List;
@@ -30,10 +29,10 @@ public interface MedecinService {
     Call<Users>addUserM(@Body Users user);
     @Headers({"Accept: application/json"})
     @POST("find/insert/m/medecin")
-    Call<Docteur>addMedecin(@Body Docteur docteur);
+    Call<Medecin>addMedecin(@Body Medecin medecin);
 
-    @GET("find/user/Phone/login/{Docteur}/{Password}/{Phone}")
-    Call<Users>FinduserbyPhone(@Path("Password") String Pass, @Path("Phone") String Phone, @Path("Docteur") String Docteur);
+    @GET("find/user/Phone/login/{Medecin}/{Password}/{Phone}")
+    Call<Users>FinduserbyPhone(@Path("Password") String Pass, @Path("Phone") String Phone, @Path("Medecin") String Docteur);
 
     @GET("find/user/{Phone}")
     Call<List<Users>>getIdUser(@Path("Phone") String Phone);
