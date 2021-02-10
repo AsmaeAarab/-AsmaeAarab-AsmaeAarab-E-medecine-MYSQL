@@ -39,6 +39,7 @@ import com.example.e_medecine.model.Specialite;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.model.Ville;
+import com.example.e_medecine.Docteurs.Docteur;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -64,6 +65,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     private GlobalDbHelper db;
     private SQLiteDatabase sqLiteDatabase;
     Users userTest = null;
+    int iduserAn = 0;
     private int IDUser = 0;
     MedecinService medecinService;
     @Override
@@ -115,14 +117,15 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         if (Condition.isChecked()) {
                             if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
 
-                                //AsyncTask<Void, Void, User> userid = new HttpRequestuser().execute();
+
                                 try {
-                                    AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
+                                    //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
                                     charte = Condition.getText().toString();
                                     int Idville = db.getIdVille(city);
                                     Users users = new Users();
                                     Docteur docteurs = new Docteur();
                                     Ville ville = new Ville(Idville,city);
+
                                     int iduser = 0;
                                     users.setImageUser(imgprofileval);
                                     users.setNomUser(namedoc);
@@ -134,24 +137,25 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     users.setPasswordUser(passwordoc);
                                     users.setRoleUser("Docteur");
                                     addUserM(users);
-                                    //docteurs.setIdUserMedecin(userTest.getIdUser());//IDUser
                                     int IdSpecialite = db.getIdSpecialite(specialite);
-                                    int IdImage = db.getIconSpecialite(specialite);
+                                    Integer IdImage = db.getIconSpecialite(specialite);
                                     Specialite specialize = new Specialite(IdSpecialite,specialite,IdImage);
-                                    docteurs.setIdSpecialiteMedecin(specialize);
+                                    docteurs.setIdSpecialiteMedecin(IdSpecialite);
                                     docteurs.setTypeMedecin(typedoc);
                                     docteurs.setLocation(locate);
                                     docteurs.setTermeCondition("Terme Accepter");
                                     docteurs.setFrais(Integer.parseInt(frais));
                                     docteurs.setExperience(Integer.parseInt(exp));
+                                    docteurs.setIdUserMedecin(0);
                                     addMedecin(docteurs);
-                                    if (addUserM(users) == true && addMedecin(docteurs) == true)
+
+                                    /*if (addUserM(users) == true /*&& addMedecin(docteurs) == true)
                                     {
                                         Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }else {
                                         Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                    }
+                                    }*/
                                 }catch (Exception e){
                                     e.getMessage();
                                 }
@@ -210,6 +214,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     {
         finish();
     }
+
     public class HttpRequest extends AsyncTask<Void,Void,Users>
     {
 
@@ -222,7 +227,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
 
         @Override
         protected void onPostExecute(Users user) {
-            userTest.getIdUser();
+            iduserAn = userTest.getIdUser();
         }
 
     }

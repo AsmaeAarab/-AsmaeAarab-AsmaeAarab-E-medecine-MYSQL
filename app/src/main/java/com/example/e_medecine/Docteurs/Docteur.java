@@ -13,7 +13,7 @@ public class Docteur implements Serializable {
     private int idMedecin;
     @SerializedName("idUser")
     @Expose
-    private Users idUserMedecin;
+    private int idUserMedecin;
     @SerializedName("idSpecialite")
     @Expose
     private Specialite idSpecialiteMedecin;
@@ -38,7 +38,7 @@ public class Docteur implements Serializable {
 
     }
 
-    public Docteur(Users idUserMedecin, Specialite idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
+    public Docteur(int idUserMedecin, Specialite idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;
         this.typeMedecin = typeMedecin;
@@ -56,11 +56,11 @@ public class Docteur implements Serializable {
         this.idMedecin = idMedecin;
     }
 
-    public Users getIdUserMedecin() {
+    public int getIdUserMedecin() {
         return idUserMedecin;
     }
 
-    public void setIdUserMedecin(Users idUserMedecin) {
+    public void setIdUserMedecin(int idUserMedecin) {
         this.idUserMedecin = idUserMedecin;
     }
 
