@@ -43,7 +43,7 @@ public class RestApi {
         Map<String, String> params = new HashMap<String, String>();
         params.put("Password", Password);
         params.put("Phone", Phone);
-        params.put("Docteur",Docteur);
+        params.put("Medecin",Docteur);
         String URL = Base_Url+"find/user/Phone/login/"+Docteur+"/"+Password+"/"+Phone;
         URI uri = UriComponentsBuilder.fromUriString(URL)
                 .buildAndExpand(params)
@@ -99,7 +99,7 @@ public class RestApi {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
 
-    public boolean createmedecin(Docteur docteur)
+    public boolean createmedecin(Medecin docteur)
     {
         try {
             Map<String,String> valuesD = new HashMap<String, String>();
