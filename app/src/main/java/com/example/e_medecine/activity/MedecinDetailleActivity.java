@@ -1,5 +1,6 @@
 package com.example.e_medecine.activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -9,21 +10,35 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_medecine.DatePickerFragment;
+import com.example.e_medecine.Docteurs.Acceuil;
 import com.example.e_medecine.Docteurs.RendezVousActivity;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.Medecin;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
+import com.example.e_medecine.utilities.DateValidatorWeekdays;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +64,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     TextView teleMedecin;
     @BindView(R.id.location_medecin)
     TextView locationMedecin;
-    com.example.e_medecine.model.Medecin medecin=new com.example.e_medecine.model.Medecin();
+    Medecin medecin=new Medecin();
 
     @BindView(R.id.appeler)
     Button btnAppeler;
@@ -71,10 +86,10 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         ButterKnife.bind(this);
         SharedPreferences spDoc= getSharedPreferences("PrefDoc",MODE_PRIVATE);
         typeDoc = spDoc.getString ("pref_typeDoc","valeur par défaut");
-        if(typeDoc.equals("Medecin")){
+        if(typeDoc.equals("Docteur")){
             btn_rendezVous.setText("Prendre rendez-vous");
         }
-        else if(typeDoc.equals("E-Medecin")){
+        else if(typeDoc.equals("E-Docteur")){
             btn_rendezVous.setText("Consultation");
             btn_paiment.setVisibility(View.VISIBLE);
         }
@@ -109,7 +124,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     btn_rendezVous.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(typeDoc.equals("Medecin")){
+            if(typeDoc.equals("Docteur")){
                 DialogFragment datePicker=new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(),"date picker");
             }

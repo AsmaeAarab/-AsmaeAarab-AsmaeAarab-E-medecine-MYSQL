@@ -11,8 +11,10 @@ package com.example.e_medecine.sqliteBd;
         import android.graphics.drawable.Drawable;
         import android.util.Log;
 
-        import com.example.e_medecine.Docteurs.Medecin;
+        import com.example.e_medecine.Docteurs.Docteur;
         import com.example.e_medecine.R;
+        import com.example.e_medecine.model.Medecin;
+        import com.example.e_medecine.model.Rendezvous;
         import com.example.e_medecine.model.Specialite;
         import com.example.e_medecine.model.User;
 
@@ -21,6 +23,7 @@ package com.example.e_medecine.sqliteBd;
         import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
+        import java.sql.Blob;
         import java.util.ArrayList;
 
         import static android.database.DatabaseUtils.stringForQuery;

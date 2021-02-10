@@ -49,8 +49,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //getActionBar().hide();
         Bundle ex = getIntent().getExtras();
-        Docteur = new String(ex.getString("Medecin"));
-        System.out.println("Medecin" + Docteur);
+        Docteur = new String(ex.getString("Docteur"));
+        System.out.println("Docteur" + Docteur);
         initViews();
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
@@ -66,12 +66,12 @@ public class Login extends AppCompatActivity {
                 pass = password.getText().toString();
                 findidPhone(log);
                 /*TextView txt = (TextView) findViewById(R.id.userAffich);
-                txt.setText("user id: "+FindUserPhone(pass,log,Medecin));*/
-               //userTest = restApi.findPhone(log,pass,Medecin);
+                txt.setText("user id: "+FindUserPhone(pass,log,Docteur));*/
+               //userTest = restApi.findPhone(log,pass,Docteur);
              //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
                //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
 
-                /*if (db.isEmailvalid(log,pass,Medecin) || db.isTelephonevalid(log,pass,Medecin))
+                /*if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
                     password.setText(null);

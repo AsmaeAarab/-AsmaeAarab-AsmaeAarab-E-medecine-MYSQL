@@ -1,6 +1,7 @@
 package com.example.e_medecine.Docteurs;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
@@ -9,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,14 +27,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.MedecinService;
+import com.example.e_medecine.PatientLoginActivity;
+import com.example.e_medecine.PatientSignupActivity;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Specialite;
+import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.model.Ville;
+import com.example.e_medecine.Docteurs.Docteur;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -63,7 +71,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     MedecinService medecinService;
     Users users ;
     Users ux;
-    Medecin docteurs ;
+    Docteur docteurs ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,8 +135,8 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     users.setIdVille(ville);
                                     users.setEmailUser(maildoc);
                                     users.setPasswordUser(passwordoc);
-                                    users.setRoleUser("Medecin");
-                                    docteurs = new Medecin();
+                                    users.setRoleUser("Docteur");
+                                    docteurs = new Docteur();
                                     int IdSpecialite = db.getIdSpecialite(specialite);
                                     Integer IdImage = db.getIconSpecialite(specialite);
                                     Specialite specialize = new Specialite(IdSpecialite,specialite,IdImage);
@@ -150,7 +158,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                 }catch (Exception e){
                                     e.getMessage();
                                 }
-                                /*boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Medecin");
+                                /*boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
@@ -177,7 +185,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         if (Condition.isChecked()) {
                             if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1) {
                                 int Idville = db.getIdVille(city);
-                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Medecin");
+                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
@@ -226,19 +234,19 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         });
         return true;
     }
-    public boolean addMedecin(Medecin medecin){
+    public boolean addMedecin(Docteur docteur){
         // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         medecinService = Apis.getMedecinService();
-        Call<Medecin> call = medecinService.addMedecin(medecin);
-        call.enqueue(new Callback<Medecin>() {
+        Call<Docteur> call = medecinService.addMedecin(docteur);
+        call.enqueue(new Callback<Docteur>() {
             @Override
-            public void onResponse(Call<Medecin> call, Response<Medecin> response) {
+            public void onResponse(Call<Docteur> call, Response<Docteur> response) {
                 Toast.makeText(getApplicationContext(), "MedecinADD ", Toast.LENGTH_SHORT).show();
                 Toast.makeText(InscriptionSuite.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Medecin> call, Throwable t) {
+            public void onFailure(Call<Docteur> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }

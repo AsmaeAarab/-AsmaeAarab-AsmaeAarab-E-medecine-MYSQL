@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Medecin implements Serializable {
+public class Docteur implements Serializable {
     @SerializedName("idMedecin")
     @Expose
     private int idMedecin;
@@ -33,12 +33,12 @@ public class Medecin implements Serializable {
     @Expose
     private String termeCondition;
 
-    public Medecin()
+    public Docteur()
     {
 
     }
 
-    public Medecin(Users idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
+    public Docteur(Users idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;
         this.typeMedecin = typeMedecin;
