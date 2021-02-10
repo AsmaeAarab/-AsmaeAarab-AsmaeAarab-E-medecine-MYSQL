@@ -45,6 +45,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,10 +65,13 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     private final int REQUEST_CODE_GALLERY = 999;
     private GlobalDbHelper db;
     private SQLiteDatabase sqLiteDatabase;
-    Users userTest = null;
     int iduserAn = 0;
     private int IDUser = 0;
+    private int IDDOC;
     MedecinService medecinService;
+    Users users ;
+    Users ux;
+    Docteur docteurs ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,17 +119,13 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                     if (click == true) {
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
-                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
-
+                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 0 ) {
 
                                 try {
-                                    //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
                                     charte = Condition.getText().toString();
                                     int Idville = db.getIdVille(city);
-                                    Users users = new Users();
-                                    Docteur docteurs = new Docteur();
+                                    users = new Users();
                                     Ville ville = new Ville(Idville,city);
-
                                     int iduser = 0;
                                     users.setImageUser(imgprofileval);
                                     users.setNomUser(namedoc);
@@ -136,18 +136,17 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     users.setEmailUser(maildoc);
                                     users.setPasswordUser(passwordoc);
                                     users.setRoleUser("Docteur");
-                                    addUserM(users);
+                                    docteurs = new Docteur();
                                     int IdSpecialite = db.getIdSpecialite(specialite);
                                     Integer IdImage = db.getIconSpecialite(specialite);
                                     Specialite specialize = new Specialite(IdSpecialite,specialite,IdImage);
                                     docteurs.setIdSpecialiteMedecin(IdSpecialite);
                                     docteurs.setTypeMedecin(typedoc);
                                     docteurs.setLocation(locate);
-                                    docteurs.setTermeCondition("Terme Accepter");
+                                    docteurs.setTermeCondition(charte);
                                     docteurs.setFrais(Integer.parseInt(frais));
                                     docteurs.setExperience(Integer.parseInt(exp));
-                                    docteurs.setIdUserMedecin(0);
-                                    addMedecin(docteurs);
+                                    addUserM(users);
 
                                     /*if (addUserM(users) == true /*&& addMedecin(docteurs) == true)
                                     {
@@ -214,23 +213,6 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     {
         finish();
     }
-
-    public class HttpRequest extends AsyncTask<Void,Void,Users>
-    {
-
-        @Override
-        protected Users doInBackground(Void... voids) {
-            RestApi restApi = new RestApi();
-            userTest = restApi.findPhoneID(phonedoc);
-            return userTest;
-        }
-
-        @Override
-        protected void onPostExecute(Users user) {
-            iduserAn = userTest.getIdUser();
-        }
-
-    }
     public boolean addUserM(Users u){
         // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         medecinService = Apis.getMedecinService();
@@ -238,12 +220,13 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
+                IDDOC = findidPhone(u.getTelephoneUser());
                 Toast.makeText(getApplicationContext(), "UserADD ", Toast.LENGTH_SHORT).show();
                 Toast.makeText(InscriptionSuite.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
+                IDDOC = findidPhone(u.getTelephoneUser());
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }
@@ -270,7 +253,34 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         });
         return true;
     }
-    public void findUsers(String Phone){
+    int idsd =0;
+    public int findidPhone(String Phone)
+    {
+
+        medecinService = Apis.getMedecinService();
+        Call<List<Users>> call = medecinService.getIdUser(Phone);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                System.out.println("Je suis la");
+                List<Users> us = response.body();
+                for (Users users1: us){
+                    idsd = users1.getIdUser();
+                    Toast.makeText(InscriptionSuite.this, "Succes", Toast.LENGTH_SHORT).show();
+                }
+                ux = new Users(idsd);
+                docteurs.setIdUserMedecin(ux);
+                addMedecin(docteurs);
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(InscriptionSuite.this, "Nothing", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return 0;
+    }
+    /*public void findUsers(String Phone){
         // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         medecinService = Apis.getMedecinService();
         Call<Users> call = medecinService.getIdUser(Phone);
@@ -288,7 +298,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                 Log.e("Error:",t.getMessage());
             }
         });
-    }
+    }*/
     public void init()
     {
         spinnerS = findViewById(R.id.DSpecialite);

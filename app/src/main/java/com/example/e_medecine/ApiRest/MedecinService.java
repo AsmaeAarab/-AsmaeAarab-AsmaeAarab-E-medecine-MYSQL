@@ -36,5 +36,5 @@ public interface MedecinService {
     Call<Users>FinduserbyPhone(@Path("Password") String Pass, @Path("Phone") String Phone, @Path("Docteur") String Docteur);
 
     @GET("find/user/{Phone}")
-    Call<Users>getIdUser(@Path("Phone") String Phone);
+    Call<List<Users>>getIdUser(@Path("Phone") String Phone);
 }

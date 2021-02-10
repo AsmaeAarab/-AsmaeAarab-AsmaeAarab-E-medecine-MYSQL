@@ -20,6 +20,7 @@ import com.example.e_medecine.R;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import java.net.URL;
+import java.util.List;
 
 
 import org.springframework.http.HttpEntity;
@@ -33,7 +34,7 @@ public class Login extends AppCompatActivity {
     private GlobalDbHelper globalDbHelper;
     private EditText login ;
     private EditText password ;
-    private TextView createcompte;
+    private TextView createcompte,txt;
     private Button signin ;
     private GlobalDbHelper db;
     private String Docteur = "";
@@ -63,13 +64,14 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 log = login.getText().toString();
                 pass = password.getText().toString();
+                findidPhone(log);
                 /*TextView txt = (TextView) findViewById(R.id.userAffich);
                 txt.setText("user id: "+FindUserPhone(pass,log,Docteur));*/
                //userTest = restApi.findPhone(log,pass,Docteur);
              //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
-               AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
+               //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
 
-               /* if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
+                /*if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
                     password.setText(null);
@@ -84,7 +86,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public class HttpRequest extends AsyncTask<Void,Void,Users>
+    /*public class HttpRequest extends AsyncTask<Void,Void,Users>
     {
 
         @Override
@@ -98,18 +100,42 @@ public class Login extends AppCompatActivity {
         protected void onPostExecute(Users user) {
             TextView txt = (TextView) findViewById(R.id.userAffich);
             txt.setText("user id: "+userTest.getIdUser());
-            loginPhone = userTest.getTelephoneUser();
+
         }
 
+    }*/
+    public int findidPhone(String Phone)
+    {
+
+        medecinService = Apis.getMedecinService();
+        Call<List<Users>> call = medecinService.getIdUser(Phone);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                System.out.println("Je suis la");
+                List<Users> users = response.body();
+                for (Users users1: users){
+                    //users1.getIdUser();
+
+                    txt.setText(users1.getIdUser());
+                    Toast.makeText(Login.this, "Succes", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(Login.this, "Nothing", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return 0;
     }
-
-
     public void initViews()
     {
         login = (EditText) findViewById(R.id.emaillog);
         password = (EditText) findViewById(R.id.password);
         createcompte = (TextView) findViewById(R.id.compte);
         signin = (Button) findViewById(R.id.connect);
+        txt = (TextView) findViewById(R.id.userAffich);
     }
     public void count(View v)
     {

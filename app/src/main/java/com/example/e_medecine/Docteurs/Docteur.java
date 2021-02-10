@@ -13,10 +13,10 @@ public class Docteur implements Serializable {
     private int idMedecin;
     @SerializedName("idUser")
     @Expose
-    private int idUserMedecin;
+    private Users idUserMedecin;
     @SerializedName("idSpecialite")
     @Expose
-    private Specialite idSpecialiteMedecin;
+    private int idSpecialiteMedecin;
     @SerializedName("typeMedecin")
     @Expose
     private String typeMedecin;
@@ -29,23 +29,23 @@ public class Docteur implements Serializable {
     @SerializedName("frais")
     @Expose
     private int frais;
-    @SerializedName("TermeCondition")
+    @SerializedName("termecondition")
     @Expose
-    private String TermeCondition;
+    private String termeCondition;
 
     public Docteur()
     {
 
     }
 
-    public Docteur(int idUserMedecin, Specialite idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
+    public Docteur(Users idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;
         this.typeMedecin = typeMedecin;
         this.location = location;
         this.experience = experience;
         this.frais = frais;
-        TermeCondition = termeCondition;
+        this.termeCondition = termeCondition;
     }
 
     public int getIdMedecin() {
@@ -56,19 +56,19 @@ public class Docteur implements Serializable {
         this.idMedecin = idMedecin;
     }
 
-    public int getIdUserMedecin() {
+    public Users getIdUserMedecin() {
         return idUserMedecin;
     }
 
-    public void setIdUserMedecin(int idUserMedecin) {
+    public void setIdUserMedecin(Users idUserMedecin) {
         this.idUserMedecin = idUserMedecin;
     }
 
-    public Specialite getIdSpecialiteMedecin() {
+    public int getIdSpecialiteMedecin() {
         return idSpecialiteMedecin;
     }
 
-    public void setIdSpecialiteMedecin(Specialite idSpecialiteMedecin) {
+    public void setIdSpecialiteMedecin(int idSpecialiteMedecin) {
         this.idSpecialiteMedecin = idSpecialiteMedecin;
     }
 
@@ -105,10 +105,10 @@ public class Docteur implements Serializable {
     }
 
     public String getTermeCondition() {
-        return TermeCondition;
+        return termeCondition;
     }
 
     public void setTermeCondition(String termeCondition) {
-        TermeCondition = termeCondition;
+        this.termeCondition = termeCondition;
     }
 }
