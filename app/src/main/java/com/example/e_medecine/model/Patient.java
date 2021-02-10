@@ -16,9 +16,9 @@ public class Patient implements Serializable {
     @SerializedName("agePatient")
     @Expose
     private String agePatient;
-    @SerializedName("Adresse")
+    @SerializedName("adresse")
     @Expose
-    private String Adresse;
+    private String adresse;
     @SerializedName("cnssPatient")
     @Expose
     private String cnssPatient;
@@ -32,7 +32,7 @@ public class Patient implements Serializable {
         this.idPatient = idPatient;
         this.idUser = idUser;
         this.agePatient = agePatient;
-        Adresse = adresse;
+        this.adresse = adresse;
         this.cnssPatient = cnssPatient;
     }
 
@@ -61,11 +61,11 @@ public class Patient implements Serializable {
     }
 
     public String getAdresse() {
-        return Adresse;
+        return adresse;
     }
 
     public void setAdresse(String adresse) {
-        Adresse = adresse;
+        this.adresse = adresse;
     }
 
     public String getCnssPatient() {

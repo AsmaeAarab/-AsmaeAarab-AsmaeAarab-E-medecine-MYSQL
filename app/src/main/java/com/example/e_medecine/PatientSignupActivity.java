@@ -17,7 +17,6 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -27,15 +26,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.PatientService;
-import com.example.e_medecine.Docteurs.InscriptionSuite;
 import com.example.e_medecine.model.Patient;
-import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.model.Ville;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
@@ -45,12 +41,12 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,6 +92,7 @@ public class PatientSignupActivity extends AppCompatActivity {
     private final int REQUEST_CODE_GALLERY = 999;
 
     PatientService service;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +162,10 @@ public class PatientSignupActivity extends AppCompatActivity {
                    // "(?=\\S+$)" +           //no white spaces
                     ".{4,}" +               //at least 4 characters
                     "$");
-
+    Users u;
+    Users u1;
+    int  idPatient;
+    Patient p;
 
     @OnClick(R.id.signUp)
     public void signUp(){
@@ -182,13 +182,10 @@ public class PatientSignupActivity extends AppCompatActivity {
         String adresse=editTextAdresse.getText().toString();
 
         ////////// START MYSQL
-        //getIdVille
-        service= Apis.getPatientsService();
-        //service.getIdVille("Casablanca")
-
+        int x=0;
         byte[] imgprofile = imageViewToByte(imgpro);
-        Users u=new Users();
-       // u.setIdUser(3);
+
+        u=new Users();
         u.setNomUser(nom);
         u.setPrenomUser(prenom);
         u.setGenreUser(genre);
@@ -199,16 +196,12 @@ public class PatientSignupActivity extends AppCompatActivity {
         u.setEmailUser(email);
         u.setPasswordUser(mdp);
         u.setRoleUser("patient");
-        addUser(u);
-
-        Patient p=new Patient();
+        p=new Patient();
         p.setAdresse(adresse);
         p.setAgePatient(age);
         p.setCnssPatient(assurance);
-        Users u1=new Users(1);
-        p.setIdUser(u1);
-        
-        addPatient(p);
+        addUser(u);
+
         ///////////FIN MYSQL
         Intent intent = new Intent(this, PatientLoginActivity.class);
         db = new GlobalDbHelper(this);
@@ -255,10 +248,8 @@ public class PatientSignupActivity extends AppCompatActivity {
             }
             else { Toast.makeText(getApplicationContext(),"Email already exists",Toast.LENGTH_SHORT).show();}
         }
-
     }
     public boolean addUser(Users u){
-        // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         service= Apis.getPatientsService();
         Call<Users> call=service.addUser(u);
         call.enqueue(new Callback<Users>() {
@@ -268,20 +259,23 @@ public class PatientSignupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "yesADD ", Toast.LENGTH_SHORT).show();
                 Toast.makeText(PatientSignupActivity.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
                 //}
+                idPatient=getIdPatient(u.getEmailUser());
+                Toast.makeText(getApplicationContext(), " YES idPatient="+idPatient, Toast.LENGTH_SHORT).show();
+                idPatient=getIdPatient(u.getEmailUser());
+
             }
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
+                idPatient=getIdPatient(u.getEmailUser());
+                Toast.makeText(getApplicationContext(), "NO idPatient="+idPatient, Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
+
             }
         });
-       /* Intent intent = new Intent(this, PatientLoginActivity.class);
-        startActivity(intent);
-        finish();*/
         return true;
     }
     public void addPatient(Patient p){
-        // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         service= Apis.getPatientsService();
         Call<Patient> call=service.ajoutPatient(p);
         call.enqueue(new Callback<Patient>() {
@@ -295,17 +289,38 @@ public class PatientSignupActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Patient> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "NoADDPatient ", Toast.LENGTH_SHORT).show();
+
                 Log.e("Error:",t.getMessage());
             }
         });
-       /* Intent intent = new Intent(this, PatientLoginActivity.class);
-        startActivity(intent);
-        finish();*/
+    }
+    int idX;
+    public int getIdPatient(String emailUser){
+        service= Apis.getPatientsService();
+        Call<List<Users>>call = service.getIdPatient(emailUser);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>>call, Response<List<Users>>response) {
+                List<Users>uList=response.body();
+                for(Users u : uList ){
+                    idX=u.getIdUser();
+                }
+                Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
+                u1=new Users(idX);
+                p.setIdUser(u1);
+                addPatient(p);
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "getidNo "+idX, Toast.LENGTH_SHORT).show();
+                Log.e("Error:",t.getMessage());
+            }
+        });
+    return idX;
     }
 
     @OnClick(R.id.ChooseProfile)
     public void choose(){
-
 
     }
 
