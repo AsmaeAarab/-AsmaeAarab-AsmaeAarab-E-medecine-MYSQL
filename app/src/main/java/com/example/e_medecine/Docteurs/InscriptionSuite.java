@@ -220,13 +220,13 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
-                IDDOC = findidPhone(u.getTelephoneUser());
+
                 Toast.makeText(getApplicationContext(), "UserADD ", Toast.LENGTH_SHORT).show();
                 Toast.makeText(InscriptionSuite.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                IDDOC = findidPhone(u.getTelephoneUser());
+
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }
@@ -266,6 +266,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                 List<Users> us = response.body();
                 for (Users users1: us){
                     idsd = users1.getIdUser();
+                    System.out.println("Je suis la");
                     Toast.makeText(InscriptionSuite.this, "Succes", Toast.LENGTH_SHORT).show();
                 }
                 ux = new Users(idsd);
