@@ -71,6 +71,7 @@ public class PatientLoginActivity extends AppCompatActivity {
                 for(Users u : uList ){
                     idX=u.getIdUser();
                 }
+                getPatient(emailUser);
                 Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
             }
             @Override
@@ -81,6 +82,28 @@ public class PatientLoginActivity extends AppCompatActivity {
         });
         return idX;
     }
+    String nom,prenom;
+    public void getPatient(String emailUser){
+        service= Apis.getPatientsService();
+        Call<List<Users>>call = service.getPatient(emailUser);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>>call, Response<List<Users>>response) {
+                List<Users>uList=response.body();
+                for(Users u : uList ){
+                    nom=u.getNomUser();
+                    prenom=u.getPrenomUser();
+                }
+                Toast.makeText(getApplicationContext(), "getid Yes ", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "getidNo ", Toast.LENGTH_SHORT).show();
+                Log.e("Error:",t.getMessage());
+            }
+        });
+    }
+
 
     @OnClick(R.id.signIn)
     void signIn(){
@@ -98,6 +121,9 @@ public class PatientLoginActivity extends AppCompatActivity {
                 x = 0;
                 Toast.makeText(getApplicationContext(), " login yes", Toast.LENGTH_SHORT).show();
                 intent.putExtra("EmailUser",login);
+                Toast.makeText(getApplicationContext(),"Nom: "+nom+" & Prenom: "+prenom,Toast.LENGTH_SHORT).show();
+                intent.putExtra("Nom",nom);
+                intent.putExtra("Prenom",prenom);
                 startActivity(intent);
                 finish();
             }

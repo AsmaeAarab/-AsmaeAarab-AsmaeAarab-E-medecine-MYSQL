@@ -99,7 +99,7 @@ public class RestApi {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
 
-    public boolean createmedecin(Docteur docteur)
+    public boolean createmedecin(Medecin docteur)
     {
         try {
             Map<String,String> valuesD = new HashMap<String, String>();

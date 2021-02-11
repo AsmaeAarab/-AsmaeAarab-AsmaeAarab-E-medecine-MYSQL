@@ -182,7 +182,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                 users.setEmailUser(maildoc);
                                 users.setPasswordUser(passwordoc);
                                 users.setRoleUser("Docteur");
-                                docteurs = new Docteur();
+                                docteurs = new Medecin();
                                 int IdSpecialite = db.getIdSpecialite(specialite);
                                 Integer IdImage = db.getIconSpecialite(specialite);
                                 Specialites specialize = new Specialites(IdSpecialite,specialite);

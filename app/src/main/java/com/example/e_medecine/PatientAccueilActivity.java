@@ -68,7 +68,11 @@ public class PatientAccueilActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         String emailUser=intent.getStringExtra("EmailUser");
-
+        String name=intent.getStringExtra("Nom");
+        String lastName=intent.getStringExtra("Prenom");
+        email.setText(emailUser);
+        nom.setText(name);
+        prenom.setText(lastName);
         /////////////MYSQL
        // getPatient(emailUser);
         /////////////FIN MYSQL
