@@ -16,4 +16,5 @@ public class Cliente {
         Retrofit retrofit= new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create(gson)).build();
         return  retrofit;
     }
+
 }

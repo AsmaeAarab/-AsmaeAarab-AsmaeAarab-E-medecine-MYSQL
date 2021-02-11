@@ -11,7 +11,7 @@ public class SpecialiteTable {
             "CREATE TABLE " + TABLE_NAME + " ("
                     + ID  +" INTEGER PRIMARY KEY, "
                     + LABEL +" TEXT, "
-                    + IMAGE_SPECIALITE + " INTEGER )";
+                    + IMAGE_SPECIALITE + " BLOB )";
 
     public static String CREATE_TABLE(){
         return CREATE_TABLE;
