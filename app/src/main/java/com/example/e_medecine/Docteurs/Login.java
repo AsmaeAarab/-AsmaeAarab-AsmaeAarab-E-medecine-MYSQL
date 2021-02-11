@@ -19,6 +19,11 @@ import com.example.e_medecine.model.User;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
+import java.net.URL;
+import java.util.List;
+
+
+import org.springframework.http.HttpEntity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,13 +34,14 @@ public class Login extends AppCompatActivity {
     private GlobalDbHelper globalDbHelper;
     private EditText login ;
     private EditText password ;
-    private TextView createcompte;
+    private TextView createcompte,txt;
     private Button signin ;
     private GlobalDbHelper db;
     private String Docteur = "";
     private String log = "";
     private String pass = "";
     Users userTest = null;
+    private String loginPhone = "";
     MedecinService medecinService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //getActionBar().hide();
         Bundle ex = getIntent().getExtras();
-        Docteur = new String(ex.getString("Docteur"));
-        System.out.println("Docteur" + Docteur);
+        Docteur = new String(ex.getString("Medecin"));
+        System.out.println("Medecin" + Docteur);
         initViews();
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
@@ -58,23 +64,14 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 log = login.getText().toString();
                 pass = password.getText().toString();
+                findidPhone(log);
                 /*TextView txt = (TextView) findViewById(R.id.userAffich);
-                txt.setText("user id: "+FindUserPhone(pass,log,Docteur));*/
-               //userTest = restApi.findPhone(log,pass,Docteur);
+                txt.setText("user id: "+FindUserPhone(pass,log,Medecin));*/
+               //userTest = restApi.findPhone(log,pass,Medecin);
              //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
-               AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
-               /*if (userM == true)
-               {
-                   login.setText(null);
-                   password.setText(null);
-                   Intent iacceuil = new Intent(Login.this,Acceuil.class);
-                   iacceuil.putExtra("Log",log);
-                   startActivity(iacceuil);
-                   Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
-               }else {
-                   Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
-               }*/
-               /* if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
+               //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
+
+                /*if (db.isEmailvalid(log,pass,Medecin) || db.isTelephonevalid(log,pass,Medecin))
                 {
                     login.setText(null);
                     password.setText(null);
@@ -88,27 +85,8 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-    public void FindUserPhone(String Password,String Phone,String Docteur){
-        medecinService = Apis.getMedecinService();
-        Call<Users> call = medecinService.FinduserbyPhone(Password,Phone,Docteur);
-        call.enqueue(new Callback<Users>() {
-            @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
-                Toast.makeText(getApplicationContext(), "yesFound", Toast.LENGTH_SHORT).show();
-                Toast.makeText(Login.this,"Found",Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
-                Log.e("Error:",t.getMessage());
-            }
-        });
-        /*Intent intent = new Intent(this, PatientLoginActivity.class);
-        startActivity(intent);
-        finish();*/
-    }
-    public class HttpRequest extends AsyncTask<Void,Void,Users>
+    /*public class HttpRequest extends AsyncTask<Void,Void,Users>
     {
 
         @Override
@@ -122,17 +100,42 @@ public class Login extends AppCompatActivity {
         protected void onPostExecute(Users user) {
             TextView txt = (TextView) findViewById(R.id.userAffich);
             txt.setText("user id: "+userTest.getIdUser());
+
         }
 
+    }*/
+    public int findidPhone(String Phone)
+    {
+
+        medecinService = Apis.getMedecinService();
+        Call<List<Users>> call = medecinService.getIdUser(Phone);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                System.out.println("Je suis la");
+                List<Users> users = response.body();
+                for (Users users1: users){
+                    //users1.getIdUser();
+
+                    txt.setText(users1.getIdUser());
+                    Toast.makeText(Login.this, "Succes", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(Login.this, "Nothing", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return 0;
     }
-
-
     public void initViews()
     {
         login = (EditText) findViewById(R.id.emaillog);
         password = (EditText) findViewById(R.id.password);
         createcompte = (TextView) findViewById(R.id.compte);
         signin = (Button) findViewById(R.id.connect);
+        txt = (TextView) findViewById(R.id.userAffich);
     }
     public void count(View v)
     {

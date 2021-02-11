@@ -1,9 +1,7 @@
 package com.example.e_medecine.ApiRest;
 
 import com.example.e_medecine.model.Patient;
-import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
-import com.example.e_medecine.model.Ville;
 
 import java.util.List;
 
@@ -32,4 +30,13 @@ public interface PatientService {
     @GET("getIdVille/{labelVille}")
     int getIdVille(@Path("labelVille")String labelVille);
 
+
+    @GET("idPatient/{emailUser}")
+    Call<List<Users>> getIdPatient(@Path("emailUser")String emailUser);
+
+    @GET("loginPatient/{emailUser}/{passwordUser}")
+    Call<List<Users>> loginPatient(@Path("emailUser")String emailUser,@Path("passwordUser")String passwordUser);
+
+    @GET("getPatient/{emailUser}")
+    Call<List<Users>> getPatient(@Path("emailUser")String emailUser);
 }

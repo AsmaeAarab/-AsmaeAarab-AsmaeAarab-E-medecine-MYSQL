@@ -1,7 +1,6 @@
 package com.example.e_medecine.Docteurs;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
@@ -10,13 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,16 +24,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.MedecinService;
-import com.example.e_medecine.PatientLoginActivity;
-import com.example.e_medecine.PatientSignupActivity;
 import com.example.e_medecine.R;
-import com.example.e_medecine.model.Specialite;
-import com.example.e_medecine.model.User;
+import com.example.e_medecine.model.Specialites;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.model.Ville;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
@@ -44,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,9 +57,13 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     private final int REQUEST_CODE_GALLERY = 999;
     private GlobalDbHelper db;
     private SQLiteDatabase sqLiteDatabase;
-    Users userTest = null;
+    int iduserAn = 0;
     private int IDUser = 0;
+    private int IDDOC;
     MedecinService medecinService;
+    Users users ;
+    Users ux;
+    Medecin docteurs ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,15 +111,12 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                     if (click == true) {
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
-                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1 ) {
+                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 0 ) {
 
-                                //AsyncTask<Void, Void, User> userid = new HttpRequestuser().execute();
                                 try {
-                                    AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
                                     charte = Condition.getText().toString();
                                     int Idville = db.getIdVille(city);
-                                    Users users = new Users();
-                                    Docteur docteurs = new Docteur();
+                                    users = new Users();
                                     Ville ville = new Ville(Idville,city);
                                     int iduser = 0;
                                     users.setImageUser(imgprofileval);
@@ -133,25 +128,26 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     users.setEmailUser(maildoc);
                                     users.setPasswordUser(passwordoc);
                                     users.setRoleUser("Docteur");
-                                    addUserM(users);
-                                    docteurs.setIdUserMedecin(userTest.getIdUser());//IDUser
+                                    docteurs = new Medecin();
                                     int IdSpecialite = db.getIdSpecialite(specialite);
-                                    int IdImage = db.getIconSpecialite(specialite);
-                                    Specialite specialize = new Specialite(IdSpecialite,specialite,IdImage);
+                                    Integer IdImage = db.getIconSpecialite(specialite);
+                                    Specialites specialize = new Specialites(IdSpecialite,specialite);
                                     docteurs.setIdSpecialiteMedecin(specialize);
+                                    //docteurs.setIdSpecialiteMedecin(IdSpecialite);
                                     docteurs.setTypeMedecin(typedoc);
                                     docteurs.setLocation(locate);
-                                    docteurs.setTermeCondition("Terme Accepter");
+                                    docteurs.setTermeCondition(charte);
                                     docteurs.setFrais(Integer.parseInt(frais));
                                     docteurs.setExperience(Integer.parseInt(exp));
-                                    addMedecin(docteurs);
-                                    if (addUserM(users) == true && addMedecin(docteurs) == true)
+                                    addUserM(users);
+
+                                    /*if (addUserM(users) == true /*&& addMedecin(docteurs) == true)
                                     {
                                         Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }else {
                                         Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                    }
+                                    }*/
                                 }catch (Exception e){
                                     e.getMessage();
                                 }
@@ -210,22 +206,6 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
     {
         finish();
     }
-    public class HttpRequest extends AsyncTask<Void,Void,Users>
-    {
-
-        @Override
-        protected Users doInBackground(Void... voids) {
-            RestApi restApi = new RestApi();
-            userTest = restApi.findPhoneID(phonedoc);
-            return userTest;
-        }
-
-        @Override
-        protected void onPostExecute(Users user) {
-            userTest.getIdUser();
-        }
-
-    }
     public boolean addUserM(Users u){
         // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         medecinService = Apis.getMedecinService();
@@ -233,12 +213,13 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
+                IDDOC = findidPhone(u.getTelephoneUser());
                 Toast.makeText(getApplicationContext(), "UserADD ", Toast.LENGTH_SHORT).show();
                 Toast.makeText(InscriptionSuite.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
+                IDDOC = findidPhone(u.getTelephoneUser());
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }
@@ -246,26 +227,53 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         });
         return true;
     }
-    public boolean addMedecin(Docteur docteur){
+    public boolean addMedecin(Medecin docteur){
         // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         medecinService = Apis.getMedecinService();
-        Call<Docteur> call = medecinService.addMedecin(docteur);
-        call.enqueue(new Callback<Docteur>() {
+        Call<Medecin> call = medecinService.addMedecin(docteur);
+        call.enqueue(new Callback<Medecin>() {
             @Override
-            public void onResponse(Call<Docteur> call, Response<Docteur> response) {
+            public void onResponse(Call<Medecin> call, Response<Medecin> response) {
                 Toast.makeText(getApplicationContext(), "MedecinADD ", Toast.LENGTH_SHORT).show();
                 Toast.makeText(InscriptionSuite.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Docteur> call, Throwable t) {
+            public void onFailure(Call<Medecin> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }
         });
         return true;
     }
-    public void findUsers(String Phone){
+    int idsd =0;
+    public int findidPhone(String Phone)
+    {
+
+        medecinService = Apis.getMedecinService();
+        Call<List<Users>> call = medecinService.getIdUser(Phone);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                System.out.println("Je suis la");
+                List<Users> us = response.body();
+                for (Users users1: us){
+                    idsd = users1.getIdUser();
+                    Toast.makeText(InscriptionSuite.this, "Succes", Toast.LENGTH_SHORT).show();
+                }
+                ux = new Users(idsd);
+                docteurs.setIdUserMedecin(ux);
+                addMedecin(docteurs);
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(InscriptionSuite.this, "Nothing", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return 0;
+    }
+    /*public void findUsers(String Phone){
         // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
         medecinService = Apis.getMedecinService();
         Call<Users> call = medecinService.getIdUser(Phone);
@@ -283,7 +291,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                 Log.e("Error:",t.getMessage());
             }
         });
-    }
+    }*/
     public void init()
     {
         spinnerS = findViewById(R.id.DSpecialite);

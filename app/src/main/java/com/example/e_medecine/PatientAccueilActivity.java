@@ -10,20 +10,30 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.PatientService;
+import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import com.example.e_medecine.activity.MedecinDetailleActivity;
 import com.example.e_medecine.activity.SpecialitesActivity;
 import com.example.e_medecine.model.Specialite;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.e_medecine.PatientUpdateActivity.modif;
 
@@ -59,6 +69,9 @@ public class PatientAccueilActivity extends AppCompatActivity {
         Intent intent=getIntent();
         String emailUser=intent.getStringExtra("EmailUser");
 
+        /////////////MYSQL
+       // getPatient(emailUser);
+        /////////////FIN MYSQL
         email.setText(emailUser);
         nom.setText(db.getNomUser(emailUser));
         prenom.setText(db.getPrenomUser(emailUser));
@@ -78,6 +91,29 @@ public class PatientAccueilActivity extends AppCompatActivity {
             modif="no";
         }
         prefs=getSharedPreferences(PREFS_TYPE,MODE_PRIVATE);
+    }
+
+    PatientService service;
+    public void getPatient(String emailUser){
+        service= Apis.getPatientsService();
+        Call<List<Users>>call = service.getPatient(emailUser);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>>call, Response<List<Users>>response) {
+                List<Users>uList=response.body();
+                for(Users u : uList ){
+                    email.setText(u.getIdUser());
+                    nom.setText(u.getNomUser());
+                    prenom.setText(u.getPrenomUser());
+                }
+                Toast.makeText(getApplicationContext(), "getid Yes ", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "getidNo ", Toast.LENGTH_SHORT).show();
+                Log.e("Error:",t.getMessage());
+            }
+        });
     }
 
 
@@ -130,7 +166,7 @@ public class PatientAccueilActivity extends AppCompatActivity {
     public void rendezVous(){
         Intent intent=new Intent(this, SpecialitesActivity.class);
         SharedPreferences.Editor editor = prefs.edit ();
-        editor.putString("pref_typeDoc","Docteur");
+        editor.putString("pref_typeDoc","Medecin");
         editor.apply();
         startActivity(intent);
     }
@@ -139,7 +175,7 @@ public class PatientAccueilActivity extends AppCompatActivity {
     public void consulter(){
         Intent intent=new Intent(this, SpecialitesActivity.class);
         SharedPreferences.Editor editor = prefs.edit ();
-        editor.putString("pref_typeDoc","E-Docteur");
+        editor.putString("pref_typeDoc","E-Medecin");
         editor.apply();
         startActivity(intent);
     }

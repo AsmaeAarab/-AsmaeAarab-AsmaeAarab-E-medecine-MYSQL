@@ -39,11 +39,11 @@ public class RestApi {
             return null;
         }
     }
-    public User findPhone(String Phone, String Password, String Docteur){
+    public Boolean findPhone(String Phone, String Password, String Docteur){
         Map<String, String> params = new HashMap<String, String>();
         params.put("Password", Password);
         params.put("Phone", Phone);
-        params.put("Docteur",Docteur);
+        params.put("Medecin",Docteur);
         String URL = Base_Url+"find/user/Phone/login/"+Docteur+"/"+Password+"/"+Phone;
         URI uri = UriComponentsBuilder.fromUriString(URL)
                 .buildAndExpand(params)
@@ -62,10 +62,10 @@ public class RestApi {
                     }
             ).getBody();
             Log.i("url_user_email",user.toString());
-            return user;
+            return true;
         }catch (Exception e){
             Log.e("url_error", "Exception: "+Log.getStackTraceString(e));
-            return null;
+            return false;
 
         }
     }
@@ -99,7 +99,7 @@ public class RestApi {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
 
-    public boolean createmedecin(Docteur docteur)
+    public boolean createmedecin(Medecin docteur)
     {
         try {
             Map<String,String> valuesD = new HashMap<String, String>();

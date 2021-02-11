@@ -5,17 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.PatientService;
+import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import butterknife.BindView;
 import com.example.e_medecine.activity.SpecialitesActivity;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PatientLoginActivity extends AppCompatActivity {
 
@@ -50,13 +59,53 @@ public class PatientLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientForgetPswdActivity.class);
         startActivity(intent);
     }
+    PatientService service;
+    int idX;
+    public int loginPatient(String emailUser,String passwordUser){
+        service= Apis.getPatientsService();
+        Call<List<Users>> call = service.loginPatient(emailUser,passwordUser);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>>call, Response<List<Users>> response) {
+                List<Users>uList=response.body();
+                for(Users u : uList ){
+                    idX=u.getIdUser();
+                }
+                Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "getidNo "+idX, Toast.LENGTH_SHORT).show();
+                Log.e("Error:",t.getMessage());
+            }
+        });
+        return idX;
+    }
 
     @OnClick(R.id.signIn)
     void signIn(){
-        db = new GlobalDbHelper(this);
         Intent intent = new Intent(this, PatientAccueilActivity.class);
         String login = editTextLogin.getText().toString();
         String password = editTextPassword.getText().toString();
+
+        /////////////MYSQL
+
+        if ((!login.equals("")) && (!password.equals(""))) {
+            int x=loginPatient(login,password);
+            if (x == 0) {
+                Toast.makeText(getApplicationContext(), "login no", Toast.LENGTH_SHORT).show();
+            } else {
+                x = 0;
+                Toast.makeText(getApplicationContext(), " login yes", Toast.LENGTH_SHORT).show();
+                intent.putExtra("EmailUser",login);
+                startActivity(intent);
+                finish();
+            }
+        }else{ Toast.makeText(getApplicationContext(),"Fiels are empty",Toast.LENGTH_SHORT).show();}
+
+        /////////////FIN MYSQL
+        db = new GlobalDbHelper(this);
+
         Boolean checkloginpass = db.loginpassword(login, password);
         if ((!login.equals("")) && (!password.equals(""))) {
             if (checkloginpass == true) {
