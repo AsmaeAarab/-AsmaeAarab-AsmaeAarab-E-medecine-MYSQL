@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,11 +23,20 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.MedecinService;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.User;
+import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.sql.Blob;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Acceuil extends AppCompatActivity {
     private NavigationView nav;
@@ -43,6 +53,15 @@ public class Acceuil extends AppCompatActivity {
     private String TelephoneU = "";
     private byte[] ImageU;
     private int id = 0;
+    private int IdMysql = 0;
+    private String NomMysql = "";
+    private String PrenomMysql = "";
+    private String MailMysql = "";
+    private String PhoneMysql = "";
+    private byte[] ImageMysql;
+    private String lo = "";
+    MedecinService medecinService;
+    Users userTest = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +71,10 @@ public class Acceuil extends AppCompatActivity {
         nav = (NavigationView) findViewById(R.id.navmenu);
         View v = nav.getHeaderView(0);
         Bundle ex = getIntent().getExtras();
-        String lo = new String(ex.getString("Log"));
+        lo = new String(ex.getString("Login"));
+        System.out.println("Login: " + lo);
+        AsyncTask<Void,Void,Users> user = new HttpRequest().execute();
+        //GetElementusers(lo);
         id = db.getIdUserMailPhone(lo);
         NomU = db.getNomUser(lo);
         PrenomU = db.getPrenomUser(lo);
@@ -60,13 +82,18 @@ public class Acceuil extends AppCompatActivity {
         ImageU = db.getImageUser(lo);
         AdresseU = db.getEmailUser(lo);
         name = (TextView) v.findViewById(R.id.TextNom);
-        name.setText(NomU);
+        //name.setText(NomU);
+        name.setText(NomMysql);
         prename = (TextView) v.findViewById(R.id.TextPrenom);
-        prename.setText(PrenomU);
+        //prename.setText(PrenomU);
+        prename.setText(PrenomMysql);
         adresse = (TextView) v.findViewById(R.id.TextAdresse);
-        adresse.setText(AdresseU);
+        //adresse.setText(AdresseU);
+        adresse.setText(MailMysql);
         ImageDocteur = (ImageView) v.findViewById(R.id.PersonalImage);
         Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
+        //Bitmap ImgSql = BitmapFactory.decodeByteArray(ImageMysql,0,ImageMysql.length);
+        //ImageDocteur.setImageBitmap(ImgSql);
         ImageDocteur.setImageBitmap(ImgUser);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,6 +101,7 @@ public class Acceuil extends AppCompatActivity {
         toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -133,7 +161,7 @@ public class Acceuil extends AppCompatActivity {
                 nav = (NavigationView) findViewById(R.id.navmenu);
                 View v = nav.getHeaderView(0);
                 Bundle ex = getIntent().getExtras();
-                String lo = new String(ex.getString("Log"));
+                String lo = new String(ex.getString("Login"));
                 id = db.getIdUserMailPhone(lo);
                 NomU = db.getNomUser(lo);
                 PrenomU = db.getPrenomUser(lo);
@@ -152,5 +180,50 @@ public class Acceuil extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+    public class HttpRequest extends AsyncTask<Void,Void, Users> {
+        @Override
+        protected Users doInBackground(Void... voids) {
+            RestApi api = new RestApi();
+            userTest = api.findPhoneID(lo);
+            return userTest;
+        }
+
+        @Override
+        protected void onPostExecute(Users users) {
+            name.setText(userTest.getNomUser());
+            prename.setText(userTest.getPrenomUser());
+            adresse.setText(userTest.getEmailUser());
+        }
+
+    }
+
+    public boolean GetElementusers(String Logn)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<List<Users>> call = medecinService.GetElementUsers(Logn);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                List<Users> usx = response.body();
+                for (Users ulv: usx)
+                {
+                    IdMysql = ulv.getIdUser();
+
+                    NomMysql = ulv.getNomUser();
+                    PrenomMysql = ulv.getPrenomUser();
+                    MailMysql = ulv.getEmailUser();
+                   //PhoneMysql = ulv.getTelephoneUser();
+                    //ImageMysql = ulv.getImageUser();
+                }
+                System.out.println("Data: "+ImageMysql+NomMysql+PrenomMysql+MailMysql+PhoneMysql+ImageMysql);
+                Toast.makeText(Acceuil.this, "Data Retrieved", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(Acceuil.this, "Failed retrieve data", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return true;
     }
 }

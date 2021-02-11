@@ -35,4 +35,6 @@ public interface MedecinService {
     Call<List<Users>>getIdUser(@Path("Phone") String Phone);
     @GET("find/user/Email/login/{Email}/{Password}/{Docteur}")
     Call<List<Users>>isEmailValid(@Path("Email") String Email,@Path("Password") String Password,@Path("Docteur") String Docteur);
+    @GET("find/user/Acceuil/{log}/")
+    Call<List<Users>>GetElementUsers(@Path("log") String log);
 }

@@ -42,7 +42,6 @@ public class Login extends AppCompatActivity {
     private String Docteur = "";
     private String log = "";
     private String pass = "";
-    Users userTest = null;
     private String loginPhone = "";
     MedecinService medecinService;
     @Override
@@ -108,9 +107,9 @@ public class Login extends AppCompatActivity {
                 {
                     login.setText(null);
                     password.setText(null);
-                    Intent iacceuil = new Intent(Login.this,Acceuil.class);
-                    iacceuil.putExtra("Log",log);
-                    startActivity(iacceuil);
+                    Intent iacc = new Intent(Login.this,Acceuil.class);
+                    iacc.putExtra("Login",mail);
+                    startActivity(iacc);
                     Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
