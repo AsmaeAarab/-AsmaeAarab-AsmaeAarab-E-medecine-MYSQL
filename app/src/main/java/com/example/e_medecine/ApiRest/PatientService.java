@@ -24,10 +24,6 @@ public interface PatientService {
     Call<Users>addUser(@Body Users users);
 
     @Headers({"Accept: application/json"})
-    @POST("ajouterUser")
-    Call<Users>addUser1(@Body Users users);
-
-    @Headers({"Accept: application/json"})
     @POST("ajouterPatient")
     Call<Patient>ajoutPatient(@Body Patient patient);
 

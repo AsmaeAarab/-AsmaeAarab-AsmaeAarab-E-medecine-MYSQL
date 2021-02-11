@@ -191,7 +191,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         u.setGenreUser(genre);
         u.setTelephoneUser(phone);
         u.setImageUser(imgprofile);
-        Ville v=new Ville(1,"Casa");
+        Ville v=new Ville(2,"Casa");
         u.setIdVille(v);
         u.setEmailUser(email);
         u.setPasswordUser(mdp);
@@ -267,7 +267,7 @@ public class PatientSignupActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
-                idPatient=getIdPatient(u.getEmailUser());
+                idPatient=getIdPatient(u.getEmailUser()); //FCT DE RECUPERATION DE ID USER
                 Toast.makeText(getApplicationContext(), "NO idPatient="+idPatient, Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
 
@@ -308,7 +308,7 @@ public class PatientSignupActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
                 u1=new Users(idX);
                 p.setIdUser(u1);
-                addPatient(p);
+                addPatient(p);   ////FCT INSERTION PATIENT
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
