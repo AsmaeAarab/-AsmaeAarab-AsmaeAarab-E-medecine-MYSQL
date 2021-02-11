@@ -87,25 +87,6 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
-    /*public class HttpRequest extends AsyncTask<Void,Void,Users>
-    {
-
-        @Override
-        protected Users doInBackground(Void... voids) {
-            RestApi restApi = new RestApi();
-            userTest = restApi.findPhoneID(log);
-            return userTest;
-        }
-
-        @Override
-        protected void onPostExecute(Users user) {
-            TextView txt = (TextView) findViewById(R.id.userAffich);
-            txt.setText("user id: "+userTest.getIdUser());
-
-        }
-
-    }*/
     String mail="";
     String pss ="";
     String sts ="";
@@ -113,7 +94,6 @@ public class Login extends AppCompatActivity {
     {
         medecinService = Apis.getMedecinService();
         Call<List<Users>> call = medecinService.isEmailValid(Email,Password,Status);
-        System.out.println("HI in Call");
         call.enqueue(new Callback<List<Users>>() {
             @Override
             public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
@@ -121,11 +101,8 @@ public class Login extends AppCompatActivity {
                 for (Users uvalid: u)
                 {
                     mail = uvalid.getEmailUser();
-                    System.out.println("Email"+mail);
                     pss = uvalid.getPasswordUser();
-                    System.out.println(" "+pss);
                     sts = uvalid.getRoleUser();
-                    System.out.println("Status"+sts);
                 }
                 if (mail.equals(Email)&&pss.equals(Password)&&sts.equals(Status))
                 {
@@ -138,12 +115,11 @@ public class Login extends AppCompatActivity {
                 }else {
                     Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Authentification Impossible", Toast.LENGTH_SHORT).show();
             }
         });
         return true;

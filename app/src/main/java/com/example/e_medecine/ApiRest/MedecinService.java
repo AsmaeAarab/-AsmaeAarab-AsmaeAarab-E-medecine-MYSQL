@@ -1,8 +1,5 @@
 package com.example.e_medecine.ApiRest;
 
-
-
-
 import com.example.e_medecine.Docteurs.Medecin;
 import com.example.e_medecine.model.Users;
 
