@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     GlobalDbHelper bd = new GlobalDbHelper(this);
-    private String Docteur = "Medecin";
+    private String Docteur = "Docteur";
     private String Patient = "Patient";
     private Button btDoc;
     @Override

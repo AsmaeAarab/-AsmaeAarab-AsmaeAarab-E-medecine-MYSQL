@@ -25,6 +25,8 @@ import java.util.List;
 
 import org.springframework.http.HttpEntity;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,14 +66,14 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 log = login.getText().toString();
                 pass = password.getText().toString();
-                findidPhone(log);
+                isEmailValid(log,pass,Docteur);
                 /*TextView txt = (TextView) findViewById(R.id.userAffich);
                 txt.setText("user id: "+FindUserPhone(pass,log,Medecin));*/
                //userTest = restApi.findPhone(log,pass,Medecin);
              //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
                //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
 
-                /*if (db.isEmailvalid(log,pass,Medecin) || db.isTelephonevalid(log,pass,Medecin))
+                /*if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
                     password.setText(null);
@@ -104,6 +106,48 @@ public class Login extends AppCompatActivity {
         }
 
     }*/
+    String mail="";
+    String pss ="";
+    String sts ="";
+    public boolean isEmailValid(String Email,String Password,String Status)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<List<Users>> call = medecinService.isEmailValid(Email,Password,Status);
+        System.out.println("HI in Call");
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                List<Users> u = response.body();
+                for (Users uvalid: u)
+                {
+                    mail = uvalid.getEmailUser();
+                    System.out.println("Email"+mail);
+                    pss = uvalid.getPasswordUser();
+                    System.out.println(" "+pss);
+                    sts = uvalid.getRoleUser();
+                    System.out.println("Status"+sts);
+                }
+                if (mail.equals(Email)&&pss.equals(Password)&&sts.equals(Status))
+                {
+                    login.setText(null);
+                    password.setText(null);
+                    Intent iacceuil = new Intent(Login.this,Acceuil.class);
+                    iacceuil.putExtra("Log",log);
+                    startActivity(iacceuil);
+                    Toast.makeText(Login.this, "Authentification successful", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return true;
+    }
     public int findidPhone(String Phone)
     {
 
