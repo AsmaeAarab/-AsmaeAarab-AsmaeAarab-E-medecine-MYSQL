@@ -139,7 +139,8 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     docteurs.setFrais(Integer.parseInt(frais));
                                     docteurs.setExperience(Integer.parseInt(exp));
                                     addUserM(users);
-
+                                    findidPhone(phonedoc);
+                                    //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
                                     /*if (addUserM(users) == true /*&& addMedecin(docteurs) == true)
                                     {
                                         Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
@@ -239,13 +240,35 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
 
             @Override
             public void onFailure(Call<Medecin> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "No Add Medecin ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }
         });
         return true;
     }
     int idsd =0;
+    /*public class HttpRequest extends AsyncTask<Void,Void,Users>
+    {
+
+        @Override
+        protected Users doInBackground(Void... voids) {
+            RestApi restApi = new RestApi();
+            userTest = restApi.findPhoneID(phonedoc);
+            return userTest;
+        }
+
+        @Override
+        protected void onPostExecute(Users user) {
+            TextView txt = (TextView) findViewById(R.id.userAffich);
+            txt.setText("user id: "+userTest.getIdUser());
+            ux = new Users(idsd);
+            docteurs.setIdUserMedecin(ux);
+            addMedecin(docteurs);
+
+        }
+
+    }*/
+
     public int findidPhone(String Phone)
     {
 
