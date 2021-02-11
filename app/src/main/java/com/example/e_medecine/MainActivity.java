@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.e_medecine.Docteurs.Login;
-import com.example.e_medecine.activity.SpecialitesActivity;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
@@ -43,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.patient)
     public void loginPatient() {
-        //Intent intent = new Intent(this, PatientLoginActivity.class);
-        Intent intent = new Intent(this, SpecialitesActivity.class);
+        Intent intent = new Intent(this, PatientLoginActivity.class);
         intent.putExtra("Patient",Patient);
         startActivity(intent);
     }

@@ -282,9 +282,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
             public void onResponse(Call<Users> call, Response<Users> response) {
                 Users users = response.body();
                 users.getIdUser();
-
             }
-
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "No user", Toast.LENGTH_SHORT).show();
