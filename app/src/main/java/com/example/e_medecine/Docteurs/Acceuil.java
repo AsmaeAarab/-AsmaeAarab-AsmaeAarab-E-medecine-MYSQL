@@ -194,6 +194,8 @@ public class Acceuil extends AppCompatActivity {
             name.setText(userTest.getNomUser());
             prename.setText(userTest.getPrenomUser());
             adresse.setText(userTest.getEmailUser());
+            Bitmap Img = BitmapFactory.decodeByteArray(userTest.getImageUser(),0,userTest.getImageUser().length);
+            ImageDocteur.setImageBitmap(Img);
         }
 
     }
