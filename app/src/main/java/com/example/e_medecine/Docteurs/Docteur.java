@@ -1,6 +1,7 @@
 package com.example.e_medecine.Docteurs;
 
 import com.example.e_medecine.model.Specialite;
+import com.example.e_medecine.model.Specialites;
 import com.example.e_medecine.model.Users;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -16,7 +17,7 @@ public class Docteur implements Serializable {
     private Users idUserMedecin;
     @SerializedName("idSpecialite")
     @Expose
-    private int idSpecialiteMedecin;
+    private Specialites idSpecialiteMedecin;
     @SerializedName("typeMedecin")
     @Expose
     private String typeMedecin;
@@ -38,7 +39,7 @@ public class Docteur implements Serializable {
 
     }
 
-    public Docteur(Users idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
+    public Docteur(Users idUserMedecin, Specialites idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;
         this.typeMedecin = typeMedecin;
@@ -64,11 +65,11 @@ public class Docteur implements Serializable {
         this.idUserMedecin = idUserMedecin;
     }
 
-    public int getIdSpecialiteMedecin() {
+    public Specialites getIdSpecialiteMedecin() {
         return idSpecialiteMedecin;
     }
 
-    public void setIdSpecialiteMedecin(int idSpecialiteMedecin) {
+    public void setIdSpecialiteMedecin(Specialites idSpecialiteMedecin) {
         this.idSpecialiteMedecin = idSpecialiteMedecin;
     }
 
