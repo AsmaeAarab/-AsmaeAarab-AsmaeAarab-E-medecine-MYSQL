@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,8 +31,6 @@ import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import com.google.android.material.navigation.NavigationView;
-
-import org.springframework.util.support.Base64;
 
 import java.sql.Blob;
 import java.util.List;
@@ -93,10 +92,10 @@ public class Acceuil extends AppCompatActivity {
         //adresse.setText(AdresseU);
         adresse.setText(MailMysql);
         ImageDocteur = (ImageView) v.findViewById(R.id.PersonalImage);
-        Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
+        //Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
         //Bitmap ImgSql = BitmapFactory.decodeByteArray(ImageMysql,0,ImageMysql.length);
         //ImageDocteur.setImageBitmap(ImgSql);
-        ImageDocteur.setImageBitmap(ImgUser);
+        //ImageDocteur.setImageBitmap(ImgUser);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
@@ -196,14 +195,24 @@ public class Acceuil extends AppCompatActivity {
             name.setText(userTest.getNomUser());
             prename.setText(userTest.getPrenomUser());
             adresse.setText(userTest.getEmailUser());
-            byte[] byteArray = Base64.decode(String.valueOf(userTest.getImage()));
-            Bitmap Img = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+            String Image =  new String(userTest.getImageUser());
+            Bitmap Img = StringToBitMap(Image);
             ImageDocteur.setImageBitmap(Img);
         }
 
     }
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 
-    public boolean GetElementusers(String Logn)
+    /*public void GetElementusers(String Logn)
     {
         medecinService = Apis.getMedecinService();
         Call<List<Users>> call = medecinService.GetElementUsers(Logn);
@@ -214,11 +223,13 @@ public class Acceuil extends AppCompatActivity {
                 for (Users ulv: usx)
                 {
                     IdMysql = ulv.getIdUser();
-
                     NomMysql = ulv.getNomUser();
+                    name.setText(NomMysql);
                     PrenomMysql = ulv.getPrenomUser();
+                    prename.setText(PhoneMysql);
                     MailMysql = ulv.getEmailUser();
-                   //PhoneMysql = ulv.getTelephoneUser();
+                    adresse.setText(MailMysql);
+                    //PhoneMysql = ulv.getTelephoneUser();
                     //ImageMysql = ulv.getImageUser();
                 }
                 System.out.println("Data: "+ImageMysql+NomMysql+PrenomMysql+MailMysql+PhoneMysql+ImageMysql);
@@ -229,6 +240,5 @@ public class Acceuil extends AppCompatActivity {
                 Toast.makeText(Acceuil.this, "Failed retrieve data", Toast.LENGTH_SHORT).show();
             }
         });
-        return true;
-    }
+    }*/
 }

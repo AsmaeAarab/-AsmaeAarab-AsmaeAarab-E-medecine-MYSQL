@@ -10,9 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.MedecinService;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
+import com.firebase.ui.auth.data.model.User;
 
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class Updateaccount extends AppCompatActivity {
     private EditText newpass;
     private Button update;
     private GlobalDbHelper db;
+    private String anclog = "";
+    private String newp = "";
+    MedecinService medecinService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +41,8 @@ public class Updateaccount extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String anclog = ancientlog.getText().toString();
-                String newp = newpass.getText().toString();
+                anclog = ancientlog.getText().toString();
+                newp = newpass.getText().toString();
                 if (anclog.length() > 1 && newp.length() > 1)
                 {
                     isEmailValid(anclog,newp,Doc);
@@ -66,6 +71,7 @@ public class Updateaccount extends AppCompatActivity {
     String mail="";
     String pss ="";
     String sts ="";
+    Users ux = new Users();
     public boolean isEmailValid(String Email,String Password,String Status)
     {
         medecinService = Apis.getMedecinService();
@@ -82,17 +88,38 @@ public class Updateaccount extends AppCompatActivity {
                 }
                 if (mail.equals(Email)&&pss.equals(Password)&&sts.equals(Status))
                 {
-                    Toast.makeText(Updateaccount.this, "Votre Nouveau Mot de passe est identique a l'ancien ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Updateaccount.this, "This Password is identical to the ancient ", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(Login.this, "Login or password Incorrect", Toast.LENGTH_SHORT).show();
+                    ux.setPasswordUser(newp);
+                    updateMedecinPassword(ux,anclog);
+                    Toast.makeText(Updateaccount.this, "Good Your Password has been set", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(Login.this, "Authentification Impossible", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Updateaccount.this, "Authentification Impossible", Toast.LENGTH_SHORT).show();
             }
         });
         return true;
+    }
+    public void updateMedecinPassword(Users u,String Mail)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<Users> call = medecinService.UpdateMedecin(u,Mail);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if (response.isSuccessful())
+                {
+                    Toast.makeText(Updateaccount.this, "Your Password has bean Updated", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(Updateaccount.this, "Failure please Try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
