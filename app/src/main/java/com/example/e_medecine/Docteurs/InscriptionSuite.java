@@ -111,7 +111,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                     if (click == true) {
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
-                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 0 ) {
+                            if (locate.length() > 1 && frais.length() > 1 ) {
 
                                 try {
                                     charte = Condition.getText().toString();
@@ -133,21 +133,12 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     Integer IdImage = db.getIconSpecialite(specialite);
                                     Specialites specialize = new Specialites(IdSpecialite,specialite);
                                     docteurs.setIdSpecialiteMedecin(specialize);
-                                    //docteurs.setIdSpecialiteMedecin(IdSpecialite);
                                     docteurs.setTypeMedecin(typedoc);
                                     docteurs.setLocation(locate);
                                     docteurs.setTermeCondition(charte);
                                     docteurs.setFrais(Integer.parseInt(frais));
                                     docteurs.setExperience(Integer.parseInt(exp));
                                     addUserM(users);
-
-                                    /*if (addUserM(users) == true /*&& addMedecin(docteurs) == true)
-                                    {
-                                        Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }else {
-                                        Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                    }*/
                                 }catch (Exception e){
                                     e.getMessage();
                                 }
@@ -176,8 +167,33 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                     {
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
-                            if (locate.length() > 1 && frais.length() > 1 && exp.length() > 1) {
+                            if (locate.length() > 1 && frais.length() > 1) {
+                                charte = Condition.getText().toString();
                                 int Idville = db.getIdVille(city);
+                                users = new Users();
+                                Ville ville = new Ville(Idville,city);
+                                int iduser = 0;
+                                users.setImageUser(imgprofileval);
+                                users.setNomUser(namedoc);
+                                users.setPrenomUser(lastnamedoc);
+                                users.setGenreUser(genderdoc);
+                                users.setTelephoneUser(phonedoc);
+                                users.setIdVille(ville);
+                                users.setEmailUser(maildoc);
+                                users.setPasswordUser(passwordoc);
+                                users.setRoleUser("Docteur");
+                                docteurs = new Medecin();
+                                int IdSpecialite = db.getIdSpecialite(specialite);
+                                Integer IdImage = db.getIconSpecialite(specialite);
+                                Specialites specialize = new Specialites(IdSpecialite,specialite);
+                                docteurs.setIdSpecialiteMedecin(specialize);
+                                docteurs.setTypeMedecin(typedoc);
+                                docteurs.setLocation(locate);
+                                docteurs.setTermeCondition(charte);
+                                docteurs.setFrais(Integer.parseInt(frais));
+                                docteurs.setExperience(Integer.parseInt(exp));
+                                addUserM(users);
+                                /*int Idville = db.getIdVille(city);
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 int iduser = db.getIdUser(maildoc);
                                 int IdSpecialite = db.getIdSpecialite(specialite);
@@ -188,7 +204,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     finish();
                                 }else {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                }
+                                }*/
                             } else {
                                 Toast.makeText(InscriptionSuite.this, "Please fill the fields", Toast.LENGTH_SHORT).show();
                             }
@@ -213,13 +229,13 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
-                IDDOC = findidPhone(u.getTelephoneUser());
+                findidPhone(u.getTelephoneUser());
                 Toast.makeText(getApplicationContext(), "UserADD ", Toast.LENGTH_SHORT).show();
                 Toast.makeText(InscriptionSuite.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                IDDOC = findidPhone(u.getTelephoneUser());
+                findidPhone(u.getTelephoneUser());
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }

@@ -1,6 +1,5 @@
 package com.example.e_medecine.Docteurs;
 
-import com.example.e_medecine.model.Specialite;
 import com.example.e_medecine.model.Specialites;
 import com.example.e_medecine.model.Users;
 import com.google.gson.annotations.Expose;
@@ -33,9 +32,7 @@ public class Medecin implements Serializable {
     @SerializedName("termecondition")
     @Expose
     private String termeCondition;
-
-    public Medecin()
-    {
+    public Medecin(){
 
     }
 

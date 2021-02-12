@@ -5,11 +5,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.PatientService;
+import com.example.e_medecine.Docteurs.Acceuil;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
@@ -70,8 +73,10 @@ public class PatientAccueilActivity extends AppCompatActivity {
         String emailUser=intent.getStringExtra("EmailUser");
 
         /////////////MYSQL
-       // getPatient(emailUser);
+       // email.setText(emailUser);
+       //GetElementPatient(emailUser);
         /////////////FIN MYSQL
+
         email.setText(emailUser);
         nom.setText(db.getNomUser(emailUser));
         prenom.setText(db.getPrenomUser(emailUser));
@@ -94,28 +99,53 @@ public class PatientAccueilActivity extends AppCompatActivity {
     }
 
     PatientService service;
-    public void getPatient(String emailUser){
-        service= Apis.getPatientsService();
-        Call<List<Users>>call = service.getPatient(emailUser);
+    private int IdMysql = 0;
+    private String NomMysql = "";
+    private String PrenomMysql = "";
+    private String MailMysql = "";
+    private String PhoneMysql = "";
+    private String ImageMysql="";
+    public boolean GetElementPatient(String login){
+        service = Apis.getPatientsService();
+        Call<List<Users>> call = service.GetElementPatient(login);
         call.enqueue(new Callback<List<Users>>() {
             @Override
-            public void onResponse(Call<List<Users>>call, Response<List<Users>>response) {
-                List<Users>uList=response.body();
-                for(Users u : uList ){
-                    email.setText(u.getIdUser());
-                    nom.setText(u.getNomUser());
-                    prenom.setText(u.getPrenomUser());
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                List<Users> usx = response.body();
+                for (Users ulv: usx)
+                {
+                    IdMysql = ulv.getIdUser();
+                    NomMysql = ulv.getNomUser();
+                    PrenomMysql = ulv.getPrenomUser();
+                    MailMysql = ulv.getEmailUser();
+                    nom.setText(NomMysql);
+                    prenom.setText(PrenomMysql);
+                    //PhoneMysql = ulv.getTelephoneUser();
+                    ImageMysql = ulv.getImage();
+                    Bitmap bm = StringToBitMap(ImageMysql);
+                    imgProfile.setImageBitmap(bm);
                 }
-                Toast.makeText(getApplicationContext(), "getid Yes ", Toast.LENGTH_SHORT).show();
+                System.out.println("Data: image"+ImageMysql);
+                Toast.makeText(getApplicationContext(), "Data Retrieved", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "getidNo ", Toast.LENGTH_SHORT).show();
-                Log.e("Error:",t.getMessage());
+                Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
             }
         });
+        return true;
     }
 
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 
 
     //DARAWER CODE START

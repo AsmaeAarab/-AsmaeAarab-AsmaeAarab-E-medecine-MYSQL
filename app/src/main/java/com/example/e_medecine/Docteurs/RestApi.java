@@ -69,10 +69,10 @@ public class RestApi {
 
         }
     }
-    public Users findPhoneID(String Phone){
+    public Users findPhoneID(String Login){
         Map<String, String> params = new HashMap<String, String>();
-        params.put("Phone", Phone);
-        String URL = Base_Url+"find/user/"+Phone;
+        params.put("Login", Login);
+        String URL = Base_Url+"find/user/intellij/"+Login+"/";
         URI uri = UriComponentsBuilder.fromUriString(URL)
                 .buildAndExpand(params)
                 .toUri();
