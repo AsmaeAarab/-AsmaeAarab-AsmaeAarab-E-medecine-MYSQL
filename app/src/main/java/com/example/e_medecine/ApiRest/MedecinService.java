@@ -40,4 +40,7 @@ public interface MedecinService {
     Call<List<Users>>isEmailValid(@Path("Email") String Email,@Path("Password") String Password,@Path("Docteur") String Docteur);
     @GET("find/user/Acceuil/{log}/")
     Call<List<Users>>GetElementUsers(@Path("log") String log);
+    @POST("find/update/{Mail}/m")
+    Call<Users>UpdateMedecin(@Body Users users,@Path("Mail") String Mail);
+
 }

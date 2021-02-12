@@ -191,7 +191,9 @@ public class PatientSignupActivity extends AppCompatActivity {
         u.setGenreUser(genre);
         u.setTelephoneUser(phone);
         u.setImageUser(imgprofile);
-        Ville v=new Ville(2,"Casa");
+        Integer IDville=db.getIdVille(ville);
+      //  Ville v=new Ville(2,"Casa");
+        Ville v=new Ville(IDville,ville);
         u.setIdVille(v);
         u.setEmailUser(email);
         u.setPasswordUser(mdp);
