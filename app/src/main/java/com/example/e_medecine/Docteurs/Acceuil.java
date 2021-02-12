@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -211,6 +212,11 @@ public class Acceuil extends AppCompatActivity {
             MailMysql = userTest.getEmailUser();
             PhoneMysql = userTest.getTelephoneUser();
             ImageMysql = userTest.getImageUser();
+
+            SharedPreferences sharedPreferences= getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+            prefEditor.putString("EmailUser", userTest.getEmailUser());
+            prefEditor.apply();
         }
 
     }

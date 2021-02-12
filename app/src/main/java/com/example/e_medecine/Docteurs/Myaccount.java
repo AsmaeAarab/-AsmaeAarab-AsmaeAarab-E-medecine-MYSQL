@@ -6,13 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.MedecinService;
+import com.example.e_medecine.ApiRest.PatientService;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
@@ -32,6 +36,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,6 +71,11 @@ public class Myaccount extends AppCompatActivity {
         AccountPrenom.setHint(Prenom);
         AccountAdresse.setHint(Adresse);
         AccountTelephone.setHint(Tele);
+        ///////////MYSQL
+        SharedPreferences result = getSharedPreferences("data", Context.MODE_PRIVATE);
+        String login1= result.getString("EmailUser", "default-value");
+        GetElementusers(login1);
+        /////////FIN MYSQL
         db = new GlobalDbHelper(this);
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,4 +292,58 @@ public class Myaccount extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+    PatientService service;
+    private int IdMysql = 0;
+    private String NomMysql = "";
+    private String PrenomMysql = "";
+    private String MailMysql = "";
+    private String PhoneMysql = "";
+    private String ImageMysql="";
+    public boolean GetElementusers(String login){
+        service = Apis.getPatientsService();
+        Call<List<Users>> call = service.GetElementPatient(login);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                List<Users> usx = response.body();
+                for (Users ulv: usx)
+                {
+                    IdMysql = ulv.getIdUser();
+                    NomMysql = ulv.getNomUser();
+                    PrenomMysql = ulv.getPrenomUser();
+                    MailMysql = ulv.getEmailUser();
+                    PhoneMysql = ulv.getTelephoneUser();
+                    ImageMysql = ulv.getImage();
+
+                    AccountNom.setText(NomMysql);
+                    AccountPrenom.setText(PrenomMysql);
+                    AccountTelephone.setText(PhoneMysql);
+
+                    Bitmap bm = StringToBitMap(ImageMysql);
+                    ImageP.setImageBitmap(bm);
+
+                }
+                Toast.makeText(getApplicationContext(), "Data Retrieved", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return true;
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
+
+
 }
