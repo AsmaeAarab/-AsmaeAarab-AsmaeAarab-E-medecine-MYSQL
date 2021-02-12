@@ -623,14 +623,14 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
             do{
                 Medecin medecin=new Medecin();
                 medecin.setIdMedecin(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MedecinTable.getID()))));
-                medecin.setSpecialite(cursor.getString(cursor.getColumnIndex(SpecialiteTable.getLABEL())));
-                medecin.setLocation(cursor.getString(cursor.getColumnIndex(MedecinTable.getLOCALISATION())));
+                medecin.setLabel(cursor.getString(cursor.getColumnIndex(SpecialiteTable.getLABEL())));
+                medecin.setLocalisationMedecin(cursor.getString(cursor.getColumnIndex(MedecinTable.getLOCALISATION())));
                 byte[] image = cursor.getBlob(cursor.getColumnIndex(UserTable.getIMAGE()));
-                medecin.setImageMedecin(image);
+                medecin.setImageUser(image);
                 medecin.setFrais(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MedecinTable.getFRAIS()))));
                 medecin.setExperience(Integer.parseInt(cursor.getString(cursor.getColumnIndex(MedecinTable.getEXPERIENCE()))));
-                medecin.setNomMedecin(cursor.getString(cursor.getColumnIndex(UserTable.getNOM())));
-                medecin.setPrenomMedecin(cursor.getString(cursor.getColumnIndex(UserTable.getPRENOM())));
+                medecin.setNomUser(cursor.getString(cursor.getColumnIndex(UserTable.getNOM())));
+                medecin.setPrenomUser(cursor.getString(cursor.getColumnIndex(UserTable.getPRENOM())));
                 medecinList.add(medecin);
             }while (cursor.moveToNext());
         }

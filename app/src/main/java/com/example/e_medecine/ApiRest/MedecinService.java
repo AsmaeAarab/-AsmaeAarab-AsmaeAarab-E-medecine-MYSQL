@@ -36,4 +36,7 @@ public interface MedecinService {
 
     @GET("find/user/{Phone}")
     Call<List<Users>>getIdUser(@Path("Phone") String Phone);
+
+    @GET("allDoc/{id_specialite}/{type_medecin}")
+    Call<List<com.example.e_medecine.model.Medecin>> getMedecinList(@Path("id_specialite")int idSpecialite,@Path("type_medecin")String typeMedecin);
 }

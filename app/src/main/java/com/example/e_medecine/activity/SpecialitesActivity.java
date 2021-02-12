@@ -40,7 +40,7 @@ public class SpecialitesActivity extends AppCompatActivity implements Specialite
     CharSequence search="";
 
     ArrayList<Specialite> list= new ArrayList<>();
-    SpecialitesAdapter adapter;
+    SpecialitesAdapter adapter=new SpecialitesAdapter(this,list,this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
