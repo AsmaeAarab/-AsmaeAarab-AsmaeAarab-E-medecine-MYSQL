@@ -6,7 +6,7 @@ public class Apis {
     //public static final String URL_002="http://192.168.56.1:8080/patients/";
    // public static final String URL_001="http://192.168.56.1:8080/user/";
     public static final String URL_003="http://192.168.1.108:8080/specialites/";
-    public static final String URL_002="http://192.168.1.9:8080/patients/";
+    public static final String URL_002="http://192.168.1.5:8080/patients/";
     public static final String URL_001="http://192.168.1.5:8080/user/";
     public static PatientService getPatientsService(){
         return  Cliente.getCliente(URL_002).create(PatientService.class);

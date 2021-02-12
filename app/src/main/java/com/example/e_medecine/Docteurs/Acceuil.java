@@ -31,6 +31,8 @@ import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import com.google.android.material.navigation.NavigationView;
 
+import org.springframework.util.support.Base64;
+
 import java.sql.Blob;
 import java.util.List;
 
@@ -194,7 +196,8 @@ public class Acceuil extends AppCompatActivity {
             name.setText(userTest.getNomUser());
             prename.setText(userTest.getPrenomUser());
             adresse.setText(userTest.getEmailUser());
-            Bitmap Img = BitmapFactory.decodeByteArray(userTest.getImageUser(),0,userTest.getImageUser().length);
+            byte[] byteArray = Base64.decode(String.valueOf(userTest.getImage()));
+            Bitmap Img = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
             ImageDocteur.setImageBitmap(Img);
         }
 
