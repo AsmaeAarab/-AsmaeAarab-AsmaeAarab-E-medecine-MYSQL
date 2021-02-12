@@ -125,12 +125,18 @@ public class Acceuil extends AppCompatActivity {
                         break;
                     case R.id.menu_MonCompte:
                         Intent ia = new Intent(Acceuil.this,Myaccount.class);
-                        ia.putExtra("ID",id);
+                        /*ia.putExtra("ID",id);
                         ia.putExtra("NOM",NomU);
                         ia.putExtra("PRENOM",PrenomU);
                         ia.putExtra("ADDRESSE",AdresseU);
                         ia.putExtra("TELEPHONE",TelephoneU);
-                        ia.putExtra("IMAGE",ImageU);
+                        ia.putExtra("IMAGE",ImageU);*/
+                        ia.putExtra("ID",IdMysql);
+                        ia.putExtra("NOM",NomMysql);
+                        ia.putExtra("PRENOM",PrenomMysql);
+                        ia.putExtra("ADDRESSE",MailMysql);
+                        ia.putExtra("TELEPHONE",PhoneMysql);
+                        ia.putExtra("IMAGE",ImageMysql);
                         startActivity(ia);
                         Toast.makeText(Acceuil.this, "Mon Compte", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
@@ -164,7 +170,7 @@ public class Acceuil extends AppCompatActivity {
                 Bundle ex = getIntent().getExtras();
                 String lo = new String(ex.getString("Login"));
                 id = db.getIdUserMailPhone(lo);
-                NomU = db.getNomUser(lo);
+                /*NomU = db.getNomUser(lo);
                 PrenomU = db.getPrenomUser(lo);
                 TelephoneU = db.getPhoneUser(lo);
                 ImageU = db.getImageUser(lo);
@@ -177,7 +183,8 @@ public class Acceuil extends AppCompatActivity {
                 adresse.setText(AdresseU);
                 ImageDocteur = (ImageView) v.findViewById(R.id.PersonalImage);
                 Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
-                ImageDocteur.setImageBitmap(ImgUser);
+                ImageDocteur.setImageBitmap(ImgUser);*/
+                AsyncTask<Void,Void,Users> user = new HttpRequest().execute();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -198,6 +205,12 @@ public class Acceuil extends AppCompatActivity {
             String Image =  new String(userTest.getImageUser());
             Bitmap Img = StringToBitMap(Image);
             ImageDocteur.setImageBitmap(Img);
+            IdMysql = userTest.getIdUser();
+            NomMysql = userTest.getNomUser();
+            PrenomMysql = userTest.getPrenomUser();
+            MailMysql = userTest.getEmailUser();
+            PhoneMysql = userTest.getTelephoneUser();
+            ImageMysql = userTest.getImageUser();
         }
 
     }

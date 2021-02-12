@@ -39,5 +39,13 @@ public interface MedecinService {
     Call<List<Users>>GetElementUsers(@Path("log") String log);
     @POST("find/update/{Mail}/m")
     Call<Users>UpdateMedecin(@Body Users users,@Path("Mail") String Mail);
+    @POST("find/update/Nom/{ID}/m")
+    Call<Users>UpdateMedecinNom(@Body Users users,@Path("ID") int ID);
+    @POST("find/update/Prenom/{ID}/m")
+    Call<Users>UpdateMedecinPrenom(@Body Users users,@Path("ID") int ID);
+    @POST("find/update/Phone/{ID}/m")
+    Call<Users>UpdateMedecinPhone(@Body Users users,@Path("ID") int ID);
+    @POST("find/update/Email/{ID}/m")
+    Call<Users>UpdateMedecinEmail(@Body Users users,@Path("ID") int ID);
 
 }

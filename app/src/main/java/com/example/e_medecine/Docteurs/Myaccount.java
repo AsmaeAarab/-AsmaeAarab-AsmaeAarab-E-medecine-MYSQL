@@ -21,13 +21,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.MedecinService;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.User;
+import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Blob;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Myaccount extends AppCompatActivity {
 
@@ -38,6 +46,7 @@ public class Myaccount extends AppCompatActivity {
     private boolean clicked = false;
     private final int REQUEST_CODE_GALLERY = 999;
     private GlobalDbHelper db;
+    MedecinService medecinService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +54,7 @@ public class Myaccount extends AppCompatActivity {
         initAccount();
         Bundle extras = getIntent().getExtras();
         int ID = extras.getInt("ID");
+        System.out.println("IDM: " + ID);
         String Nom = new String(extras.getString("NOM"));
         String Prenom = new String(extras.getString("PRENOM"));
         String Adresse = new String(extras.getString("ADDRESSE"));
@@ -84,6 +94,7 @@ public class Myaccount extends AppCompatActivity {
         MAJ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String Dnom = AccountNom.getText().toString();
                 String Dprenom = AccountPrenom.getText().toString();
                 String Dmail = AccountAdresse.getText().toString();
@@ -92,27 +103,39 @@ public class Myaccount extends AppCompatActivity {
                 {
                     if (BoxNom.isChecked())
                     {
-                        db.updatenom(Dnom,ID);
+                        Users un = new Users();
+                        un.setNomUser(Dnom);
+                        UpdateMedecinNom(un,ID);
+                        /*db.updatenom(Dnom,ID);
                         Toast.makeText(Myaccount.this, "Your Last Name has been successfully changed", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
                     }
                     if (BoxPrenom.isChecked())
                     {
-                        db.updateprenom(Dprenom,ID);
+                        Users up = new Users();
+                        up.setPrenomUser(Dprenom);
+                        UpdateMedecinPrenom(up,ID);
+                        /*db.updateprenom(Dprenom,ID);
                         Toast.makeText(Myaccount.this, "Your first name has been changed successfully", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
                     }
                     if (BoxAdresse.isChecked())
                     {
-                        db.updatemail(Dmail,ID);
+                        Users um = new Users();
+                        um.setEmailUser(Dmail);
+                        UpdateMedecinEmail(um,ID);
+                        /*db.updatemail(Dmail,ID);
                         Toast.makeText(Myaccount.this, "Your address has been successfully changed", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
                     }
                     if (BoxPhone.isChecked())
                     {
-                        db.updatephone(Dphone,ID);
+                        Users uph = new Users();
+                        uph.setTelephoneUser(Dphone);
+                        UpdateMedecinPhone(uph,ID);
+                        /*db.updatephone(Dphone,ID);
                         Toast.makeText(Myaccount.this, "Your Number Phone has been successfully changed", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
                     }
                     finish();
                 }else {
@@ -135,6 +158,73 @@ public class Myaccount extends AppCompatActivity {
         saveimage = (Button) findViewById(R.id.buttonsave);
         changeImage = (Button) findViewById(R.id.ChangeImage);
         MAJ = (Button) findViewById(R.id.ButtonUPdate);
+    }
+    public void UpdateMedecinNom(Users u ,int ID)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<Users> call = medecinService.UpdateMedecinNom(u,ID);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if (response.isSuccessful())
+                {
+                    Toast.makeText(Myaccount.this, "Your Name Has been changed successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(Myaccount.this, "Failure please Try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void UpdateMedecinPrenom(Users u,int ID)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<Users> call = medecinService.UpdateMedecinPrenom(u,ID);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                Toast.makeText(Myaccount.this, "Your LastName Has been changed successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(Myaccount.this, "Failure please Try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void UpdateMedecinPhone(Users u,int ID)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<Users> call = medecinService.UpdateMedecinPhone(u,ID);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                Toast.makeText(Myaccount.this, "Your Phone Has been changed successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(Myaccount.this, "Failure please Try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void UpdateMedecinEmail(Users u,int ID)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<Users> call = medecinService.UpdateMedecinEmail(u,ID);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                Toast.makeText(Myaccount.this, "Your Email Has been changed successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(Myaccount.this, "Failure please Try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private byte[] imageProToByte(ImageView ImageP) {
         Bitmap bitmaps = ((BitmapDrawable)ImageP.getDrawable()).getBitmap();
