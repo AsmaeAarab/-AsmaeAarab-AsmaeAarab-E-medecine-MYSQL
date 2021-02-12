@@ -37,6 +37,9 @@ public class Users implements Serializable {
     @SerializedName("roleUser")
     @Expose
     private String roleUser;
+    @SerializedName("image")
+    @Expose
+    private String image;
 
     public Users() {
     }
@@ -71,6 +74,14 @@ public class Users implements Serializable {
         this.emailUser = emailUser;
         this.passwordUser = passwordUser;
         this.roleUser = roleUser;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getIdUser() {

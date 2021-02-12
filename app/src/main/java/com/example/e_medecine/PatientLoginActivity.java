@@ -2,6 +2,7 @@ package com.example.e_medecine;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.PatientService;
+import com.example.e_medecine.Docteurs.Acceuil;
+import com.example.e_medecine.Docteurs.Login;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
@@ -46,7 +49,6 @@ public class PatientLoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mPrefs=getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
         getPreferencesData();
-
     }
 
     @OnClick(R.id.signUp)
@@ -59,8 +61,12 @@ public class PatientLoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientForgetPswdActivity.class);
         startActivity(intent);
     }
+
     PatientService service;
     int idX;
+    String email1;
+    String password1;
+    SharedPreferences sharedPreferences;
     public int loginPatient(String emailUser,String passwordUser){
         service= Apis.getPatientsService();
         Call<List<Users>> call = service.loginPatient(emailUser,passwordUser);
@@ -70,65 +76,47 @@ public class PatientLoginActivity extends AppCompatActivity {
                 List<Users>uList=response.body();
                 for(Users u : uList ){
                     idX=u.getIdUser();
+                    email1=u.getEmailUser();
+                    password1=u.getPasswordUser();
+                    sharedPreferences= getSharedPreferences("savedata", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+                    prefEditor.putString("nameP",password1);
+                    prefEditor.apply();
                 }
-                getPatient(emailUser);
-                Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
+                if (email1.equals(emailUser)&&password1.equals(passwordUser))
+                {
+                    //editTextLogin.setText(null);
+                    //editTextPassword.setText(null);
+                    Intent intent1 = new Intent(PatientLoginActivity.this, PatientAccueilActivity.class);
+                    intent1.putExtra("EmailUser",login);
+                    startActivity(intent1);
+                    Toast.makeText(getApplicationContext(), "Authentification successful!!MySQL"+password1, Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Login or password incorect!MySQL!", Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "getidNo "+idX, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ERROR ", Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }
         });
         return idX;
     }
-    String nom,prenom;
-    public void getPatient(String emailUser){
-        service= Apis.getPatientsService();
-        Call<List<Users>>call = service.getPatient(emailUser);
-        call.enqueue(new Callback<List<Users>>() {
-            @Override
-            public void onResponse(Call<List<Users>>call, Response<List<Users>>response) {
-                List<Users>uList=response.body();
-                for(Users u : uList ){
-                    nom=u.getNomUser();
-                    prenom=u.getPrenomUser();
-                }
-                Toast.makeText(getApplicationContext(), "getid Yes ", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "getidNo ", Toast.LENGTH_SHORT).show();
-                Log.e("Error:",t.getMessage());
-            }
-        });
-    }
 
-
+    String login;
     @OnClick(R.id.signIn)
     void signIn(){
         Intent intent = new Intent(this, PatientAccueilActivity.class);
-        String login = editTextLogin.getText().toString();
+         login = editTextLogin.getText().toString();
         String password = editTextPassword.getText().toString();
 
         /////////////MYSQL
 
-        if ((!login.equals("")) && (!password.equals(""))) {
-            int x=loginPatient(login,password);
-            if (x == 0) {
-                Toast.makeText(getApplicationContext(), "login no", Toast.LENGTH_SHORT).show();
-            } else {
-                x = 0;
-                Toast.makeText(getApplicationContext(), " login yes", Toast.LENGTH_SHORT).show();
-                intent.putExtra("EmailUser",login);
-                Toast.makeText(getApplicationContext(),"Nom: "+nom+" & Prenom: "+prenom,Toast.LENGTH_SHORT).show();
-                intent.putExtra("Nom",nom);
-                intent.putExtra("Prenom",prenom);
-                startActivity(intent);
-                finish();
-            }
-        }else{ Toast.makeText(getApplicationContext(),"Fiels are empty",Toast.LENGTH_SHORT).show();}
-
+        /*if ((!login.equals("")) && (!password.equals(""))) {
+            loginPatient(login,password);
+        }else{ Toast.makeText(getApplicationContext(),"Fiels are empty MySQL",Toast.LENGTH_SHORT).show();}
+*/
         /////////////FIN MYSQL
         db = new GlobalDbHelper(this);
 
