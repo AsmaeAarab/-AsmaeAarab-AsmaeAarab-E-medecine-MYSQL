@@ -34,4 +34,8 @@ public interface PatientService {
     @GET("GetElementPatient/{login}")
     Call<List<Users>>GetElementPatient(@Path("login") String login);
 
+    @POST("actualiserPatient/{login}")
+    Call<Users>updatePatient(@Body Users users,@Path("login") String login);
+
+
 }

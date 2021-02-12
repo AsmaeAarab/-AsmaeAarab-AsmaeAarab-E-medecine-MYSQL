@@ -67,7 +67,7 @@ public class PatientLoginActivity extends AppCompatActivity {
     String email1;
     String password1;
     SharedPreferences sharedPreferences;
-    public int loginPatient(String emailUser,String passwordUser){
+    public boolean loginPatient(String emailUser,String passwordUser){
         service= Apis.getPatientsService();
         Call<List<Users>> call = service.loginPatient(emailUser,passwordUser);
         call.enqueue(new Callback<List<Users>>() {
@@ -78,10 +78,6 @@ public class PatientLoginActivity extends AppCompatActivity {
                     idX=u.getIdUser();
                     email1=u.getEmailUser();
                     password1=u.getPasswordUser();
-                    sharedPreferences= getSharedPreferences("savedata", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor prefEditor = sharedPreferences.edit();
-                    prefEditor.putString("nameP",password1);
-                    prefEditor.apply();
                 }
                 if (email1.equals(emailUser)&&password1.equals(passwordUser))
                 {
@@ -101,10 +97,10 @@ public class PatientLoginActivity extends AppCompatActivity {
                 Log.e("Error:",t.getMessage());
             }
         });
-        return idX;
+        return true;
     }
 
-    String login;
+    private String login;
     @OnClick(R.id.signIn)
     void signIn(){
         Intent intent = new Intent(this, PatientAccueilActivity.class);
@@ -113,12 +109,12 @@ public class PatientLoginActivity extends AppCompatActivity {
 
         /////////////MYSQL
 
-        /*if ((!login.equals("")) && (!password.equals(""))) {
+        if ((!login.equals("")) && (!password.equals(""))) {
             loginPatient(login,password);
         }else{ Toast.makeText(getApplicationContext(),"Fiels are empty MySQL",Toast.LENGTH_SHORT).show();}
-*/
+
         /////////////FIN MYSQL
-        db = new GlobalDbHelper(this);
+     /*   db = new GlobalDbHelper(this);
 
         Boolean checkloginpass = db.loginpassword(login, password);
         if ((!login.equals("")) && (!password.equals(""))) {
@@ -144,7 +140,7 @@ public class PatientLoginActivity extends AppCompatActivity {
         }
         else{ Toast.makeText(getApplicationContext(),"Fiels are empty",Toast.LENGTH_SHORT).show();}
         // editTextLogin.getText().clear();
-        // editTextPassword.getText().clear();
+        // editTextPassword.getText().clear();*/ ////////SQLITE
 
     }
     private void getPreferencesData(){

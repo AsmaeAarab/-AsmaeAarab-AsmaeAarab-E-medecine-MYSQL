@@ -73,26 +73,30 @@ public class PatientAccueilActivity extends AppCompatActivity {
         String emailUser=intent.getStringExtra("EmailUser");
 
         /////////////MYSQL
-       // email.setText(emailUser);
-       //GetElementPatient(emailUser);
+        email.setText(emailUser);
+       GetElementPatient(emailUser);
         /////////////FIN MYSQL
 
-        email.setText(emailUser);
+       /* email.setText(emailUser);
         nom.setText(db.getNomUser(emailUser));
         prenom.setText(db.getPrenomUser(emailUser));
         ImageU=db.getImageUser(emailUser);
         Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
-        imgProfile.setImageBitmap(ImgUser);
+        imgProfile.setImageBitmap(ImgUser);*/  //////:SQLITE
 
         if(modif.equals("yes")){
             Intent intent1=getIntent();
             String EmailUpdate=intent1.getStringExtra("EmailUpdate");
-            email.setText(EmailUpdate);
+          /*  email.setText(EmailUpdate);
             nom.setText(db.getNomUser(EmailUpdate));
             prenom.setText(db.getPrenomUser(EmailUpdate));
             ImageU=db.getImageUser(EmailUpdate);
             Bitmap ImgUser1 = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
-            imgProfile.setImageBitmap(ImgUser1);
+            imgProfile.setImageBitmap(ImgUser1);*/ ////// SQLITE
+            /////////////MYSQL
+            email.setText(EmailUpdate);
+            GetElementPatient(EmailUpdate);
+            /////////////FIN MYSQL
             modif="no";
         }
         prefs=getSharedPreferences(PREFS_TYPE,MODE_PRIVATE);

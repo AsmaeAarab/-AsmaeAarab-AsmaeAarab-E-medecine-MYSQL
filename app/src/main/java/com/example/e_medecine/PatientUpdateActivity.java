@@ -19,6 +19,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,16 +28,24 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.PatientService;
+import com.example.e_medecine.model.User;
+import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PatientUpdateActivity extends AppCompatActivity {
@@ -78,25 +87,28 @@ public class PatientUpdateActivity extends AppCompatActivity {
         String emailUser=intent.getStringExtra("EmailUser");
 
         editTextEmail.setText(emailUser);
-        editTextNom.setText(db.getNomUser(emailUser));
+       /* editTextNom.setText(db.getNomUser(emailUser));
         editTextPrenom.setText(db.getPrenomUser(emailUser));
         editTextPhone.setText(db.getPhoneUser(emailUser));
 
         ImageU=db.getImageUser(emailUser);
         Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
-        ImageP.setImageBitmap(ImgUser);
+        ImageP.setImageBitmap(ImgUser);*/  //////:SQLITE
+        //////////MYSQL
+         GetElementPatient(emailUser);
+        //////////FIN MYSQL
     }
-
+    String email;
     @OnClick(R.id.update)
     public void update(){
         Intent intent = new Intent(this, PatientAccueilActivity.class);
         String nom = editTextNom.getText().toString();
         String prenom = editTextPrenom.getText().toString();
         String phone = editTextPhone.getText().toString();
-        String email = editTextEmail.getText().toString();
+         email = editTextEmail.getText().toString();
         byte[] imgProfile = imageProToByte(ImageP);
 
-        Boolean update = db.updateUser(imgProfile,nom,prenom ,phone,email);
+       /* Boolean update = db.updateUser(imgProfile,nom,prenom ,phone,email);
         if (update == true) {
             modif="yes";
             intent.putExtra("EmailUpdate",email);
@@ -108,7 +120,16 @@ public class PatientUpdateActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "update failed", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             finish();
-        }
+        }*/ //////:SQLITE
+
+        /////////////////MYSQL
+        Users u=new Users();
+        u.setNomUser(nom);
+        u.setPrenomUser(prenom);
+        u.setTelephoneUser(phone);
+        u.setImageUser(imgProfile);
+        updatePatient(u,email);
+        ////////////////FIN MYSQL
     }
 
     @OnClick(R.id.ChooseProfile)
@@ -176,6 +197,80 @@ public class PatientUpdateActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    PatientService service;
+    public void updatePatient(Users u,String login){
+        Intent intent1 =new Intent(PatientUpdateActivity.this,PatientAccueilActivity.class);
+        service= Apis.getPatientsService();
+        Call<Users> call=service.updatePatient(u,login);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Update ", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                modif="yes";
+                intent1.putExtra("EmailUpdate",email);
+                Toast.makeText(getApplicationContext(), "updated successfully", Toast.LENGTH_SHORT).show();
+                startActivity(intent1);
+                finish();
+                Log.e("Error:",t.getMessage());
+            }
+        });
 
+       // startActivity(intent);
+    }
+
+    private int IdMysql = 0;
+    private String NomMysql = "";
+    private String PrenomMysql = "";
+    private String MailMysql = "";
+    private String PhoneMysql = "";
+    private String ImageMysql="";
+    public boolean GetElementPatient(String login){
+        service = Apis.getPatientsService();
+        Call<List<Users>> call = service.GetElementPatient(login);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                List<Users> usx = response.body();
+                for (Users ulv: usx)
+                {
+                    IdMysql = ulv.getIdUser();
+                    NomMysql = ulv.getNomUser();
+                    PrenomMysql = ulv.getPrenomUser();
+                    MailMysql = ulv.getEmailUser();
+                    PhoneMysql = ulv.getTelephoneUser();
+                    ImageMysql = ulv.getImage();
+                    Bitmap bm = StringToBitMap(ImageMysql);
+
+                    ImageP.setImageBitmap(bm);
+                    editTextNom.setText(NomMysql);
+                    editTextPrenom.setText(PrenomMysql);
+                    editTextPhone.setText(PhoneMysql);
+                }
+                System.out.println("Data: image"+ImageMysql);
+                Toast.makeText(getApplicationContext(), "Data Retrieved", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return true;
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 
 }
