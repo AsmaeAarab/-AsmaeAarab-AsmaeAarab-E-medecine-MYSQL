@@ -203,15 +203,15 @@ public class Acceuil extends AppCompatActivity {
             name.setText(userTest.getNomUser());
             prename.setText(userTest.getPrenomUser());
             adresse.setText(userTest.getEmailUser());
-            String Image =  new String(userTest.getImageUser());
-            Bitmap Img = StringToBitMap(Image);
-            ImageDocteur.setImageBitmap(Img);
+            ImageMysql = userTest.getImageUser();
+            Bitmap bm = BitmapFactory.decodeByteArray(ImageMysql,0,ImageMysql.length);
+            ImageDocteur.setImageBitmap(bm);
             IdMysql = userTest.getIdUser();
             NomMysql = userTest.getNomUser();
             PrenomMysql = userTest.getPrenomUser();
             MailMysql = userTest.getEmailUser();
             PhoneMysql = userTest.getTelephoneUser();
-            ImageMysql = userTest.getImageUser();
+
 
             SharedPreferences sharedPreferences= getSharedPreferences("data", Context.MODE_PRIVATE);
             SharedPreferences.Editor prefEditor = sharedPreferences.edit();

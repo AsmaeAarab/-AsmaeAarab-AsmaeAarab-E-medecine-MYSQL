@@ -47,5 +47,7 @@ public interface MedecinService {
     Call<Users>UpdateMedecinPhone(@Body Users users,@Path("ID") int ID);
     @POST("find/update/Email/{ID}/m")
     Call<Users>UpdateMedecinEmail(@Body Users users,@Path("ID") int ID);
+    @POST("find/update/Image/{ID}/m")
+    Call<Users>UpdateMedecinImage(@Body Users users,@Path("ID") int ID);
 
 }

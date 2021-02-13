@@ -72,9 +72,9 @@ public class Myaccount extends AppCompatActivity {
         AccountAdresse.setHint(Adresse);
         AccountTelephone.setHint(Tele);
         ///////////MYSQL
-        SharedPreferences result = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String login1= result.getString("EmailUser", "default-value");
-        GetElementusers(login1);
+        /*SharedPreferences result = getSharedPreferences("data", Context.MODE_PRIVATE);
+        String login1= result.getString("EmailUser", "default-value");*/
+        //GetElementusers(login1);
         /////////FIN MYSQL
         db = new GlobalDbHelper(this);
         changeImage.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +92,11 @@ public class Myaccount extends AppCompatActivity {
                 if (clicked)
                 {
                     byte[] imgval = imageProToByte(ImageP);
-                    db.updateImage(imgval,ID);
-                    Toast.makeText(Myaccount.this, "Your Profile Image has been changed", Toast.LENGTH_SHORT).show();
+                    Users ui = new Users();
+                    ui.setImageUser(imgval);
+                    UpdateMedecinImage(ui,ID);
+                    /*db.updateImage(imgval,ID);
+                    Toast.makeText(Myaccount.this, "Your Profile Image has been changed", Toast.LENGTH_SHORT).show();*/
                     finish();
                     Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                 }else{
@@ -236,6 +239,22 @@ public class Myaccount extends AppCompatActivity {
             }
         });
     }
+    public void UpdateMedecinImage(Users u,int  ID)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<Users> call = medecinService.UpdateMedecinImage(u,ID);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                Toast.makeText(Myaccount.this, "Your Photo Profil Has been changed successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(Myaccount.this, "Your Photo Profil Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private byte[] imageProToByte(ImageView ImageP) {
         Bitmap bitmaps = ((BitmapDrawable)ImageP.getDrawable()).getBitmap();
         Bitmap bitmapreduced = reduceBitmapSize(bitmaps,240000);
@@ -292,7 +311,7 @@ public class Myaccount extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
-    PatientService service;
+    /*PatientService service;
     private int IdMysql = 0;
     private String NomMysql = "";
     private String PrenomMysql = "";
@@ -331,7 +350,7 @@ public class Myaccount extends AppCompatActivity {
             }
         });
         return true;
-    }
+    }*/
 
     public Bitmap StringToBitMap(String encodedString) {
         try {
