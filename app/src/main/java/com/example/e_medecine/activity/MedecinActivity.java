@@ -17,8 +17,11 @@ import com.example.e_medecine.R;
 import com.example.e_medecine.adapter.MedecinAdapter;
 import com.example.e_medecine.model.Medecin;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
+import com.example.e_medecine.utilities.MedecinResponse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -76,33 +79,37 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
     @Override
     public void onMedecinClick(int position) {
         Intent intent=new Intent(this,MedecinDetailleActivity.class);
-        Medecin medecin=list.get(position);
+        /*Medecin medecin=list.get(position);
         intent.putExtra("idMedecin",medecin.getIdMedecin());
-        intent.putExtra("nomMedecin",medecin.getNomUser());
-        intent.putExtra("prenomMedecin",medecin.getPrenomUser());
-        intent.putExtra("specialiteMedecin",medecin.getLabel());
+        intent.putExtra("nomMedecin",medecin.getUser().getNomUser());
+        intent.putExtra("prenomMedecin",medecin.getUser().getPrenomUser());
+        intent.putExtra("specialiteMedecin",medecin.getSpecialite().getLabel());
         intent.putExtra("experienceMedecin",medecin.getExperience());
         intent.putExtra("fraisMedecin",medecin.getFrais());
-        intent.putExtra("imageMedecin",medecin.getImageUser());
+        intent.putExtra("imageMedecin",medecin.getUser().getImageUser());
         startActivity(intent);
+
+         */
     }
 
     private void getMedecinListResponse(int id, String typeDoc) {
         MedecinService medecinService= Apis.getMedecinService();
+        System.out.println("api");
         Call<List<Medecin>> call=medecinService.getMedecinList(id,typeDoc);
-
+        System.out.println("calleds");
         call.enqueue(new Callback<List<Medecin>>() {
             @Override
             public void onResponse(Call<List<Medecin>> call, Response<List<Medecin>> response) {
                 list=new ArrayList<>(response.body());
-                adapter=new MedecinAdapter(MedecinActivity.this,list,MedecinActivity.this);
+                adapter=new MedecinAdapter(MedecinActivity.this, list,MedecinActivity.this);
                 recyclerViewMedecin.setAdapter(adapter);
                 Toast.makeText(MedecinActivity.this,"Success",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<List<Medecin>> call, Throwable t) {
-                Toast.makeText(MedecinActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MedecinActivity.this,"Failed ",Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
         });
     }

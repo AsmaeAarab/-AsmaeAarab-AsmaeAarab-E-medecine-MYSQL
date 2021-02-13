@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.e_medecine.DatePickerFragment;
 import com.example.e_medecine.Docteurs.RendezVousActivity;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.Medecin;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 
@@ -49,7 +50,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     TextView teleMedecin;
     @BindView(R.id.location_medecin)
     TextView locationMedecin;
-    com.example.e_medecine.model.Medecin medecin=new com.example.e_medecine.model.Medecin();
+
 
     @BindView(R.id.appeler)
     Button btnAppeler;

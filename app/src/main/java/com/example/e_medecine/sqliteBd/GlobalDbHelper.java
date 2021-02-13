@@ -609,7 +609,7 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
      */
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////Medecin
-    public ArrayList<Medecin> getMedecins(int id,String type){
+   /* public ArrayList<Medecin> getMedecins(int id,String type){
         Log.d(TAG,"invoke read");
         ArrayList<Medecin> medecinList=new ArrayList<Medecin>();
         String selectQuery="SELECT medecins.idMedecin, specialites.label,medecins.localisationMedecin,users.imageUser,medecins.frais, medecins.experience" +
@@ -638,6 +638,8 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         db.close();
         return medecinList;
     }
+
+    */
     //get phone number
     public String getMedecinTele(int id){
         Log.d(TAG,"invoke read");
