@@ -39,6 +39,7 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
         return new MedecinAdapter.HolderMedecin(view,mOnMedecinListener);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MedecinAdapter.HolderMedecin holder, int position) {
         Medecin medecin=medecinList.get(position);
@@ -51,12 +52,6 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
         byte[] byteArray =  Base64.decode(String.valueOf(medecin.getUser().getImageUser()), Base64.DEFAULT) ;
         Bitmap bmp1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         holder.medecinImage.setImageBitmap(bmp1);
-/*
-        byte[] medecin_img=medecin.getImageMedecin();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(medecin_img, 0, medecin_img.length);
-        holder.medecinImage.setImageBitmap(bitmap);
-
- */
     }
 
     @Override
@@ -82,12 +77,11 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
             this.on_medecin_listener=on_medecin_listener;
             itemView.setOnClickListener(this);
         }
-
-
         @Override
         public void onClick(View v) {
             on_medecin_listener.onMedecinClick(getAdapterPosition());
         }
+
     }
     /////////////////////////////////////////////////////////////Filtred search
     @Override
@@ -126,6 +120,5 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
     public interface OnMedecinListener{
         void onMedecinClick(int position);
     }
-
 
 }

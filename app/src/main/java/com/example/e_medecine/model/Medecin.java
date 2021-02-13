@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public  class Medecin {
 
+
     @Expose
     @SerializedName("user")
     private User user;
@@ -78,6 +79,9 @@ public  class Medecin {
         @SerializedName("imageUser")
         private String imageUser;
         @Expose
+        @SerializedName("telephoneUser")
+        private String telephoneUser;
+        @Expose
         @SerializedName("prenomUser")
         private String prenomUser;
         @Expose
@@ -93,6 +97,14 @@ public  class Medecin {
 
         public void setImageUser(String imageUser) {
             this.imageUser = imageUser;
+        }
+
+        public String getTelephoneUser() {
+            return telephoneUser;
+        }
+
+        public void setTelephoneUser(String telephoneUser) {
+            this.telephoneUser = telephoneUser;
         }
 
         public String getPrenomUser() {

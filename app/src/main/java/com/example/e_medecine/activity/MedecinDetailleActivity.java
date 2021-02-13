@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 import com.example.e_medecine.DatePickerFragment;
 import com.example.e_medecine.Docteurs.RendezVousActivity;
 import com.example.e_medecine.R;
-import com.example.e_medecine.model.Medecin;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 
@@ -51,7 +51,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     @BindView(R.id.location_medecin)
     TextView locationMedecin;
 
-
     @BindView(R.id.appeler)
     Button btnAppeler;
 
@@ -65,6 +64,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     int idPatient;
     String specialite;
     private  String typeDoc="";
+    String tele;
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -79,23 +79,19 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
             btn_rendezVous.setText("Consultation");
             btn_paiment.setVisibility(View.VISIBLE);
         }
+
         Bundle extras=getIntent().getExtras();
         id=new Integer(extras.getInt("idMedecin"));
-
-        SharedPreferences sp= getSharedPreferences("PrefsFile",MODE_PRIVATE);
-        String login = sp.getString ("pref_name","valeur par défaut");
-        idPatient=db.getIdPatient(login);
-
-
         String nom= extras.getString("nomMedecin");
         String prenom=extras.getString("prenomMedecin");
         specialite=extras.getString("specialiteMedecin");
         Integer experience= getIntent().getExtras().getInt("experienceMedecin");
-        byte[] image=extras.getByteArray("imageMedecin");
         Integer frais=getIntent().getExtras().getInt("fraisMedecin");
-        String tele=db.getMedecinTele(id);
-        String  location=db.getMedecinLocation(id);
-
+        tele=extras.getString("tele");
+        String location=extras.getString("location");
+        String image= spDoc.getString ("pref_ImgDoc","valeur par défaut");
+        byte[] byteArray =  Base64.decode(String.valueOf(image), Base64.DEFAULT) ;
+        Bitmap bmp1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
         nomMedecin.setText("Dr."+nom);
         prenomMedecin.setText(prenom);
@@ -104,23 +100,40 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         fraisMedecin.setText(String.valueOf(frais)+"DH");
         teleMedecin.setText(String.valueOf(tele));
         locationMedecin.setText(location);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0,image.length);
-        imageMedecin.setImageBitmap(bitmap);
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0,image.length);
+        imageMedecin.setImageBitmap(bmp1);
 
-    btn_rendezVous.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(typeDoc.equals("Medecin")){
-                DialogFragment datePicker=new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(),"date picker");
+
+        SharedPreferences sp= getSharedPreferences("PrefsFile",MODE_PRIVATE);
+        String login = sp.getString ("pref_name","valeur par défaut");
+        idPatient=db.getIdPatient(login);
+
+
+
+
+        //byte[] image=extras.getByteArray("imageMedecin");
+
+        //String tele=db.getMedecinTele(id);
+        //String  location=db.getMedecinLocation(id);
+
+
+
+
+        btn_rendezVous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(typeDoc.equals("Medecin")){
+                    DialogFragment datePicker=new DatePickerFragment();
+                    datePicker.show(getSupportFragmentManager(),"date picker");
+                }
             }
-        }
-    });
+        });
 
     }
+
     @OnClick(R.id.appeler)
     public void appler(View view) {
-        String tele=db.getMedecinTele(id);
+        //tele=db.getMedecinTele(id);
         long tel = Long.parseLong(tele);
         Intent intent=new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:"+tel));
