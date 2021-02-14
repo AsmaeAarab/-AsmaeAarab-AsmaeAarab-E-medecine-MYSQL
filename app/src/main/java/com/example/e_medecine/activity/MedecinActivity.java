@@ -41,15 +41,14 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
 
     ArrayList<Medecin> list= new ArrayList<>();
     MedecinAdapter adapter=new MedecinAdapter(this,list,this);
-    private SharedPreferences prefs;
-    private  static final String PREFS_TYPE="PrefDoc";
+    private SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medecin);
         ButterKnife.bind(this);
         int id = (int) getIntent().getSerializableExtra("specialite");
-        SharedPreferences sp= getSharedPreferences("PrefDoc",MODE_PRIVATE);
+        sp= getSharedPreferences("PrefDoc",MODE_PRIVATE);
         String typeDoc = sp.getString ("pref_typeDoc","valeur par défaut");
         getMedecinListResponse(id,typeDoc);
         search_edt.addTextChangedListener(new TextWatcher() {
@@ -99,10 +98,9 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
         intent.putExtra("specialiteMedecin",medecin.getSpecialite().getLabel());
         intent.putExtra("experienceMedecin",medecin.getExperience());
         intent.putExtra("fraisMedecin",medecin.getFrais());
-        //intent.putExtra("imageMedecin",medecin.getUser().getImageUser());
         intent.putExtra("location",medecin.getLocalisationMedecin());
         intent.putExtra("tele",medecin.getUser().getTelephoneUser());
-        SharedPreferences.Editor editor = prefs.edit ();
+        SharedPreferences.Editor editor = sp.edit ();
         editor.putString("pref_ImgDoc",medecin.getUser().getImageUser());
         editor.apply();
         startActivity(intent);

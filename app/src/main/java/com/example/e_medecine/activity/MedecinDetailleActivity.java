@@ -89,7 +89,8 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         Integer frais=getIntent().getExtras().getInt("fraisMedecin");
         tele=extras.getString("tele");
         String location=extras.getString("location");
-        String image= spDoc.getString ("pref_ImgDoc","valeur par défaut");
+        SharedPreferences pref= getSharedPreferences("PrefDoc",MODE_PRIVATE);
+        String image= pref.getString("pref_ImgDoc","valeur par défaut");
         byte[] byteArray =  Base64.decode(String.valueOf(image), Base64.DEFAULT) ;
         Bitmap bmp1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
@@ -100,24 +101,12 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         fraisMedecin.setText(String.valueOf(frais)+"DH");
         teleMedecin.setText(String.valueOf(tele));
         locationMedecin.setText(location);
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0,image.length);
         imageMedecin.setImageBitmap(bmp1);
 
 
         SharedPreferences sp= getSharedPreferences("PrefsFile",MODE_PRIVATE);
         String login = sp.getString ("pref_name","valeur par défaut");
         idPatient=db.getIdPatient(login);
-
-
-
-
-        //byte[] image=extras.getByteArray("imageMedecin");
-
-        //String tele=db.getMedecinTele(id);
-        //String  location=db.getMedecinLocation(id);
-
-
-
 
         btn_rendezVous.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +122,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
 
     @OnClick(R.id.appeler)
     public void appler(View view) {
-        //tele=db.getMedecinTele(id);
         long tel = Long.parseLong(tele);
         Intent intent=new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:"+tel));
