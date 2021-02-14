@@ -86,6 +86,9 @@ public class PatientLoginActivity extends AppCompatActivity {
                     //editTextPassword.setText(null);
                     Intent intent1 = new Intent(PatientLoginActivity.this, PatientAccueilActivity.class);
                     intent1.putExtra("EmailUser",login);
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putString("pref_name", login);
+                    editor.apply();
                     startActivity(intent1);
                     Toast.makeText(getApplicationContext(), "Authentification successful!!MySQL"+idX, Toast.LENGTH_SHORT).show();
                 }else {

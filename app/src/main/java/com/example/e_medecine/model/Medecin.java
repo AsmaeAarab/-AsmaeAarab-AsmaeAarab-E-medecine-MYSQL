@@ -26,6 +26,10 @@ public  class Medecin {
     @SerializedName("idMedecin")
     private int idMedecin;
 
+    public Medecin(int idMedecin) {
+        this.idMedecin = idMedecin;
+    }
+
     public User getUser() {
         return user;
     }
