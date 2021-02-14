@@ -11,40 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="LOGIN"
-        android:textColor="@color/black"
+        android:text="Connexion"
+        android:textColor="@color/purple_700"
         android:textSize="50dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="60dp"
         android:textStyle="bold" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOGIN"
-        />
+
     <EditText
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
+        android:layout_marginBottom="10dp"
         android:drawableStart="@drawable/ic_email"
         android:drawableLeft="@drawable/ic_email"
         android:drawablePadding="12dp"
+        android:hint="Entrer votre email"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PASSWORD"
-        />
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:layout_marginBottom="10dp"
         android:drawableStart="@drawable/ic_password"
         android:drawableLeft="@drawable/ic_password"
         android:drawablePadding="12dp"
-
+        android:hint="Entrer votre mot de passe"
         />
 
     <CheckBox
@@ -52,13 +47,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Remember Me"
-
+        android:textStyle="bold"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/signIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:text="Sign in"
         />
     <TextView
@@ -67,8 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginTop="30dp"
-        android:text="Forget password ?"
-        android:textColor="@color/purple_500"
+        android:text="Mot de passe oublié ?"
+        android:textColor="@color/purple_700"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         />
 
@@ -78,10 +76,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-
-        android:text="Don't Have an Account Yet? Sign up"
-        android:textColor="@color/purple_500" />
+        android:layout_marginTop="90dp"
+        android:textSize="15dp"
+        android:text="Vous n'avez pas encore de compte? S'inscrire"
+        android:textColor="@color/purple_700" />
 
 
 </LinearLayout>

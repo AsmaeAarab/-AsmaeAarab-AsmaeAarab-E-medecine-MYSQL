@@ -108,8 +108,8 @@ public class PatientUpdateActivity extends AppCompatActivity {
          email = editTextEmail.getText().toString();
         byte[] imgProfile = imageProToByte(ImageP);
 
-       /* Boolean update = db.updateUser(imgProfile,nom,prenom ,phone,email);
-        if (update == true) {
+        Boolean update = db.updateUser(imgProfile,nom,prenom ,phone,email);
+       /* if (update == true) {
             modif="yes";
             intent.putExtra("EmailUpdate",email);
             Toast.makeText(getApplicationContext(), "updated successfully", Toast.LENGTH_SHORT).show();
@@ -120,7 +120,7 @@ public class PatientUpdateActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "update failed", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             finish();
-        }*/ //////:SQLITE
+        }*/
 
         /////////////////MYSQL
         Users u=new Users();
@@ -206,7 +206,7 @@ public class PatientUpdateActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Update ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Update No", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -219,8 +219,6 @@ public class PatientUpdateActivity extends AppCompatActivity {
                 Log.e("Error:",t.getMessage());
             }
         });
-
-       // startActivity(intent);
     }
 
     private int IdMysql = 0;
