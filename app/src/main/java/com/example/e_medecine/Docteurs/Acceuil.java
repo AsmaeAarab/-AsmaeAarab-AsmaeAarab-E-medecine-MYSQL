@@ -146,7 +146,8 @@ public class Acceuil extends AppCompatActivity {
                     case R.id.menu_calender:
                         Toast.makeText(Acceuil.this, "Modifier calendrier", Toast.LENGTH_SHORT).show();
                         Intent icalendar = new Intent(Acceuil.this,RendezVousActivity.class);
-                        icalendar.putExtra("Id",id);
+                        icalendar.putExtra("Id",IdMysql);
+                        icalendar.putExtra("ADDRESSE",MailMysql);
                         startActivity(icalendar);
                         Toast.makeText(Acceuil.this, "Veuillez Appuyer sur un patient pour modifier le Rendez-Vous", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
