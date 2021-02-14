@@ -1,7 +1,9 @@
 package com.example.e_medecine.ApiRest;
 
 import com.example.e_medecine.Docteurs.Medecin;
-import com.example.e_medecine.model.Rendezvous;
+
+import com.example.e_medecine.Docteurs.Rendezvous;
+import com.example.e_medecine.model.RDV;
 import com.example.e_medecine.model.Users;
 
 import java.util.List;
@@ -54,7 +56,7 @@ public interface MedecinService {
     @POST("find/update/Image/{ID}/m")
     Call<Users>UpdateMedecinImage(@Body Users users,@Path("ID") int ID);
     @POST("find/update/Date/{IDR}/m")
-    Call<Rendezvous>UpdateMedecinCalendar(@Body Rendezvous rdv,@Path("IDR") int IDR);
+    Call<RDV>UpdateMedecinCalendar(@Body RDV rdv, @Path("IDR") int IDR);
     @GET("find/medecin/intellij/{ID}/")
     Call<List<Medecin>>GetIdMedecin(@Path("ID") int ID);
     @GET("find/rendezvous/intellij/{ID}/")

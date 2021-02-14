@@ -21,6 +21,10 @@ public  class RDV {
     @SerializedName("idRDV")
     private int idRDV;
 
+    public RDV(){
+
+    }
+
     public Patient getIdPatient() {
         return idPatient;
     }

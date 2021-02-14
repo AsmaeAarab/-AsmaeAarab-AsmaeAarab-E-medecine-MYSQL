@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.MedecinService;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.RDV;
 import com.example.e_medecine.model.Rendezvous;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
@@ -102,9 +103,9 @@ public class Calendrier extends AppCompatActivity {
                     /*Users ui = new Users();
                     ui.setImageUser(imgval);
                     UpdateMedecinImage(ui,ID);*/
-                    /*Rendezvous rdv = new Rendezvous();
-                    rdv.setDate(date);
-                    UpdateMedecinCal(rdv,idRendez);*/
+                    RDV rdv = new RDV();
+                    rdv.setDateRDV(date);
+                    UpdateMedecinCal(rdv,idRendez);
                     Toast.makeText(Calendrier.this, "Calendrier Modifier", Toast.LENGTH_SHORT).show();
                     /*NotificationCompat.Builder builder = new NotificationCompat.Builder(Calendrier.this,"DocteurNotif");
                     builder.setContentTitle(NamePatient);
@@ -132,13 +133,13 @@ public class Calendrier extends AppCompatActivity {
         ButCal = (Button) findViewById(R.id.buttonCalendar);
         ModCal = (Button) findViewById(R.id.ModifierCalendrier);
     }
-    public void UpdateMedecinCal(Rendezvous rdv,int IDR)
+    public void UpdateMedecinCal(RDV rdv,int IDR)
     {
         medecinService = Apis.getMedecinService();
-        Call<Rendezvous> call = medecinService.UpdateMedecinCalendar(rdv,IDR);
-        call.enqueue(new Callback<Rendezvous>() {
+        Call<RDV> call = medecinService.UpdateMedecinCalendar(rdv,IDR);
+        call.enqueue(new Callback<RDV>() {
             @Override
-            public void onResponse(Call<Rendezvous> call, Response<Rendezvous> response) {
+            public void onResponse(Call<RDV> call, Response<RDV> response) {
                 if (response.isSuccessful())
                 {
                     Toast.makeText(Calendrier.this, "The Date Has Been Changed", Toast.LENGTH_SHORT).show();
@@ -146,8 +147,8 @@ public class Calendrier extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Rendezvous> call, Throwable t) {
-                Toast.makeText(Calendrier.this, "Failure Please try Again", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<RDV> call, Throwable t) {
+                Toast.makeText(Calendrier.this, "Failure Try Again", Toast.LENGTH_SHORT).show();
             }
         });
     }
