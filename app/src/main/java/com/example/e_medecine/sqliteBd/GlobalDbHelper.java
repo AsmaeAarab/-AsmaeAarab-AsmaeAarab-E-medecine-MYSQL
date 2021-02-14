@@ -387,6 +387,16 @@ public class GlobalDbHelper extends SQLiteOpenHelper {
         }
         return idUser;
     }
+    public int getIdMedecin(int id)
+    {
+        int idMedecin = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT idMedecin FROM medecins WHERE idUser = '"+id+"'",null);
+        while(cursor.moveToNext()){
+            idMedecin = cursor.getInt(0);
+        }
+        return idMedecin;
+    }
     public String getNomUser(String mailphone)
     {
         String nomU = "";

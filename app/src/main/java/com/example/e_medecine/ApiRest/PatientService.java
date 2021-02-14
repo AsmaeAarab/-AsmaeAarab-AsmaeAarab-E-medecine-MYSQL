@@ -40,5 +40,8 @@ public interface PatientService {
     @GET("patient/{emailUser}")
     Call<List<Patient>> getIdPatientByEmail(@Path("emailUser")String emailUser);
 
+    @POST("actualiserPassword/{login}")
+    Call<Users>updatePassword(@Body Users users,@Path("login") String login);
+
 
 }

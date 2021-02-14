@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 
+
 import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
 
@@ -91,6 +92,34 @@ public class RestApi {
             ).getBody();
             Log.i("url_user_email",user.toString());
             return user;
+        }catch (Exception e){
+            Log.e("url_error", "Exception: "+Log.getStackTraceString(e));
+            return null;
+
+        }
+    }
+    public com.example.e_medecine.model.Medecin findMedecin(String Mail){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("Mail", Mail);
+        String URL = Base_Url+"find/medecin/intellij/"+Mail+"/";
+        URI uri = UriComponentsBuilder.fromUriString(URL)
+                .buildAndExpand(params)
+                .toUri();
+        uri = UriComponentsBuilder
+                .fromUri(uri)
+                .build()
+                .toUri();
+        try {
+            Log.i("url_User",uri.toString());
+            com.example.e_medecine.model.Medecin doc = restTemplate.exchange(
+                    uri,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<com.example.e_medecine.model.Medecin>() {
+                    }
+            ).getBody();
+            Log.i("url_user_email",doc.toString());
+            return doc;
         }catch (Exception e){
             Log.e("url_error", "Exception: "+Log.getStackTraceString(e));
             return null;

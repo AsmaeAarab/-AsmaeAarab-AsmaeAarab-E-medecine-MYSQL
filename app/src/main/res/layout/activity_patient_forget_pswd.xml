@@ -10,16 +10,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Foget password ?"
+        android:text="Mot de passe oublié?"
         android:gravity="center_horizontal"
         android:textSize="30dp"
-        android:layout_marginBottom="30dp"
+        android:textColor="@color/purple_700"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:hint="Entrer votre adresse email"
         />
 
@@ -27,18 +30,24 @@
         android:id="@+id/Newpmdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:inputType="textPassword"
         android:hint="Entrer nouveau mot de passe"
         />
     <EditText
         android:id="@+id/confirmNewpmdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:inputType="textPassword"
         android:hint="Confirmer nouveau mot de passe"
         />
     <Button
         android:id="@+id/reset_pswd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reset password"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:text="Réinitialiser mot de passe"
         />
 </LinearLayout>

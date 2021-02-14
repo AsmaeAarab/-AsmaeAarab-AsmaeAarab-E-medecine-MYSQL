@@ -1,19 +1,49 @@
 package com.example.e_medecine.Docteurs;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Rendezvous {
+public class Rendezvous implements Serializable {
+    @SerializedName("idUser")
+    @Expose
     private int id;
+    @SerializedName("idPatient")
+    @Expose
     private int idp;
+    @SerializedName("idMedecin")
+    @Expose
     private int idm;
+    @SerializedName("imageUser")
+    @Expose
     private byte[] Image;
+    @SerializedName("nomUser")
+    @Expose
     private String Nom;
+    @SerializedName("prenomUser")
+    @Expose
     private String Prenom;
+    @SerializedName("titreRDV")
+    @Expose
     private String titreRdv;
+    @SerializedName("dateRDV")
+    @Expose
     private String date;
 
     public Rendezvous(int id, int idp, int idm, byte[] image, String nom, String prenom, String titreRdv, String date) {
         this.id = id;
+        this.idp = idp;
+        this.idm = idm;
+        Image = image;
+        Nom = nom;
+        Prenom = prenom;
+        this.titreRdv = titreRdv;
+        this.date = date;
+    }
+
+    public Rendezvous(int idp, int idm, byte[] image, String nom, String prenom, String titreRdv, String date) {
         this.idp = idp;
         this.idm = idm;
         Image = image;
