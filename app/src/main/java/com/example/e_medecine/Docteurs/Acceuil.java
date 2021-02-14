@@ -116,7 +116,8 @@ public class Acceuil extends AppCompatActivity {
                     case R.id.menu_RD:
                         Toast.makeText(Acceuil.this, "Rendez-vous", Toast.LENGTH_SHORT).show();
                         Intent ir = new Intent(Acceuil.this,RendezVousActivity.class);
-                        ir.putExtra("Id",id);
+                        ir.putExtra("Id",IdMysql);
+                        ir.putExtra("ADDRESSE",MailMysql);
                         startActivity(ir);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
