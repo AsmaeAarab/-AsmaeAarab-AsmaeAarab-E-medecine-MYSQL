@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -51,7 +52,7 @@ public class RendezVousActivity extends AppCompatActivity {
         int id = ext.getInt("Id");
         System.out.println("Voici Id: " + id);
         mail = new String(ext.getString("ADDRESSE"));
-        mede = GetIdMedecin(id);
+        GetIdMedecin(id);
         swipe = (SwipeRefreshLayout) findViewById(R.id.swiper);
         listView = (ListView) findViewById(R.id.ListRdv);
 
@@ -89,10 +90,11 @@ public class RendezVousActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
                     Intent ic = new Intent(RendezVousActivity.this,Calendrier.class);
-                    ic.putExtra("IDUser",listRdv.get(position).getId());
+                    ic.putExtra("IDRendezVous",listRdv.get(position).getId());
                     ic.putExtra("IDPatient",listRdv.get(position).getIdp());
                     ic.putExtra("IDMedecin",listRdv.get(position).getIdm());
-                    ic.putExtra("Photo",listRdv.get(position).getImage());
+                    byte[] p = StringToBitMap(listRdv.get(position).getImagenew());
+                    ic.putExtra("Photo",p);
                     ic.putExtra("NomPatient",listRdv.get(position).getNom());
                     ic.putExtra("PrenomPatient",listRdv.get(position).getPrenom());
                     ic.putExtra("DateActuelle",listRdv.get(position).getDate());
@@ -106,7 +108,7 @@ public class RendezVousActivity extends AppCompatActivity {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Cursor cursor = db.getdataRendezvous(id);
+                /*Cursor cursor = db.getdataRendezvous(id);
                 listRdv.clear();
                 while (cursor.moveToNext())
                 {
@@ -120,7 +122,8 @@ public class RendezVousActivity extends AppCompatActivity {
                     String daterdv = cursor.getString(7);
                     listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
                 }
-                adapterRDV.notifyDataSetChanged();
+                adapterRDV.notifyDataSetChanged();*/
+                GetIdMedecin(id);
                 swipe.setRefreshing(false);
             }
         });
@@ -157,16 +160,16 @@ public class RendezVousActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Rendezvous>>() {
             @Override
             public void onResponse(Call<List<Rendezvous>> call, Response<List<Rendezvous>> response) {
-                //listRdv = new ArrayList<>(response.body());
-                List<Rendezvous> list = response.body();
+                listRdv = new ArrayList<>(response.body());
+                /*List<Rendezvous> list = response.body();
                 for (Rendezvous rdvs: list)
                 {
                     System.out.println("Rendez vous: " + rdvs.getIdp() + rdvs.getNom() + rdvs.getPrenom() + rdvs.getDate());
-                }
-                /*adapterRDV = new RendezvousAdapter(RendezVousActivity.this,R.layout.rendezvousitems,listRdv);
+                }*/
+                adapterRDV = new RendezvousAdapter(RendezVousActivity.this,R.layout.rendezvousitems,listRdv);
                 listView.setAdapter(adapterRDV);
                 //listRdv.add(new Rendezvous(idp,idm,img,nom,prenom,titrerdv,daterdv));
-                adapterRDV.notifyDataSetChanged();*/
+                adapterRDV.notifyDataSetChanged();
                 Toast.makeText(RendezVousActivity.this, "Data Succes", Toast.LENGTH_SHORT).show();
             }
 
@@ -176,5 +179,14 @@ public class RendezVousActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+    public byte[] StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            return encodeByte;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

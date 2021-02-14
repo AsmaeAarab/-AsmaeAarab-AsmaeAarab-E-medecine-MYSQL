@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,12 +22,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_medecine.ApiRest.Apis;
+import com.example.e_medecine.ApiRest.MedecinService;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.Rendezvous;
+import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Calendrier extends AppCompatActivity {
     private ImageView imgPatient;
@@ -35,14 +44,16 @@ public class Calendrier extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener setListener;
     private String date = "";
     private GlobalDbHelper db;
+    MedecinService medecinService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendrier);
         initPa();
-        db = new GlobalDbHelper(this);
+        //db = new GlobalDbHelper(this);
         Bundle extrax = getIntent().getExtras();
-        int idUser = extrax.getInt("IDUser");
+        int idRendez = extrax.getInt("IDRendezVous");
+        System.out.println("IDRendezVous: " + idRendez);
         int idPatient = extrax.getInt("IDPatient");
         int idMedecin = extrax.getInt("IDMedecin");
         System.out.println("Medecin"+ idMedecin);
@@ -87,15 +98,21 @@ public class Calendrier extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     //Date d = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-                    db.updateCalendrier(date,idPatient,idMedecin);
+                    //db.updateCalendrier(date,idPatient,idMedecin);
+                    /*Users ui = new Users();
+                    ui.setImageUser(imgval);
+                    UpdateMedecinImage(ui,ID);*/
+                    /*Rendezvous rdv = new Rendezvous();
+                    rdv.setDate(date);
+                    UpdateMedecinCal(rdv,idRendez);*/
                     Toast.makeText(Calendrier.this, "Calendrier Modifier", Toast.LENGTH_SHORT).show();
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(Calendrier.this,"DocteurNotif");
+                    /*NotificationCompat.Builder builder = new NotificationCompat.Builder(Calendrier.this,"DocteurNotif");
                     builder.setContentTitle(NamePatient);
                     builder.setContentText("Le Medecin a changer le rendez-vous en '"+date+"' ");
                     builder.setSmallIcon(R.drawable.ic_baseline_notifications_active_24);
                     builder.setAutoCancel(true);
                     NotificationManagerCompat managerCompat = NotificationManagerCompat.from(Calendrier.this);
-                    managerCompat.notify(idUser,builder.build());
+                    managerCompat.notify(idUser,builder.build());*/
                     finish();
                     Toast.makeText(Calendrier.this, "Balayer vers le bas pour actualiser", Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
@@ -115,4 +132,24 @@ public class Calendrier extends AppCompatActivity {
         ButCal = (Button) findViewById(R.id.buttonCalendar);
         ModCal = (Button) findViewById(R.id.ModifierCalendrier);
     }
+    public void UpdateMedecinCal(Rendezvous rdv,int IDR)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<Rendezvous> call = medecinService.UpdateMedecinCalendar(rdv,IDR);
+        call.enqueue(new Callback<Rendezvous>() {
+            @Override
+            public void onResponse(Call<Rendezvous> call, Response<Rendezvous> response) {
+                if (response.isSuccessful())
+                {
+                    Toast.makeText(Calendrier.this, "The Date Has Been Changed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Rendezvous> call, Throwable t) {
+                Toast.makeText(Calendrier.this, "Failure Please try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

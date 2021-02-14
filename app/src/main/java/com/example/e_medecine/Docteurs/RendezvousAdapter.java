@@ -3,6 +3,7 @@ package com.example.e_medecine.Docteurs;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +64,10 @@ public class RendezvousAdapter extends BaseAdapter {
             holder = (RendezvousAdapter.ViewHolder) row.getTag();
         }
         Rendezvous rendezvous = rdvItem.get(position);
-        byte[] Rdvimg = rendezvous.getImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(Rdvimg,0,Rdvimg.length);
+        /*byte[] Rdvimg = rendezvous.getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(Rdvimg,0,Rdvimg.length);*/
+        String photo = rendezvous.getImagenew();
+        Bitmap bitmap = StringToBitMap(photo);
         holder.imageView.setImageBitmap(bitmap);
         holder.txtnom.setText(rendezvous.getNom());
         holder.txtprenom.setText(rendezvous.getPrenom());
@@ -73,5 +76,15 @@ public class RendezvousAdapter extends BaseAdapter {
         //String date = dateFormat.format(rendezvous.getDate());
         holder.txtdate.setText(rendezvous.getDate());
         return row;
+    }
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 }

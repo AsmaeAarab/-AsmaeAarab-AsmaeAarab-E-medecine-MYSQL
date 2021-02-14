@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Rendezvous implements Serializable {
-    @SerializedName("idUser")
+    @SerializedName("idRDV")
     @Expose
     private int id;
     @SerializedName("idPatient")
@@ -19,6 +19,9 @@ public class Rendezvous implements Serializable {
     @SerializedName("imageUser")
     @Expose
     private byte[] Image;
+    @SerializedName("image")
+    @Expose
+    private String Imagenew;
     @SerializedName("nomUser")
     @Expose
     private String Nom;
@@ -31,6 +34,16 @@ public class Rendezvous implements Serializable {
     @SerializedName("dateRDV")
     @Expose
     private String date;
+
+    public Rendezvous(int idp, int idm, String imagenew, String nom, String prenom, String titreRdv, String date) {
+        this.idp = idp;
+        this.idm = idm;
+        Imagenew = imagenew;
+        Nom = nom;
+        Prenom = prenom;
+        this.titreRdv = titreRdv;
+        this.date = date;
+    }
 
     public Rendezvous(int id, int idp, int idm, byte[] image, String nom, String prenom, String titreRdv, String date) {
         this.id = id;
@@ -51,6 +64,14 @@ public class Rendezvous implements Serializable {
         Prenom = prenom;
         this.titreRdv = titreRdv;
         this.date = date;
+    }
+
+    public String getImagenew() {
+        return Imagenew;
+    }
+
+    public void setImagenew(String imagenew) {
+        Imagenew = imagenew;
     }
 
     public int getId() {
