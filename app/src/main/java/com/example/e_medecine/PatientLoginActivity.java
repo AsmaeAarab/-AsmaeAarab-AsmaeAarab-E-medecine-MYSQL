@@ -67,7 +67,7 @@ public class PatientLoginActivity extends AppCompatActivity {
     String email1;
     String password1;
     SharedPreferences sharedPreferences;
-    public boolean loginPatient(String emailUser,String passwordUser){
+    public void loginPatient(String emailUser,String passwordUser){
         service= Apis.getPatientsService();
         Call<List<Users>> call = service.loginPatient(emailUser,passwordUser);
         call.enqueue(new Callback<List<Users>>() {
@@ -79,14 +79,15 @@ public class PatientLoginActivity extends AppCompatActivity {
                     email1=u.getEmailUser();
                     password1=u.getPasswordUser();
                 }
-                if (email1.equals(emailUser)&&password1.equals(passwordUser))
+                //if (email1.equals(emailUser)&&password1.equals(passwordUser))
+                if(idX!=0)
                 {
                     //editTextLogin.setText(null);
                     //editTextPassword.setText(null);
                     Intent intent1 = new Intent(PatientLoginActivity.this, PatientAccueilActivity.class);
                     intent1.putExtra("EmailUser",login);
                     startActivity(intent1);
-                    Toast.makeText(getApplicationContext(), "Authentification successful!!MySQL"+password1, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Authentification successful!!MySQL"+idX, Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getApplicationContext(), "Login or password incorect!MySQL!", Toast.LENGTH_SHORT).show();
                 }
@@ -97,7 +98,7 @@ public class PatientLoginActivity extends AppCompatActivity {
                 Log.e("Error:",t.getMessage());
             }
         });
-        return true;
+        //return true;
     }
 
     private String login;
