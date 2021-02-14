@@ -1,107 +1,49 @@
 package com.example.e_medecine.model;
 
-import java.io.Serializable;
 
-public class Medecin implements Serializable {
-    private int idMedecin;
-    private int idUserMedecin;
-    private int idSpecialiteMedecin;
-    private String typeMedecin;
-    private String specialite;
-    private String location;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public  class Medecin {
+
+
+    @Expose
+    @SerializedName("user")
+    private User user;
+    @Expose
+    @SerializedName("specialite")
+    private Specialite specialite;
+    @Expose
+    @SerializedName("experience")
     private int experience;
+    @Expose
+    @SerializedName("frais")
     private int frais;
-    private String nomMedecin;
-    private String prenomMedecin;
-    private byte[] imageMedecin;
+    @Expose
+    @SerializedName("localisationMedecin")
+    private String localisationMedecin;
+    @Expose
+    @SerializedName("idMedecin")
+    private int idMedecin;
 
-
-    public Medecin() {
-    }
-
-    public Medecin( int idUserMedecin, int idSpecialiteMedecin, String typeMedecin, String specialite, String location, int experience, int frais, String nomMedecin, String prenomMedecin, byte[] imageMedecin) {
-        this.idUserMedecin = idUserMedecin;
-        this.idSpecialiteMedecin = idSpecialiteMedecin;
-        this.typeMedecin = typeMedecin;
-        this.specialite = specialite;
-        this.location = location;
-        this.experience = experience;
-        this.frais = frais;
-        this.nomMedecin = nomMedecin;
-        this.prenomMedecin = prenomMedecin;
-        this.imageMedecin = imageMedecin;
-    }
-
-    public String getNomMedecin() {
-        return nomMedecin;
-    }
-
-    public void setNomMedecin(String nomMedecin) {
-        this.nomMedecin = nomMedecin;
-    }
-
-    public String getPrenomMedecin() {
-        return prenomMedecin;
-    }
-
-    public void setPrenomMedecin(String prenomMedecin) {
-        this.prenomMedecin = prenomMedecin;
-    }
-
-    public byte[] getImageMedecin() {
-        return imageMedecin;
-    }
-
-    public void setImageMedecin(byte[] imageMedecin) {
-        this.imageMedecin = imageMedecin;
-    }
-
-    public int getIdMedecin() {
-        return idMedecin;
-    }
-
-    public void setIdMedecin(int idMedecin) {
+    public Medecin(int idMedecin) {
         this.idMedecin = idMedecin;
     }
 
-    public int getIdUserMedecin() {
-        return idUserMedecin;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUserMedecin(int idUserMedecin) {
-        this.idUserMedecin = idUserMedecin;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getIdSpecialiteMedecin() {
-        return idSpecialiteMedecin;
-    }
-
-    public void setIdSpecialiteMedecin(int idSpecialiteMedecin) {
-        this.idSpecialiteMedecin = idSpecialiteMedecin;
-    }
-
-    public String getTypeMedecin() {
-        return typeMedecin;
-    }
-
-    public void setTypeMedecin(String typeMedecin) {
-        this.typeMedecin = typeMedecin;
-    }
-
-    public String getSpecialite() {
+    public Specialite getSpecialite() {
         return specialite;
     }
 
-    public void setSpecialite(String specialite) {
+    public void setSpecialite(Specialite specialite) {
         this.specialite = specialite;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public int getExperience() {
@@ -118,5 +60,104 @@ public class Medecin implements Serializable {
 
     public void setFrais(int frais) {
         this.frais = frais;
+    }
+
+    public String getLocalisationMedecin() {
+        return localisationMedecin;
+    }
+
+    public void setLocalisationMedecin(String localisationMedecin) {
+        this.localisationMedecin = localisationMedecin;
+    }
+
+    public int getIdMedecin() {
+        return idMedecin;
+    }
+
+    public void setIdMedecin(int idMedecin) {
+        this.idMedecin = idMedecin;
+    }
+
+    public static class User {
+        @Expose
+        @SerializedName("imageUser")
+        private String imageUser;
+        @Expose
+        @SerializedName("telephoneUser")
+        private String telephoneUser;
+        @Expose
+        @SerializedName("prenomUser")
+        private String prenomUser;
+        @Expose
+        @SerializedName("nomUser")
+        private String nomUser;
+        @Expose
+        @SerializedName("idUser")
+        private int idUser;
+
+        public String getImageUser() {
+            return imageUser;
+        }
+
+        public void setImageUser(String imageUser) {
+            this.imageUser = imageUser;
+        }
+
+        public String getTelephoneUser() {
+            return telephoneUser;
+        }
+
+        public void setTelephoneUser(String telephoneUser) {
+            this.telephoneUser = telephoneUser;
+        }
+
+        public String getPrenomUser() {
+            return prenomUser;
+        }
+
+        public void setPrenomUser(String prenomUser) {
+            this.prenomUser = prenomUser;
+        }
+
+        public String getNomUser() {
+            return nomUser;
+        }
+
+        public void setNomUser(String nomUser) {
+            this.nomUser = nomUser;
+        }
+
+        public int getIdUser() {
+            return idUser;
+        }
+
+        public void setIdUser(int idUser) {
+            this.idUser = idUser;
+        }
+    }
+
+    public static class Specialite {
+        @Expose
+        @SerializedName("label")
+        private String label;
+        @Expose
+        @SerializedName("idSpecialite")
+        private int idSpecialite;
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+
+        public int getIdSpecialite() {
+            return idSpecialite;
+        }
+
+        public void setIdSpecialite(int idSpecialite) {
+            this.idSpecialite = idSpecialite;
+        }
     }
 }

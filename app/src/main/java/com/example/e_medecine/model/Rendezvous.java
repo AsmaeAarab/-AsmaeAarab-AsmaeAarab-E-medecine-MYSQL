@@ -3,87 +3,63 @@ package com.example.e_medecine.model;
 import java.io.Serializable;
 
 public class Rendezvous implements Serializable {
-    private int id;
-    private int idp;
-    private int idm;
-    private byte[] Image;
-    private String Nom;
-    private String Prenom;
-    private String titreRdv;
-    private String date;
+    private int idRDV;
+    private String titreRDV;
+    private String dateRDV;
+    private Patient idPatient;
+    private Medecin idMedecin;
 
-    public Rendezvous(int id, int idp, int idm, byte[] image, String nom, String prenom, String titreRdv, String date) {
-        this.id = id;
-        this.idp = idp;
-        this.idm = idm;
-        Image = image;
-        Nom = nom;
-        Prenom = prenom;
-        this.titreRdv = titreRdv;
-        this.date = date;
+    public Rendezvous() {
+    }
+    public Rendezvous(int idRDV) {
+        this.idRDV = idRDV;
+    }
+    public Rendezvous(int idRDV, String titreRDV, String dateRDV, Patient idPatient, Medecin idMedecin) {
+        this.idRDV = idRDV;
+        this.titreRDV = titreRDV;
+        this.dateRDV = dateRDV;
+        this.idPatient = idPatient;
+        this.idMedecin = idMedecin;
     }
 
-    public int getId() {
-        return id;
+    public int getIdRDV() {
+        return idRDV;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdRDV(int idRDV) {
+        this.idRDV = idRDV;
     }
 
-    public int getIdp() {
-        return idp;
+    public String getTitreRDV() {
+        return titreRDV;
     }
 
-    public void setIdp(int idp) {
-        this.idp = idp;
+    public void setTitreRDV(String titreRDV) {
+        this.titreRDV = titreRDV;
     }
 
-    public int getIdm() {
-        return idm;
+    public String getDateRDV() {
+        return dateRDV;
     }
 
-    public void setIdm(int idm) {
-        this.idm = idm;
+    public void setDateRDV(String dateRDV) {
+        this.dateRDV = dateRDV;
     }
 
-    public byte[] getImage() {
-        return Image;
+    public Patient getIdPatient() {
+        return idPatient;
     }
 
-    public void setImage(byte[] image) {
-        Image = image;
+    public void setIdPatient(Patient idPatient) {
+        this.idPatient = idPatient;
     }
 
-    public String getNom() {
-        return Nom;
+    public Medecin getIdMedecin() {
+        return idMedecin;
     }
 
-    public void setNom(String nom) {
-        Nom = nom;
+    public void setIdMedecin(Medecin idMedecin) {
+        this.idMedecin = idMedecin;
     }
 
-    public String getPrenom() {
-        return Prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        Prenom = prenom;
-    }
-
-    public String getTitreRdv() {
-        return titreRdv;
-    }
-
-    public void setTitreRdv(String titreRdv) {
-        this.titreRdv = titreRdv;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 }

@@ -3,6 +3,7 @@ package com.example.e_medecine.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,23 +39,19 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
         return new MedecinAdapter.HolderMedecin(view,mOnMedecinListener);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MedecinAdapter.HolderMedecin holder, int position) {
         Medecin medecin=medecinList.get(position);
-        String nom=medecin.getNomMedecin();
-        String prenom=medecin.getPrenomMedecin();
-        String specialite=medecin.getSpecialite();
-        int frais=medecin.getFrais();
-        int experience=medecin.getExperience();
 
-        holder.medecinNom.setText("Dr."+nom);
-        holder.medecinPrenom.setText(prenom);
-        holder.medecinSpecialite.setText(specialite);
-        holder.medecinFrais.setText(String.valueOf(frais)+" DH");
-        holder.medecinExperience.setText(String.valueOf(experience)+" ans");
-        byte[] medecin_img=medecin.getImageMedecin();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(medecin_img, 0, medecin_img.length);
-        holder.medecinImage.setImageBitmap(bitmap);
+        holder.medecinNom.setText("Dr."+medecin.getUser().getNomUser());
+        holder.medecinPrenom.setText(medecin.getUser().getPrenomUser());
+        holder.medecinSpecialite.setText(medecin.getSpecialite().getLabel());
+        holder.medecinFrais.setText(String.valueOf(medecin.getFrais())+" DH");
+        holder.medecinExperience.setText(String.valueOf(medecin.getExperience())+" ans");
+        byte[] byteArray =  Base64.decode(String.valueOf(medecin.getUser().getImageUser()), Base64.DEFAULT) ;
+        Bitmap bmp1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        holder.medecinImage.setImageBitmap(bmp1);
     }
 
     @Override
@@ -80,12 +77,11 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
             this.on_medecin_listener=on_medecin_listener;
             itemView.setOnClickListener(this);
         }
-
-
         @Override
         public void onClick(View v) {
             on_medecin_listener.onMedecinClick(getAdapterPosition());
         }
+
     }
     /////////////////////////////////////////////////////////////Filtred search
     @Override
@@ -102,7 +98,7 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
             else {
                 String filterPattern=constraint.toString().toLowerCase().trim();
                 for(Medecin item: medecinListSearch){
-                    if(item.getNomMedecin().toLowerCase().startsWith(filterPattern) || item.getPrenomMedecin().toLowerCase().startsWith(filterPattern)){
+                    if(item.getUser().getNomUser().toLowerCase().startsWith(filterPattern) || item.getUser().getPrenomUser().toLowerCase().startsWith(filterPattern)){
                         filteredList.add(item);
                     }
                 }
@@ -124,6 +120,5 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
     public interface OnMedecinListener{
         void onMedecinClick(int position);
     }
-
 
 }

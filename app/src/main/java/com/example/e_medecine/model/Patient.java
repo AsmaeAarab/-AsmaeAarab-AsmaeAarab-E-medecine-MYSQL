@@ -27,7 +27,12 @@ public class Patient implements Serializable {
     {
 
     }
-    public Patient(int idPatient,Users idUser, String agePatient, String adresse, String cnssPatient) {
+
+    public Patient(int idPatient) {
+        this.idPatient = idPatient;
+    }
+
+    public Patient(int idPatient, Users idUser, String agePatient, String adresse, String cnssPatient) {
         super();
         this.idPatient = idPatient;
         this.idUser = idUser;

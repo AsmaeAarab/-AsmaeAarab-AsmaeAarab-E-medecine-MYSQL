@@ -35,7 +35,9 @@ public class Medecin implements Serializable {
     public Medecin(){
 
     }
-
+    public Medecin(int idMedecin) {
+        this.idMedecin = idMedecin;
+    }
     public Medecin(Users idUserMedecin, Specialites idSpecialiteMedecin, String typeMedecin, String location, int experience, int frais, String termeCondition) {
         this.idUserMedecin = idUserMedecin;
         this.idSpecialiteMedecin = idSpecialiteMedecin;

@@ -200,7 +200,7 @@ public class PatientAccueilActivity extends AppCompatActivity {
     public void rendezVous(){
         Intent intent=new Intent(this, SpecialitesActivity.class);
         SharedPreferences.Editor editor = prefs.edit ();
-        editor.putString("pref_typeDoc","Medecin");
+        editor.putString("pref_typeDoc","Docteur");
         editor.apply();
         startActivity(intent);
     }
@@ -209,7 +209,7 @@ public class PatientAccueilActivity extends AppCompatActivity {
     public void consulter(){
         Intent intent=new Intent(this, SpecialitesActivity.class);
         SharedPreferences.Editor editor = prefs.edit ();
-        editor.putString("pref_typeDoc","E-Medecin");
+        editor.putString("pref_typeDoc","E-Docteur");
         editor.apply();
         startActivity(intent);
     }
