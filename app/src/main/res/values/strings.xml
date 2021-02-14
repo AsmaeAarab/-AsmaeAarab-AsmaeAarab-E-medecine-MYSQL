@@ -6,7 +6,7 @@
         <item>Homme</item>
     </string-array>
     <string-array name="YesNo_array">
-        <item></item>
+        <item>Choose assurance</item>
         <item>Oui</item>
         <item>Non</item>
     </string-array>

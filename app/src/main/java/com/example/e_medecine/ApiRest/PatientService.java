@@ -37,5 +37,8 @@ public interface PatientService {
     @POST("actualiserPatient/{login}")
     Call<Users>updatePatient(@Body Users users,@Path("login") String login);
 
+    @POST("actualiserPassword/{login}")
+    Call<Users>updatePassword(@Body Users users,@Path("login") String login);
+
 
 }

@@ -87,9 +87,9 @@ public class PatientLoginActivity extends AppCompatActivity {
                     Intent intent1 = new Intent(PatientLoginActivity.this, PatientAccueilActivity.class);
                     intent1.putExtra("EmailUser",login);
                     startActivity(intent1);
-                    Toast.makeText(getApplicationContext(), "Authentification successful!!MySQL"+idX, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Authentification successful!!"+idX, Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getApplicationContext(), "Login or password incorect!MySQL!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Login or password incorect!!", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -111,8 +111,19 @@ public class PatientLoginActivity extends AppCompatActivity {
         /////////////MYSQL
 
         if ((!login.equals("")) && (!password.equals(""))) {
+            if (RemenberMe.isChecked()) {
+                Boolean boolIsCheckhed = RemenberMe.isChecked();
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putString("pref_name", login);
+                editor.putString("pref_pass", password);
+                editor.putBoolean("pref_check", boolIsCheckhed);
+                editor.apply();
+                Toast.makeText(getApplicationContext(), "Setting have been saved.", Toast.LENGTH_SHORT).show();
+            } else {
+                mPrefs.edit().clear().apply();
+            }
             loginPatient(login,password);
-        }else{ Toast.makeText(getApplicationContext(),"Fiels are empty MySQL",Toast.LENGTH_SHORT).show();}
+        }else{ Toast.makeText(getApplicationContext(),"Fiels are empty!",Toast.LENGTH_SHORT).show();}
 
         /////////////FIN MYSQL
      /*   db = new GlobalDbHelper(this);

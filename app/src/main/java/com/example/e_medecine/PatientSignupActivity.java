@@ -202,7 +202,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         p.setAdresse(adresse);
         p.setAgePatient(age);
         p.setCnssPatient(assurance);
-        addUser(u);
+       // addUser(u);
 
         ///////////FIN MYSQL
         Intent intent = new Intent(this, PatientLoginActivity.class);
@@ -228,6 +228,7 @@ public class PatientSignupActivity extends AppCompatActivity {
                         Boolean insert = db.insertUser(imgprofileval,nom, prenom, genre, phone, Idville, email, mdp, "patient");
                         int idUser = db.getIdUser(email);
                         Boolean insert2 = db.insertPatient(idUser, age, adresse, assurance);
+                        addUser(u);
                         //|| insert2 ==true
                         if (insert == true && insert2 == true) {
                             sqLiteDatabase.setTransactionSuccessful();
