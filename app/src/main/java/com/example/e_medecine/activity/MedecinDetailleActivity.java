@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,7 +22,6 @@ import com.example.e_medecine.ApiRest.PatientService;
 import com.example.e_medecine.ApiRest.RendezVousService;
 import com.example.e_medecine.DatePickerFragment;
 import com.example.e_medecine.Docteurs.RendezVousActivity;
-import com.example.e_medecine.PatientSignupActivity;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Patient;
 import com.example.e_medecine.model.RDV;
@@ -174,10 +172,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 }
                 p=new Patient(idP);
                 rdv.setIdPatient(p);
-                System.out.println("r_d_v:iddPatient:"+ rdv.getIdPatient().getIdPatient());
-                System.out.println("r_d_v:iddMedecin:"+ rdv.getIdMedecin().getIdMedecin());
-                System.out.println("r_d_v:titre:"+ rdv.getTitreRDV());
-                System.out.println("r_d_v:date:"+ rdv.getDateRDV());
                 addRendezVous(rdv);
 
             }
@@ -196,7 +190,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
             @Override
             public void onResponse(Call<RDV> call, Response<RDV> response) {
                 Toast.makeText(getApplicationContext(), "Ajout avec succès", Toast.LENGTH_LONG).show();
-               // onDateSet(DatePicker view, int year, int month, int dayOfMonth);
             }
 
             @Override
