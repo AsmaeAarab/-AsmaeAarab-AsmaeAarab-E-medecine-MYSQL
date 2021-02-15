@@ -311,47 +311,6 @@ public class Myaccount extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
-    /*PatientService service;
-    private int IdMysql = 0;
-    private String NomMysql = "";
-    private String PrenomMysql = "";
-    private String MailMysql = "";
-    private String PhoneMysql = "";
-    private String ImageMysql="";
-    public boolean GetElementusers(String login){
-        service = Apis.getPatientsService();
-        Call<List<Users>> call = service.GetElementPatient(login);
-        call.enqueue(new Callback<List<Users>>() {
-            @Override
-            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
-                List<Users> usx = response.body();
-                for (Users ulv: usx)
-                {
-                    IdMysql = ulv.getIdUser();
-                    NomMysql = ulv.getNomUser();
-                    PrenomMysql = ulv.getPrenomUser();
-                    MailMysql = ulv.getEmailUser();
-                    PhoneMysql = ulv.getTelephoneUser();
-                    ImageMysql = ulv.getImage();
-
-                    AccountNom.setText(NomMysql);
-                    AccountPrenom.setText(PrenomMysql);
-                    AccountTelephone.setText(PhoneMysql);
-
-                    Bitmap bm = StringToBitMap(ImageMysql);
-                    ImageP.setImageBitmap(bm);
-
-                }
-                Toast.makeText(getApplicationContext(), "Data Retrieved", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return true;
-    }*/
-
     public Bitmap StringToBitMap(String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);

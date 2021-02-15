@@ -64,16 +64,12 @@ public class RendezvousAdapter extends BaseAdapter {
             holder = (RendezvousAdapter.ViewHolder) row.getTag();
         }
         Rendezvous rendezvous = rdvItem.get(position);
-        /*byte[] Rdvimg = rendezvous.getImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(Rdvimg,0,Rdvimg.length);*/
         String photo = rendezvous.getImagenew();
         Bitmap bitmap = StringToBitMap(photo);
         holder.imageView.setImageBitmap(bitmap);
         holder.txtnom.setText(rendezvous.getNom());
         holder.txtprenom.setText(rendezvous.getPrenom());
         holder.txttitrerdv.setText(rendezvous.getTitreRdv());
-        //DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        //String date = dateFormat.format(rendezvous.getDate());
         holder.txtdate.setText(rendezvous.getDate());
         return row;
     }

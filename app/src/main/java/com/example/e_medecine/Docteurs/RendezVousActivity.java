@@ -52,39 +52,9 @@ public class RendezVousActivity extends AppCompatActivity {
         int id = ext.getInt("Id");
         System.out.println("Voici Id: " + id);
         mail = new String(ext.getString("ADDRESSE"));
-        GetIdMedecin(id);
         swipe = (SwipeRefreshLayout) findViewById(R.id.swiper);
         listView = (ListView) findViewById(R.id.ListRdv);
-
-        /*listRdv = new ArrayList<>();
-        adapterRDV = new RendezvousAdapter(this,R.layout.rendezvousitems,listRdv);
-        listView.setAdapter(adapterRDV);
-        db = new GlobalDbHelper(this);*/
-        /*int idu = db.GetiduserRDV(id);
-        int idp = db.GetidpatientRDV(id);
-        int idm = db.GetidmedecinRDV(id);
-        byte[] img = db.GetImageRDV(id);
-        String nom = db.GetNomUserRDV(id);
-        String prenom = db.GetPrenomUserRDV(id);
-        String titrerdv = db.GetTitrePatientRDV(id);
-        String daterdv = db.GetDatePatientRDV(id);
-        listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));*/
-        /*int IDMedecin = db.getIdMedecin(id);
-        Cursor cursor = db.getdataRendezvous(IDMedecin);
-        listRdv.clear();
-        while (cursor.moveToNext())
-        {
-            int idu = cursor.getInt(0);
-            int idp = cursor.getInt(1);
-            int idm = cursor.getInt(2);
-            byte[] img = cursor.getBlob(3);
-            String nom = cursor.getString(4);
-            String prenom = cursor.getString(5);
-            String titrerdv = cursor.getString(6);
-            String daterdv = cursor.getString(7);
-            listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
-        }
-        adapterRDV.notifyDataSetChanged();*/
+        GetIdMedecin(id);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,21 +78,6 @@ public class RendezVousActivity extends AppCompatActivity {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                /*Cursor cursor = db.getdataRendezvous(id);
-                listRdv.clear();
-                while (cursor.moveToNext())
-                {
-                    int idu = cursor.getInt(0);
-                    int idp = cursor.getInt(1);
-                    int idm = cursor.getInt(2);
-                    byte[] img = cursor.getBlob(3);
-                    String nom = cursor.getString(4);
-                    String prenom = cursor.getString(5);
-                    String titrerdv = cursor.getString(6);
-                    String daterdv = cursor.getString(7);
-                    listRdv.add(new Rendezvous(idu,idp,idm,img,nom,prenom,titrerdv,daterdv));
-                }
-                adapterRDV.notifyDataSetChanged();*/
                 GetIdMedecin(id);
                 swipe.setRefreshing(false);
             }
@@ -161,14 +116,8 @@ public class RendezVousActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Rendezvous>> call, Response<List<Rendezvous>> response) {
                 listRdv = new ArrayList<>(response.body());
-                /*List<Rendezvous> list = response.body();
-                for (Rendezvous rdvs: list)
-                {
-                    System.out.println("Rendez vous: " + rdvs.getIdp() + rdvs.getNom() + rdvs.getPrenom() + rdvs.getDate());
-                }*/
                 adapterRDV = new RendezvousAdapter(RendezVousActivity.this,R.layout.rendezvousitems,listRdv);
                 listView.setAdapter(adapterRDV);
-                //listRdv.add(new Rendezvous(idp,idm,img,nom,prenom,titrerdv,daterdv));
                 adapterRDV.notifyDataSetChanged();
                 Toast.makeText(RendezVousActivity.this, "Data Succes", Toast.LENGTH_SHORT).show();
             }

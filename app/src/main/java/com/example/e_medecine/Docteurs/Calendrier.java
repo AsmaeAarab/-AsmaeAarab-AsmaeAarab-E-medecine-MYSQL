@@ -51,7 +51,6 @@ public class Calendrier extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendrier);
         initPa();
-        //db = new GlobalDbHelper(this);
         Bundle extrax = getIntent().getExtras();
         int idRendez = extrax.getInt("IDRendezVous");
         System.out.println("IDRendezVous: " + idRendez);
@@ -98,22 +97,10 @@ public class Calendrier extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    //Date d = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-                    //db.updateCalendrier(date,idPatient,idMedecin);
-                    /*Users ui = new Users();
-                    ui.setImageUser(imgval);
-                    UpdateMedecinImage(ui,ID);*/
                     RDV rdv = new RDV();
                     rdv.setDateRDV(date);
                     UpdateMedecinCal(rdv,idRendez);
                     Toast.makeText(Calendrier.this, "Calendrier Modifier", Toast.LENGTH_SHORT).show();
-                    /*NotificationCompat.Builder builder = new NotificationCompat.Builder(Calendrier.this,"DocteurNotif");
-                    builder.setContentTitle(NamePatient);
-                    builder.setContentText("Le Medecin a changer le rendez-vous en '"+date+"' ");
-                    builder.setSmallIcon(R.drawable.ic_baseline_notifications_active_24);
-                    builder.setAutoCancel(true);
-                    NotificationManagerCompat managerCompat = NotificationManagerCompat.from(Calendrier.this);
-                    managerCompat.notify(idUser,builder.build());*/
                     finish();
                     Toast.makeText(Calendrier.this, "Balayer vers le bas pour actualiser", Toast.LENGTH_SHORT).show();
                 }catch (Exception e){

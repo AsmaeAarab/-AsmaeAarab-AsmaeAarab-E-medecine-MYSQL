@@ -36,7 +36,7 @@ public class Login extends AppCompatActivity {
     private GlobalDbHelper globalDbHelper;
     private EditText login ;
     private EditText password ;
-    private TextView createcompte,txt;
+    private TextView createcompte;
     private Button signin ;
     private GlobalDbHelper db;
     private String Docteur = "";
@@ -66,12 +66,6 @@ public class Login extends AppCompatActivity {
                 log = login.getText().toString();
                 pass = password.getText().toString();
                 isEmailValid(log,pass,Docteur);
-                /*TextView txt = (TextView) findViewById(R.id.userAffich);
-                txt.setText("user id: "+FindUserPhone(pass,log,Medecin));*/
-               //userTest = restApi.findPhone(log,pass,Medecin);
-             //   Toast.makeText(Login.this, "Password: "+ userTest.getPasswordUser(), Toast.LENGTH_SHORT).show();
-               //AsyncTask<Void, Void, Users> user = new HttpRequest().execute();
-
                 /*if (db.isEmailvalid(log,pass,Docteur) || db.isTelephonevalid(log,pass,Docteur))
                 {
                     login.setText(null);
@@ -136,7 +130,7 @@ public class Login extends AppCompatActivity {
                 for (Users users1: users){
                     //users1.getIdUser();
 
-                    txt.setText(users1.getIdUser());
+
                     Toast.makeText(Login.this, "Succes", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -154,7 +148,6 @@ public class Login extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         createcompte = (TextView) findViewById(R.id.compte);
         signin = (Button) findViewById(R.id.connect);
-        txt = (TextView) findViewById(R.id.userAffich);
     }
     public void count(View v)
     {
