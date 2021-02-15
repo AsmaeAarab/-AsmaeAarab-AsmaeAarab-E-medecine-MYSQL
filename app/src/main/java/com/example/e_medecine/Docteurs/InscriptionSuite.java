@@ -284,23 +284,6 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
         });
         return 0;
     }
-    /*public void findUsers(String Phone){
-        // Toast.makeText(getApplicationContext(), "adding ", Toast.LENGTH_SHORT).show();
-        medecinService = Apis.getMedecinService();
-        Call<Users> call = medecinService.getIdUser(Phone);
-        call.enqueue(new Callback<Users>() {
-            @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
-                Users users = response.body();
-                users.getIdUser();
-            }
-            @Override
-            public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "No user", Toast.LENGTH_SHORT).show();
-                Log.e("Error:",t.getMessage());
-            }
-        });
-    }*/
     public void init()
     {
         spinnerS = findViewById(R.id.DSpecialite);
