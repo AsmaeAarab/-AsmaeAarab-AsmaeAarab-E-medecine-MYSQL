@@ -140,7 +140,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 iduser = db.getIdUser(maildoc);
                                 IdSpecialite = db.getIdSpecialite(specialite);
-                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
+                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,Integer.parseInt(frais),Integer.parseInt(exp));
                                 if (insertuser == true && insertmedecin == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();
@@ -192,7 +192,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
                                 iduser = db.getIdUser(maildoc);
                                 IdSpecialite = db.getIdSpecialite(specialite);
-                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
+                                boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,Integer.parseInt(frais),Integer.parseInt(exp));
                                 if (insertuser == true && insertmedecin == true)
                                 {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Succeed", Toast.LENGTH_SHORT).show();

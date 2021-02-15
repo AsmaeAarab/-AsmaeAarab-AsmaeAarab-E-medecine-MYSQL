@@ -95,8 +95,8 @@ public class Myaccount extends AppCompatActivity {
                     Users ui = new Users();
                     ui.setImageUser(imgval);
                     UpdateMedecinImage(ui,ID);
-                    /*db.updateImage(imgval,ID);
-                    Toast.makeText(Myaccount.this, "Your Profile Image has been changed", Toast.LENGTH_SHORT).show();*/
+                    db.updateImage(imgval,ID);
+                    Toast.makeText(Myaccount.this, "Your Profile Image has been changed", Toast.LENGTH_SHORT).show();
                     finish();
                     Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                 }else{
@@ -119,36 +119,36 @@ public class Myaccount extends AppCompatActivity {
                         Users un = new Users();
                         un.setNomUser(Dnom);
                         UpdateMedecinNom(un,ID);
-                        /*db.updatenom(Dnom,ID);
+                        db.updatenom(Dnom,ID);
                         Toast.makeText(Myaccount.this, "Your Last Name has been successfully changed", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     if (BoxPrenom.isChecked())
                     {
                         Users up = new Users();
                         up.setPrenomUser(Dprenom);
                         UpdateMedecinPrenom(up,ID);
-                        /*db.updateprenom(Dprenom,ID);
+                        db.updateprenom(Dprenom,ID);
                         Toast.makeText(Myaccount.this, "Your first name has been changed successfully", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     if (BoxAdresse.isChecked())
                     {
                         Users um = new Users();
                         um.setEmailUser(Dmail);
                         UpdateMedecinEmail(um,ID);
-                        /*db.updatemail(Dmail,ID);
+                        db.updatemail(Dmail,ID);
                         Toast.makeText(Myaccount.this, "Your address has been successfully changed", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     if (BoxPhone.isChecked())
                     {
                         Users uph = new Users();
                         uph.setTelephoneUser(Dphone);
                         UpdateMedecinPhone(uph,ID);
-                        /*db.updatephone(Dphone,ID);
+                        db.updatephone(Dphone,ID);
                         Toast.makeText(Myaccount.this, "Your Number Phone has been successfully changed", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();*/
+                        Toast.makeText(Myaccount.this, "Swipe Down the Home Page To Actualize your Data ", Toast.LENGTH_LONG).show();
                     }
                     finish();
                 }else {
