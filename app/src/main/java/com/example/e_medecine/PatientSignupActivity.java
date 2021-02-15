@@ -192,7 +192,6 @@ public class PatientSignupActivity extends AppCompatActivity {
         u.setTelephoneUser(phone);
         u.setImageUser(imgprofile);
         Integer IDville=db.getIdVille(ville);
-      //  Ville v=new Ville(2,"Casa");
         Ville v=new Ville(IDville,ville);
         u.setIdVille(v);
         u.setEmailUser(email);
@@ -202,24 +201,19 @@ public class PatientSignupActivity extends AppCompatActivity {
         p.setAdresse(adresse);
         p.setAgePatient(age);
         p.setCnssPatient(assurance);
-       // addUser(u);
 
         ///////////FIN MYSQL
         Intent intent = new Intent(this, PatientLoginActivity.class);
         db = new GlobalDbHelper(this);
         sqLiteDatabase=db.getWritableDatabase();
-        //if(genre.equals("")||assurance.equals("")||ville.equals("")||prenom.equals("")||nom.equals("")||email.equals("")
-               // ||mdp.equals("")||confirmMdp.equals("")||phone.equals("")||age.equals("")||adresse.equals(""))
-        if(ville.equals("")||prenom.equals("")||email.equals("")
-                ||mdp.equals(""))
+        if(genre.equals("")||assurance.equals("")||ville.equals("")||prenom.equals("")||nom.equals("")||email.equals("")
+                ||mdp.equals("")||confirmMdp.equals("")||phone.equals("")||age.equals("")||adresse.equals(""))
         {
-
             Toast.makeText(getApplicationContext(),"Fiels are empty or image not set",Toast.LENGTH_SHORT).show();
         }
         else {
             Integer Idville=db.getIdVille(ville);
             Boolean checkEmail = db.checkEmail(email);
-           // Toast.makeText(getApplicationContext(),Idville+" :id",Toast.LENGTH_SHORT).show();
             if (checkEmail == true) {
                 if (mdp.equals(confirmMdp)) {
                     try {
@@ -258,20 +252,13 @@ public class PatientSignupActivity extends AppCompatActivity {
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
-                //if(response.isSuccessful()){
                 Toast.makeText(getApplicationContext(), "yesADD ", Toast.LENGTH_SHORT).show();
-                Toast.makeText(PatientSignupActivity.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
-                //}
                 idPatient=getIdPatient(u.getEmailUser());
-                Toast.makeText(getApplicationContext(), " YES idPatient="+idPatient, Toast.LENGTH_SHORT).show();
-                idPatient=getIdPatient(u.getEmailUser());
-
             }
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), " User Added Mysql ", Toast.LENGTH_SHORT).show();
                 idPatient=getIdPatient(u.getEmailUser()); //FCT DE RECUPERATION DE ID USER
-                Toast.makeText(getApplicationContext(), "NO idPatient="+idPatient, Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
 
             }
@@ -284,14 +271,11 @@ public class PatientSignupActivity extends AppCompatActivity {
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
-                //if(response.isSuccessful()){
                 Toast.makeText(getApplicationContext(), "yesADDPatient ", Toast.LENGTH_SHORT).show();
-                Toast.makeText(PatientSignupActivity.this,"Ajout avec succès",Toast.LENGTH_LONG).show();
-                //}
             }
             @Override
             public void onFailure(Call<Patient> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "NoADDPatient ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Patient Added Mysql ", Toast.LENGTH_SHORT).show();
 
                 Log.e("Error:",t.getMessage());
             }
@@ -308,14 +292,14 @@ public class PatientSignupActivity extends AppCompatActivity {
                 for(Users u : uList ){
                     idX=u.getIdUser();
                 }
-                Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
                 u1=new Users(idX);
                 p.setIdUser(u1);
                 addPatient(p);   ////FCT INSERTION PATIENT
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "getidNo "+idX, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "getidNo "+idX, Toast.LENGTH_SHORT).show();
                 Log.e("Error:",t.getMessage());
             }
         });
