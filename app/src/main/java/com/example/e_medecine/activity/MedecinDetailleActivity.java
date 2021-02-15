@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,6 +26,7 @@ import com.example.e_medecine.Docteurs.RendezVousActivity;
 import com.example.e_medecine.R;
 import com.example.e_medecine.model.Patient;
 import com.example.e_medecine.model.RDV;
+import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
 
@@ -76,7 +78,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     RDV rdv=new RDV();;
     Patient p;
     String login;
-    Integer idPatient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +118,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
 
         SharedPreferences sp = getSharedPreferences("PrefsFile", MODE_PRIVATE);
         login = sp.getString("pref_name", "valeur par défaut");
-
         btn_rendezVous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,11 +153,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         com.example.e_medecine.model.Medecin m = new com.example.e_medecine.model.Medecin(idMedecin);
         rdv.setIdMedecin(m);
         Toast.makeText(MedecinDetailleActivity.this, "Mes Rendez-vous", Toast.LENGTH_SHORT).show();
-        Intent ir = new Intent(MedecinDetailleActivity.this, RendezVousActivity.class);
         getIdPatientByEmail(login);
-        idPatient=10;
-        ir.putExtra("Id", idPatient);
-        startActivity(ir);
     }
     int idP;
     public void getIdPatientByEmail(String emailUser) {
@@ -173,7 +169,10 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 p=new Patient(idP);
                 rdv.setIdPatient(p);
                 addRendezVous(rdv);
-
+                Intent ir = new Intent(MedecinDetailleActivity.this, RendezVousActivity.class);
+                ir.putExtra("Id", 4);/////iduser
+                ir.putExtra("ADDRESSE",login);/////adresse user
+                startActivity(ir);
             }
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
@@ -198,6 +197,29 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 t.printStackTrace();
             }
         });
+    }
+
+    int idX;
+    public int getIdPatient(String emailUser){
+        PatientService service= Apis.getPatientsService();
+        Call<List<Users>>call = service.getIdPatient(emailUser);
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>>call, Response<List<Users>>response) {
+                List<Users>uList=response.body();
+                for(Users u : uList ){
+                    idX=u.getIdUser();
+                }
+                Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Noooo"+idX, Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+                Log.e("Error:",t.getMessage());
+            }
+        });
+        return idX;
     }
 
 }
