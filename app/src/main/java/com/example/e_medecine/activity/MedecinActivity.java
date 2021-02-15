@@ -92,16 +92,16 @@ public class MedecinActivity extends AppCompatActivity implements  MedecinAdapte
     public void onMedecinClick(int position) {
         Intent intent=new Intent(this,MedecinDetailleActivity.class);
         Medecin medecin=list.get(position);
-        intent.putExtra("idMedecin",medecin.getIdMedecin());
-        intent.putExtra("nomMedecin",medecin.getUser().getNomUser());
-        intent.putExtra("prenomMedecin",medecin.getUser().getPrenomUser());
-        intent.putExtra("specialiteMedecin",medecin.getSpecialite().getLabel());
+        intent.putExtra("idMedecin",medecin.getId_medecin());
+        intent.putExtra("nomMedecin",medecin.getNom_user());
+        intent.putExtra("prenomMedecin",medecin.getPrenom_user());
+        intent.putExtra("specialiteMedecin",medecin.getLabel());
         intent.putExtra("experienceMedecin",medecin.getExperience());
         intent.putExtra("fraisMedecin",medecin.getFrais());
-        intent.putExtra("location",medecin.getLocalisationMedecin());
-        intent.putExtra("tele",medecin.getUser().getTelephoneUser());
+        intent.putExtra("location",medecin.getLocalisation_medecin());
+        intent.putExtra("tele",medecin.getTelephone_user());
         SharedPreferences.Editor editor = sp.edit ();
-        editor.putString("pref_ImgDoc",medecin.getUser().getImageUser());
+        editor.putString("pref_ImgDoc",medecin.getImage_user());
         editor.apply();
         startActivity(intent);
     }

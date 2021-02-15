@@ -59,6 +59,7 @@ public interface MedecinService {
     Call<RDV>UpdateMedecinCalendar(@Body RDV rdv, @Path("IDR") int IDR);
     @GET("find/medecin/intellij/{ID}/")
     Call<List<Medecin>>GetIdMedecin(@Path("ID") int ID);
+
     @GET("find/rendezvous/intellij/{ID}/")
     Call<List<Rendezvous>>GetPtaientsData(@Path("ID") int ID);
 

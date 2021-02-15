@@ -44,12 +44,12 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
     public void onBindViewHolder(@NonNull MedecinAdapter.HolderMedecin holder, int position) {
         Medecin medecin=medecinList.get(position);
 
-        holder.medecinNom.setText("Dr."+medecin.getUser().getNomUser());
-        holder.medecinPrenom.setText(medecin.getUser().getPrenomUser());
-        holder.medecinSpecialite.setText(medecin.getSpecialite().getLabel());
+        holder.medecinNom.setText("Dr."+medecin.getNom_user());
+        holder.medecinPrenom.setText(medecin.getPrenom_user());
+        holder.medecinSpecialite.setText(medecin.getLabel());
         holder.medecinFrais.setText(String.valueOf(medecin.getFrais())+" DH");
         holder.medecinExperience.setText(String.valueOf(medecin.getExperience())+" ans");
-        byte[] byteArray =  Base64.decode(String.valueOf(medecin.getUser().getImageUser()), Base64.DEFAULT) ;
+        byte[] byteArray =  Base64.decode(String.valueOf(medecin.getImage_user()), Base64.DEFAULT) ;
         Bitmap bmp1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         holder.medecinImage.setImageBitmap(bmp1);
     }
@@ -98,7 +98,7 @@ public class MedecinAdapter extends RecyclerView.Adapter<MedecinAdapter.HolderMe
             else {
                 String filterPattern=constraint.toString().toLowerCase().trim();
                 for(Medecin item: medecinListSearch){
-                    if(item.getUser().getNomUser().toLowerCase().startsWith(filterPattern) || item.getUser().getPrenomUser().toLowerCase().startsWith(filterPattern)){
+                    if(item.getNom_user().toLowerCase().startsWith(filterPattern) || item.getPrenom_user().toLowerCase().startsWith(filterPattern)){
                         filteredList.add(item);
                     }
                 }

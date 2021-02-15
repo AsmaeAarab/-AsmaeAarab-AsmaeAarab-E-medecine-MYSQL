@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RestApi {
-    private String Base_Url = "http://192.168.1.5:8080/user/";
+    private String Base_Url = "http://192.168.1.108:8080/user/";
     private RestTemplate restTemplate = new RestTemplate();
     public List<User> findAll()
     {
