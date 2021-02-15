@@ -76,7 +76,6 @@ public class Acceuil extends AppCompatActivity {
         lo = new String(ex.getString("Login"));
         System.out.println("Login: " + lo);
         AsyncTask<Void,Void,Users> user = new HttpRequest().execute();
-        //GetElementusers(lo);
         id = db.getIdUserMailPhone(lo);
         NomU = db.getNomUser(lo);
         PrenomU = db.getPrenomUser(lo);
@@ -84,19 +83,12 @@ public class Acceuil extends AppCompatActivity {
         ImageU = db.getImageUser(lo);
         AdresseU = db.getEmailUser(lo);
         name = (TextView) v.findViewById(R.id.TextNom);
-        //name.setText(NomU);
         name.setText(NomMysql);
         prename = (TextView) v.findViewById(R.id.TextPrenom);
-        //prename.setText(PrenomU);
         prename.setText(PrenomMysql);
         adresse = (TextView) v.findViewById(R.id.TextAdresse);
-        //adresse.setText(AdresseU);
         adresse.setText(MailMysql);
         ImageDocteur = (ImageView) v.findViewById(R.id.PersonalImage);
-        //Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
-        //Bitmap ImgSql = BitmapFactory.decodeByteArray(ImageMysql,0,ImageMysql.length);
-        //ImageDocteur.setImageBitmap(ImgSql);
-        //ImageDocteur.setImageBitmap(ImgUser);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
@@ -127,12 +119,6 @@ public class Acceuil extends AppCompatActivity {
                         break;
                     case R.id.menu_MonCompte:
                         Intent ia = new Intent(Acceuil.this,Myaccount.class);
-                        /*ia.putExtra("ID",id);
-                        ia.putExtra("NOM",NomU);
-                        ia.putExtra("PRENOM",PrenomU);
-                        ia.putExtra("ADDRESSE",AdresseU);
-                        ia.putExtra("TELEPHONE",TelephoneU);
-                        ia.putExtra("IMAGE",ImageU);*/
                         ia.putExtra("ID",IdMysql);
                         ia.putExtra("NOM",NomMysql);
                         ia.putExtra("PRENOM",PrenomMysql);
@@ -172,21 +158,6 @@ public class Acceuil extends AppCompatActivity {
                 View v = nav.getHeaderView(0);
                 Bundle ex = getIntent().getExtras();
                 String lo = new String(ex.getString("Login"));
-                id = db.getIdUserMailPhone(lo);
-                /*NomU = db.getNomUser(lo);
-                PrenomU = db.getPrenomUser(lo);
-                TelephoneU = db.getPhoneUser(lo);
-                ImageU = db.getImageUser(lo);
-                AdresseU = db.getEmailUser(lo);
-                name = (TextView) v.findViewById(R.id.TextNom);
-                name.setText(NomU);
-                prename = (TextView) v.findViewById(R.id.TextPrenom);
-                prename.setText(PrenomU);
-                adresse = (TextView) v.findViewById(R.id.TextAdresse);
-                adresse.setText(AdresseU);
-                ImageDocteur = (ImageView) v.findViewById(R.id.PersonalImage);
-                Bitmap ImgUser = BitmapFactory.decodeByteArray(ImageU,0,ImageU.length);
-                ImageDocteur.setImageBitmap(ImgUser);*/
                 AsyncTask<Void,Void,Users> user = new HttpRequest().execute();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -232,34 +203,4 @@ public class Acceuil extends AppCompatActivity {
             return null;
         }
     }
-
-    /*public void GetElementusers(String Logn)
-    {
-        medecinService = Apis.getMedecinService();
-        Call<List<Users>> call = medecinService.GetElementUsers(Logn);
-        call.enqueue(new Callback<List<Users>>() {
-            @Override
-            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
-                List<Users> usx = response.body();
-                for (Users ulv: usx)
-                {
-                    IdMysql = ulv.getIdUser();
-                    NomMysql = ulv.getNomUser();
-                    name.setText(NomMysql);
-                    PrenomMysql = ulv.getPrenomUser();
-                    prename.setText(PhoneMysql);
-                    MailMysql = ulv.getEmailUser();
-                    adresse.setText(MailMysql);
-                    //PhoneMysql = ulv.getTelephoneUser();
-                    //ImageMysql = ulv.getImageUser();
-                }
-                System.out.println("Data: "+ImageMysql+NomMysql+PrenomMysql+MailMysql+PhoneMysql+ImageMysql);
-                Toast.makeText(Acceuil.this, "Data Retrieved", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(Acceuil.this, "Failed retrieve data", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
 }
