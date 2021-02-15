@@ -112,8 +112,6 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                         byte[] imgprofileval = imageViewToByte(imgpro);
                         if (Condition.isChecked()) {
                             if (locate.length() > 1 && frais.length() > 1 ) {
-
-                                try {
                                     charte = Condition.getText().toString();
                                     int Idville = db.getIdVille(city);
                                     users = new Users();
@@ -139,12 +137,9 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     docteurs.setFrais(Integer.parseInt(frais));
                                     docteurs.setExperience(Integer.parseInt(exp));
                                     addUserM(users);
-                                }catch (Exception e){
-                                    e.getMessage();
-                                }
-                                /*boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
-                                int iduser = db.getIdUser(maildoc);
-                                int IdSpecialite = db.getIdSpecialite(specialite);
+                                boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
+                                iduser = db.getIdUser(maildoc);
+                                IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
                                 if (insertuser == true && insertmedecin == true)
                                 {
@@ -152,7 +147,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     finish();
                                 }else {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                }*/
+                                }
                             } else {
                                 Toast.makeText(InscriptionSuite.this, "Please fill the fields", Toast.LENGTH_SHORT).show();
                             }
@@ -193,10 +188,10 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                 docteurs.setFrais(Integer.parseInt(frais));
                                 docteurs.setExperience(Integer.parseInt(exp));
                                 addUserM(users);
-                                /*int Idville = db.getIdVille(city);
+                                Idville = db.getIdVille(city);
                                 boolean insertuser = db.insertUser(imgprofileval,namedoc,lastnamedoc,genderdoc,phonedoc,Idville,maildoc,passwordoc,"Docteur");
-                                int iduser = db.getIdUser(maildoc);
-                                int IdSpecialite = db.getIdSpecialite(specialite);
+                                iduser = db.getIdUser(maildoc);
+                                IdSpecialite = db.getIdSpecialite(specialite);
                                 boolean insertmedecin = db.insertMedecin(iduser,IdSpecialite,typedoc,locate,charte,DocteurFrais,DocteurExperience);
                                 if (insertuser == true && insertmedecin == true)
                                 {
@@ -204,7 +199,7 @@ public class InscriptionSuite extends AppCompatActivity implements AdapterView.O
                                     finish();
                                 }else {
                                     Toast.makeText(InscriptionSuite.this, "Doctor Registration Failed", Toast.LENGTH_SHORT).show();
-                                }*/
+                                }
                             } else {
                                 Toast.makeText(InscriptionSuite.this, "Please fill the fields", Toast.LENGTH_SHORT).show();
                             }
