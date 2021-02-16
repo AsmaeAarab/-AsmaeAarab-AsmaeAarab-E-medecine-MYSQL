@@ -46,4 +46,10 @@ public interface PatientService {
     @GET("idpatient/{idUser}")
     Call<List<Patient>> getIdPatientRDV(@Path("idUser") int idUser);
 
+    @GET("/getIdUser/{idPatient}")
+    Call<List<Patient>> getIdUser(@Path("idPatient")int idPatient);
+
+    @GET("/getNomUser/{idUser}")
+    Call<List<Users>> getNomUser(@Path("idUser")int idUser);
+
 }
