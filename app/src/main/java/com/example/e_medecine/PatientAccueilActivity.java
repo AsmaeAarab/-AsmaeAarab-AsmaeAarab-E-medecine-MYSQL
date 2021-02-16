@@ -181,22 +181,6 @@ public class PatientAccueilActivity extends AppCompatActivity {
     public void ClickLogout(View view){
         redirectActivity(this,PatientLoginActivity.class);finish();
     }
-    public void ClickRDV(View view){
-
-        Intent ir = new Intent(PatientAccueilActivity.this, RendezVousActivity.class);
-        SharedPreferences spPT = getSharedPreferences("PrefPatient", MODE_PRIVATE);
-        SharedPreferences.Editor editor = spPT.edit ();
-        int id= spPT.getInt("Id", 0);
-        String addresse=spPT.getString("ADDRESSE","valeur par défaut");
-        String role=spPT.getString("role","patient");
-        editor.apply();
-        System.out.println("Add "+ addresse);
-        ir.putExtra("Id", id);/////iduser
-        ir.putExtra("ADDRESSE",addresse);
-        ir.putExtra("role",role);/////adresse user
-        startActivity(ir);
-        //redirectActivity(this,RendezVousActivity.class);finish();
-    }
     public void redirectActivity(Activity activity, Class aClass) {
         Intent intent=new Intent(activity,aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

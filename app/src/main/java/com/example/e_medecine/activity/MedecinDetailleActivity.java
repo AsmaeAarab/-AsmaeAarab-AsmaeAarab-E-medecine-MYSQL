@@ -61,12 +61,12 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     TextView teleMedecin;
     @BindView(R.id.location_medecin)
     TextView locationMedecin;
-
     @BindView(R.id.appeler)
     Button btnAppeler;
 
     @BindView(R.id.rendezVous)
     Button btn_rendezVous;
+
 
     @BindView(R.id.paiment)
     Button btn_paiment;
@@ -78,8 +78,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     RDV rdv=new RDV();;
     Patient p;
     String login;
-    private SharedPreferences prefs;
-    private  static final String PREFS_TYPE="PrefPatient";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +127,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 }
             }
         });
-        prefs=getSharedPreferences(PREFS_TYPE,MODE_PRIVATE);
+
     }
 
     @OnClick(R.id.appeler)
@@ -212,13 +210,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 ir.putExtra("Id", idX);/////iduser
                 ir.putExtra("ADDRESSE",login);
                 ir.putExtra("role","patient");/////adresse user
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt("Id", idX);
-                editor.putString("ADDRESSE", login);
-                editor.putString("role", "patient");
-                editor.apply();
                 startActivity(ir);
-                Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
