@@ -1,6 +1,7 @@
 package com.example.e_medecine.ApiRest;
 
 import com.example.e_medecine.model.Patient;
+import com.example.e_medecine.model.User;
 import com.example.e_medecine.model.Users;
 
 import java.util.List;
@@ -43,5 +44,10 @@ public interface PatientService {
     @POST("actualiserPassword/{login}")
     Call<Users>updatePassword(@Body Users users,@Path("login") String login);
 
+    @GET("/getIdUser/{idPatient}")
+    Call<List<Patient>> getIdUser(@Path("idPatient")int idPatient);
+
+    @GET("/getNomUser/{idUser}")
+    Call<List<Users>> getNomUser(@Path("idUser")int idUser);
 
 }
