@@ -50,24 +50,7 @@ public class SpecialitesAdapter extends RecyclerView.Adapter<SpecialitesAdapter.
         byte[] byteArray =  Base64.decode(specialite.getImageSpecialite(), Base64.DEFAULT) ;
         Bitmap bmp1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         holder.specialiteImage.setImageBitmap(bmp1);
-        //String specialite_img=specialite.getImageSpecialite().replaceAll("^\"|\"$", "");
-        //byte[] imageBytes= Base64.decode(specialite.getImageSpecialite(), Base64.DEFAULT);
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(specialite_img, 0, specialite_img.length);
-        //holder.specialiteImage.setImageBitmap(bitmap);
 
-        //Picasso.get().load(carsModels.get(i).getImage()).into(viewHolder.car_image);
-        /*
-        Specialite specialite=specialitesList.get(position);
-        String label=specialite.getLabe();
-        holder.specialiteLabel.setText(label);
-        byte[] specialite_img=specialite.getImageSpecialite();
-        Glide.with(holder.specialiteImage.getContext()).load(specialite.getImageSpecialite()).into(holder.specialiteImage);
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        //byte[] specialite_img=specialite.getImageSpecialite();
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(specialite_img, 0, specialite_img.length);
-        //holder.specialiteImage.setImageBitmap(bitmap);
-
-         */
     }
 
     @Override

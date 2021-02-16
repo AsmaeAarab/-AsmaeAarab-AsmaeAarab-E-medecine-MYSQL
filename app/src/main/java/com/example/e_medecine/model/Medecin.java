@@ -34,8 +34,20 @@ public class Medecin {
     @SerializedName("id_medecin")
     private int id_medecin;
 
+    @Expose
+    @SerializedName("idMedecin")
+    private int idMedecin;
+
+    public int getIdMedecin() {
+        return idMedecin;
+    }
+
+    public void setIdMedecin(int idMedecin) {
+        this.idMedecin = idMedecin;
+    }
+
     public Medecin(int id_medecin) {
-        this.id_medecin = id_medecin;
+        this.idMedecin = id_medecin;
     }
 
     public String getPrenom_user() {

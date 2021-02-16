@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.PatientService;
 import com.example.e_medecine.Docteurs.Acceuil;
+import com.example.e_medecine.Docteurs.RendezVousActivity;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 
@@ -180,7 +181,6 @@ public class PatientAccueilActivity extends AppCompatActivity {
     public void ClickLogout(View view){
         redirectActivity(this,PatientLoginActivity.class);finish();
     }
-
     public void redirectActivity(Activity activity, Class aClass) {
         Intent intent=new Intent(activity,aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

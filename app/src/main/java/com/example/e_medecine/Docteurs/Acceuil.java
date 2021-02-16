@@ -110,6 +110,7 @@ public class Acceuil extends AppCompatActivity {
                         Intent ir = new Intent(Acceuil.this,RendezVousActivity.class);
                         ir.putExtra("Id",IdMysql);
                         ir.putExtra("ADDRESSE",MailMysql);
+                        ir.putExtra("role","docteur");
                         startActivity(ir);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;

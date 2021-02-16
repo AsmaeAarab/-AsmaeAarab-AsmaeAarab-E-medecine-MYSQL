@@ -61,12 +61,12 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     TextView teleMedecin;
     @BindView(R.id.location_medecin)
     TextView locationMedecin;
-
     @BindView(R.id.appeler)
     Button btnAppeler;
 
     @BindView(R.id.rendezVous)
     Button btn_rendezVous;
+
 
     @BindView(R.id.paiment)
     Button btn_paiment;
@@ -154,6 +154,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
         rdv.setIdMedecin(m);
         Toast.makeText(MedecinDetailleActivity.this, "Mes Rendez-vous", Toast.LENGTH_SHORT).show();
         getIdPatientByEmail(login);
+        getIdPatient(login);
     }
     int idP;
     public void getIdPatientByEmail(String emailUser) {
@@ -169,10 +170,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 p=new Patient(idP);
                 rdv.setIdPatient(p);
                 addRendezVous(rdv);
-                Intent ir = new Intent(MedecinDetailleActivity.this, RendezVousActivity.class);
-                ir.putExtra("Id", 4);/////iduser
-                ir.putExtra("ADDRESSE",login);/////adresse user
-                startActivity(ir);
             }
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
@@ -190,7 +187,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
             public void onResponse(Call<RDV> call, Response<RDV> response) {
                 Toast.makeText(getApplicationContext(), "Ajout avec succès", Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onFailure(Call<RDV> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "NoADD ", Toast.LENGTH_SHORT).show();
@@ -210,7 +206,11 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 for(Users u : uList ){
                     idX=u.getIdUser();
                 }
-                Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
+                Intent ir = new Intent(MedecinDetailleActivity.this, RendezVousActivity.class);
+                ir.putExtra("Id", idX);/////iduser
+                ir.putExtra("ADDRESSE",login);
+                ir.putExtra("role","patient");/////adresse user
+                startActivity(ir);
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
