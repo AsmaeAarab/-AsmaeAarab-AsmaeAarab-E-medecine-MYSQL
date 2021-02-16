@@ -63,4 +63,7 @@ public interface MedecinService {
     @GET("find/rendezvous/intellij/{ID}/")
     Call<List<Rendezvous>>GetPtaientsData(@Path("ID") int ID);
 
+    @GET("find/rendezvous/{ID}/")
+    Call<List<Rendezvous>>GetMedecinData(@Path("ID") int ID);
+
 }

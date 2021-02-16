@@ -78,6 +78,8 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
     RDV rdv=new RDV();;
     Patient p;
     String login;
+    private SharedPreferences prefs;
+    private  static final String PREFS_TYPE="PrefPatient";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +129,7 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 }
             }
         });
-
+        prefs=getSharedPreferences(PREFS_TYPE,MODE_PRIVATE);
     }
 
     @OnClick(R.id.appeler)
@@ -169,10 +171,6 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 }
                 p=new Patient(idP);
                 rdv.setIdPatient(p);
-                System.out.println("dateRDV: "+rdv.getDateRDV());
-                System.out.println("titreRDV: "+rdv.getTitreRDV());
-                System.out.println("idmRDV: "+rdv.getIdMedecin().getId_medecin());
-                System.out.println("idpRDV: "+rdv.getIdPatient().getIdPatient());
                 addRendezVous(rdv);
             }
             @Override
@@ -214,6 +212,11 @@ public class MedecinDetailleActivity extends AppCompatActivity implements DatePi
                 ir.putExtra("Id", idX);/////iduser
                 ir.putExtra("ADDRESSE",login);
                 ir.putExtra("role","patient");/////adresse user
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("Id", idX);
+                editor.putString("ADDRESSE", login);
+                editor.putString("role", "patient");
+                editor.apply();
                 startActivity(ir);
                 Toast.makeText(getApplicationContext(), "getid Yes "+idX, Toast.LENGTH_SHORT).show();
             }

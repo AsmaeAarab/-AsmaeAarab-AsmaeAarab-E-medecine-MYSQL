@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.e_medecine.ApiRest.Apis;
 import com.example.e_medecine.ApiRest.MedecinService;
+import com.example.e_medecine.ApiRest.PatientService;
 import com.example.e_medecine.R;
+import com.example.e_medecine.model.Patient;
 import com.example.e_medecine.model.Users;
 import com.example.e_medecine.sqliteBd.GlobalDbHelper;
 import com.example.e_medecine.Docteurs.Medecin;
@@ -41,6 +43,7 @@ public class RendezVousActivity extends AppCompatActivity {
     private String mail = "";
     Medecin medecintest = null;
     private int IdMedecinG = 0;
+    private int IdPatient=0;
     private String role= "";
     MedecinService medecinService;
     com.example.e_medecine.model.Rendezvous rdv = null;
@@ -53,10 +56,17 @@ public class RendezVousActivity extends AppCompatActivity {
         int id = ext.getInt("Id");
         System.out.println("Voici Id: " + id);
         mail = new String(ext.getString("ADDRESSE"));
-       // role = new String(ext.getString("role"));
+        role = new String(ext.getString("role"));
         swipe = (SwipeRefreshLayout) findViewById(R.id.swiper);
         listView = (ListView) findViewById(R.id.ListRdv);
-        GetIdMedecin(id);
+        if(role.equals("patient")){
+            GetIdPatientRDV(id);
+        }
+        else if(role.equals("docteur"))
+        {
+            GetIdMedecin(id);
+        }
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,7 +90,14 @@ public class RendezVousActivity extends AppCompatActivity {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                GetIdMedecin(id);
+                if(role.equals("patient")){
+                    GetIdPatientRDV(id);
+                }
+                else if(role.equals("docteur"))
+                {
+                    GetIdMedecin(id);
+                }
+                //GetIdMedecin(id);
                 swipe.setRefreshing(false);
             }
         });
@@ -143,27 +160,47 @@ public class RendezVousActivity extends AppCompatActivity {
 
     public int GetIdPatientRDV(int ID)
     {
-        medecinService = Apis.getMedecinService();
-        Call<List<Medecin>> call = medecinService.GetIdMedecin(ID);
-        call.enqueue(new Callback<List<Medecin>>() {
+        PatientService patientService = Apis.getPatientsService();
+        Call<List<Patient>> call = patientService.getIdPatientRDV(ID);
+        call.enqueue(new Callback<List<Patient>>() {
             @Override
-            public void onResponse(Call<List<Medecin>> call, Response<List<Medecin>> response) {
-                List<Medecin> docM = response.body();
-                for (Medecin medval: docM)
+            public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
+                List<Patient> patientR= response.body();
+                for (Patient p: patientR)
                 {
-                    System.out.println("ID Medecin: " + medval.getIdMedecin());
-                    IdMedecinG = medval.getIdMedecin();
+                    IdPatient = p.getIdPatient();
                     Toast.makeText(RendezVousActivity.this, "Succes", Toast.LENGTH_SHORT).show();
                 }
-                GetPatientData(IdMedecinG);
+                GetMedecinData(IdPatient);
             }
 
             @Override
-            public void onFailure(Call<List<Medecin>> call, Throwable t) {
+            public void onFailure(Call<List<Patient>> call, Throwable t) {
                 Toast.makeText(RendezVousActivity.this, "Failure", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
         return IdMedecinG;
+    }
+    public void GetMedecinData(int ID)
+    {
+        MedecinService service = Apis.getMedecinService();
+        Call<List<Rendezvous>> call = service.GetMedecinData(ID);
+        call.enqueue(new Callback<List<Rendezvous>>() {
+            @Override
+            public void onResponse(Call<List<Rendezvous>> call, Response<List<Rendezvous>> response) {
+                listRdv = new ArrayList<>(response.body());
+                adapterRDV = new RendezvousAdapter(RendezVousActivity.this,R.layout.rendezvousitems,listRdv);
+                listView.setAdapter(adapterRDV);
+                adapterRDV.notifyDataSetChanged();
+                Toast.makeText(RendezVousActivity.this, "Data Succes", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Rendezvous>> call, Throwable t) {
+                Toast.makeText(RendezVousActivity.this, "Data failed", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
     }
 }

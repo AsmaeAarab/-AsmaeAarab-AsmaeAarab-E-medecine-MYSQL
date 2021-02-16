@@ -23,6 +23,10 @@ public class Patient implements Serializable {
     @Expose
     private String cnssPatient;
 
+    @SerializedName("id_patient")
+    @Expose
+    private int id_patient;
+    
     public Patient()
     {
 
