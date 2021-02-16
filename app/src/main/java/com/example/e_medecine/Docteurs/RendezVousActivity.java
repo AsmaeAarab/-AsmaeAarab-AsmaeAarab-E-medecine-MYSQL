@@ -41,6 +41,7 @@ public class RendezVousActivity extends AppCompatActivity {
     private String mail = "";
     Medecin medecintest = null;
     private int IdMedecinG = 0;
+    private String role= "";
     MedecinService medecinService;
     com.example.e_medecine.model.Rendezvous rdv = null;
     @Override
@@ -52,6 +53,7 @@ public class RendezVousActivity extends AppCompatActivity {
         int id = ext.getInt("Id");
         System.out.println("Voici Id: " + id);
         mail = new String(ext.getString("ADDRESSE"));
+       // role = new String(ext.getString("role"));
         swipe = (SwipeRefreshLayout) findViewById(R.id.swiper);
         listView = (ListView) findViewById(R.id.ListRdv);
         GetIdMedecin(id);
@@ -137,5 +139,31 @@ public class RendezVousActivity extends AppCompatActivity {
             e.getMessage();
             return null;
         }
+    }
+
+    public int GetIdPatientRDV(int ID)
+    {
+        medecinService = Apis.getMedecinService();
+        Call<List<Medecin>> call = medecinService.GetIdMedecin(ID);
+        call.enqueue(new Callback<List<Medecin>>() {
+            @Override
+            public void onResponse(Call<List<Medecin>> call, Response<List<Medecin>> response) {
+                List<Medecin> docM = response.body();
+                for (Medecin medval: docM)
+                {
+                    System.out.println("ID Medecin: " + medval.getIdMedecin());
+                    IdMedecinG = medval.getIdMedecin();
+                    Toast.makeText(RendezVousActivity.this, "Succes", Toast.LENGTH_SHORT).show();
+                }
+                GetPatientData(IdMedecinG);
+            }
+
+            @Override
+            public void onFailure(Call<List<Medecin>> call, Throwable t) {
+                Toast.makeText(RendezVousActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+        return IdMedecinG;
     }
 }
