@@ -62,11 +62,6 @@ public class PatientUpdateActivity extends AppCompatActivity {
     @BindView(R.id.imageProfil)
     ImageView ImageP;
 
-   /*  @BindView(R.id.mdp)
-    EditText editTextMdp;
-   @BindView(R.id.age)
-    EditText editTextAge;*/
-
     private final int REQUEST_CODE_GALLERY = 999;
     GlobalDbHelper db;
     SQLiteDatabase sqLiteDatabase;
@@ -249,12 +244,11 @@ public class PatientUpdateActivity extends AppCompatActivity {
                     editTextPrenom.setText(PrenomMysql);
                     editTextPhone.setText(PhoneMysql);
                 }
-                System.out.println("Data: image"+ImageMysql);
                 Toast.makeText(getApplicationContext(), "Data Retrieved", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
             }
         });
         return true;

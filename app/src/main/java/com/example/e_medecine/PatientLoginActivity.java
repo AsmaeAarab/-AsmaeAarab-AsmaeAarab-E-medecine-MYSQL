@@ -79,18 +79,15 @@ public class PatientLoginActivity extends AppCompatActivity {
                     email1=u.getEmailUser();
                     password1=u.getPasswordUser();
                 }
-                //if (email1.equals(emailUser)&&password1.equals(passwordUser))
                 if(idX!=0)
                 {
-                    //editTextLogin.setText(null);
-                    //editTextPassword.setText(null);
                     Intent intent1 = new Intent(PatientLoginActivity.this, PatientAccueilActivity.class);
                     intent1.putExtra("EmailUser",login);
                     SharedPreferences.Editor editor = mPrefs.edit();
                     editor.putString("pref_name", login);
                     editor.apply();
                     startActivity(intent1);
-                    Toast.makeText(getApplicationContext(), "Authentification successful!!"+idX, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Authentification avec success!!", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getApplicationContext(), "Login or password incorect!!", Toast.LENGTH_SHORT).show();
                 }

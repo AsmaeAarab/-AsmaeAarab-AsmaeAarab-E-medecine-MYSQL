@@ -135,7 +135,7 @@ public class PatientAccueilActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Users>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Failed retrieve data", Toast.LENGTH_SHORT).show();
             }
         });
         return true;

@@ -114,10 +114,6 @@ public class Acceuil extends AppCompatActivity {
                         startActivity(ir);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
-                    case R.id.menu_Notification:
-                        Toast.makeText(Acceuil.this, "Notifications", Toast.LENGTH_SHORT).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
                     case R.id.menu_MonCompte:
                         Intent ia = new Intent(Acceuil.this,Myaccount.class);
                         ia.putExtra("ID",IdMysql);
@@ -137,10 +133,6 @@ public class Acceuil extends AppCompatActivity {
                         icalendar.putExtra("ADDRESSE",MailMysql);
                         startActivity(icalendar);
                         Toast.makeText(Acceuil.this, "Veuillez Appuyer sur un patient pour modifier le Rendez-Vous", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.menu_TC:
-                        Toast.makeText(Acceuil.this, "Termes et Conditions", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.menu_logout:
